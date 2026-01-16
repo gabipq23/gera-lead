@@ -1,5 +1,3 @@
-import { StatusType } from "./purchase";
-
 export interface OrderBandaLargaPJResponse {
   pedidos: OrderBandaLargaPJ[];
   status_pos_venda_enum: string[];
@@ -87,7 +85,7 @@ export interface BandaLargaPJFilters {
   order?: "asc" | "desc";
   page?: number;
   limit?: number;
-  status: StatusType | null;
+  status: string | null;
   status_pos_venda?: string | null;
   consulta?: boolean | number;
   pedido?: boolean | number;
