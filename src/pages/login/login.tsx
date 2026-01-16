@@ -17,7 +17,7 @@ export function Login() {
   const mutation = useMutation<void, Error, ILoginForm>({
     mutationFn: (data: ILoginForm) => login(data),
     onSuccess: () => {
-      navigate("/admin/pedidos-aparelhos-pj");
+      navigate("/admin/leads");
     },
     onError: (error: any) => {
       const errorMessage =
@@ -27,7 +27,7 @@ export function Login() {
 
       toast.error(`${errorMessage}`);
 
-      console.error("Erro ao consultar produtos:", error);
+      console.error("Erro ao realizar login:", error);
     },
   });
 
@@ -37,13 +37,9 @@ export function Login() {
 
   return (
     <div className=" flex flex-col items-center bg-neutral-100 justify-center h-screen ">
-      <div className="flex flex-col md:w-[400px] lg:w-[400px] bg-[#44066b] justify-start gap-10 shadow-lg  rounded-lg p-6 h-[400px]">
-        <div className="flex justify-between items-center  mb-4">
-          <img src="\assets\Group 9.png" className="h-10 "></img>
-          <img
-            src="\assets\logo-site.png"
-            className="h-8 hover:cursor-pointer"
-          ></img>
+      <div className="flex flex-col md:w-[400px] lg:w-[400px] bg-[#116e75] justify-start gap-10 shadow-lg  rounded-lg p-6 h-[400px]">
+        <div className="flex justify-center items-center ">
+          <p className="text-[32px] text-neutral-200">Gera Lead</p>
         </div>
 
         <div className="flex flex-col gap-2">
