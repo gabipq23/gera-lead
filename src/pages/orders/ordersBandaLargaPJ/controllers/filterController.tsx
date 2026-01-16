@@ -228,6 +228,26 @@ export function useAllOrdersFilterController() {
       dataIndex: "typeclient",
       width: 100,
       render: (typeclient) => (typeclient === "PJ" ? "PJ" : "PF"),
+      filters: [
+        {
+          text: "PF",
+          value: "PF",
+        },
+        {
+          text: "PJ",
+          value: "PJ",
+        },
+      ],
+
+      onFilter: (value, record) => {
+        if (value === "PF") {
+          return record.typeclient === "PF" || record.typeclient === "pf";
+        }
+        if (value === "PJ") {
+          return record.typeclient === "PJ" || record.typeclient === "pj";
+        }
+        return true;
+      },
     },
     {
       title: "Tem disponibilidade?",

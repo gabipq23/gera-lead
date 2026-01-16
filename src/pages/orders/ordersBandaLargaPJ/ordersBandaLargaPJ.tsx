@@ -98,7 +98,7 @@ export default function OrdersBandaLargaPJ() {
             theme={{
               token: {
                 colorPrimary: "#116e75",
-                colorPrimaryHover: "#833baa",
+                colorPrimaryHover: "#116e75",
                 colorLink: "#116e75",
                 colorPrimaryBg: "transparent",
               },
