@@ -1,5 +1,3 @@
-import { StatusType } from "./purchase";
-
 export interface OrderBandaLargaPFResponse {
   pedidos: OrderBandaLargaPF[];
   status_pos_venda_enum: string[];
@@ -86,7 +84,7 @@ export interface BandaLargaFilters {
   order?: "asc" | "desc";
   page?: number;
   limit?: number;
-  status: StatusType | null;
+  status: string | null;
   consulta?: boolean | number;
   pedido?: boolean | number;
   initial_status?: string;
