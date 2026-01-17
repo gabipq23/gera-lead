@@ -19,6 +19,7 @@ import { Login } from "./pages/login/login";
 
 import { IUser } from "@/interfaces/login";
 import OrdersBandaLargaPJ from "./pages/orders/ordersBandaLargaPJ/ordersBandaLargaPJ";
+import OrdersBandaLargaPF from "./pages/orders/ordersBandaLargaPF/ordersBandaLargaPF";
 
 export default function App() {
   const { user, checkAuth } = useAuthContext();
@@ -58,7 +59,8 @@ function Content({ user }: { user: IUser | null }) {
         <Routes>
           {effectiveUser ? (
             <>
-              <Route path="/admin/leads" element={<OrdersBandaLargaPJ />} />
+              <Route path="/admin/leads-pj" element={<OrdersBandaLargaPJ />} />
+              <Route path="/admin/leads-pf" element={<OrdersBandaLargaPF />} />
 
               {/* <Route
                 path="/admin/estoque-equipamento"

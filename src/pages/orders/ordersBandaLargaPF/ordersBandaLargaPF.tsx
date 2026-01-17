@@ -5,30 +5,29 @@ import { customLocale } from "@/utils/customLocale";
 import { useAllOrdersController } from "./controllers/dataController";
 import { useAllOrdersFilterController } from "./controllers/filterController";
 import { useNavigate } from "react-router-dom";
-import { OrderBandaLargaPJDetailsModal } from "./Modals/orderBandaLargaPJDetails";
-import { FiltroOrdersBandaLargaPJForm } from "./components/filter";
-import { OrderBandaLargaPJ } from "@/interfaces/bandaLargaPJ";
+import { OrderBandaLargaPFDetailsModal } from "./Modals/orderBandaLargaPFDetails";
+import { FiltroOrdersBandaLargaPFForm } from "./components/filter";
+import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
 import { TableProps } from "antd/lib";
 import { useState } from "react";
 
-export default function OrdersBandaLargaPJ() {
+export default function OrdersBandaLargaPF() {
   const queryClient = new QueryClient();
-
   const {
-    showModal,
     ordersBandaLarga,
+
+    showModal,
     closeModal,
     isModalOpen,
     isLoading,
-    orderBandaLargaPJ,
+    orderBandaLargaPF,
     updateBandaLargaOrder,
-    removeBandaLargaPJOrder,
-    isRemoveBandaLargaPJOrderFetching,
+    removeBandaLargaOrder,
+    isRemoveBandaLargaOrderFetching,
     updateDataIdVivoAndConsultorResponsavel,
-    changeBandaLargaPJOrderStatus,
+    changeBandaLargaOrderStatus,
   } = useAllOrdersController();
   const navigate = useNavigate();
-
   const {
     control,
     onSubmit,
@@ -44,7 +43,7 @@ export default function OrdersBandaLargaPJ() {
 
   const totalItems = 0;
 
-  const rowClassName = (record: OrderBandaLargaPJ) => {
+  const rowClassName = (record: OrderBandaLargaPF) => {
     const hasAvaiability = record?.availability;
     const isCoveredByRange = record?.encontrado_via_range;
     const hasUnicCep = record?.cep_unico;
@@ -71,25 +70,25 @@ export default function OrdersBandaLargaPJ() {
       setSelectedRowKeys(newSelectedRowKeys);
     },
   };
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <div className="px-6 md:px-10 lg:px-14">
           <div className="flex justify-between  mt-6  mb-4">
             <div>
-              <div className="flex  gap-8 justify-between">
-                <h1 className="text-[22px]  pl-16">Leads PJ</h1>
+              <div className="flex   gap-8 justify-between">
+                <h1 className="text-[22px]  pl-16">Leads PF</h1>
               </div>
 
               {/* Filtro */}
-              <FiltroOrdersBandaLargaPJForm
+              <FiltroOrdersBandaLargaPFForm
                 control={control}
                 handleSubmit={handleSubmit}
                 onSubmit={onSubmit}
                 selectedRowKeys={selectedRowKeys}
                 onClear={clearFilters}
-                orderBandaLargaPJ={orderBandaLargaPJ}
-                statusOptions={ordersBandaLarga?.status_pos_venda_enum}
+                orderBandaLargaPF={orderBandaLargaPF}
               />
             </div>
           </div>
@@ -120,7 +119,7 @@ export default function OrdersBandaLargaPJ() {
                 loading={isLoading}
                 rowSelection={rowSelection}
                 className={styles.customTable}
-                dataSource={orderBandaLargaPJ}
+                dataSource={orderBandaLargaPF}
                 rowClassName={(record) => rowClassName(record) ?? ""}
                 columns={columns}
                 onRow={(record) => ({
@@ -150,20 +149,18 @@ export default function OrdersBandaLargaPJ() {
           </ConfigProvider>
 
           {/* Modal */}
-          <OrderBandaLargaPJDetailsModal
+          <OrderBandaLargaPFDetailsModal
             statusOptions={ordersBandaLarga?.status_pos_venda_enum}
             updateOrderData={updateBandaLargaOrder}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
             selectedId={selectedBLOrder}
-            removeBandaLargaPJOrder={removeBandaLargaPJOrder}
-            isRemoveBandaLargaPJOrderFetching={
-              isRemoveBandaLargaPJOrderFetching
-            }
+            removeOrderData={removeBandaLargaOrder}
+            isRemoveOrderFetching={isRemoveBandaLargaOrderFetching}
             updateDataIdVivoAndConsultorResponsavel={
               updateDataIdVivoAndConsultorResponsavel
             }
-            changeBandaLargaPJOrderStatus={changeBandaLargaPJOrderStatus}
+            changeBandaLargaOrderStatus={changeBandaLargaOrderStatus}
           />
         </div>
       </QueryClientProvider>

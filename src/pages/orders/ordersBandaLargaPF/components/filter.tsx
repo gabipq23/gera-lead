@@ -1,35 +1,37 @@
-import { Controller } from "react-hook-form";
+import { Controller, Control, UseFormHandleSubmit } from "react-hook-form";
 import { Input, Button, Tooltip, ConfigProvider, Select } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
-import { DatePicker } from "antd";
-import dayjs from "dayjs";
 import ptBR from "antd/es/locale/pt_BR";
+import { DatePicker } from "antd";
 import { PatternFormat, PatternFormatProps } from "react-number-format";
-interface FiltroPedidosPJFormProps {
-  control: any;
-  handleSubmit: any;
-  onSubmit: any;
+import dayjs from "dayjs";
+import { BandaLargaFilters } from "@/interfaces/bandaLargaPF";
+
+interface FiltroPedidosFormProps {
+  control: Control<BandaLargaFilters>;
+  handleSubmit: UseFormHandleSubmit<BandaLargaFilters>;
+  onSubmit: (data: BandaLargaFilters) => void;
   onClear: () => void;
   selectedRowKeys: any;
-  statusOptions?: string[];
-  orderBandaLargaPJ: any;
+
+  orderBandaLargaPF: any;
 }
 
-const CNPJInput = (props: PatternFormatProps) => (
+const CPFInput = (props: PatternFormatProps) => (
   <PatternFormat
     {...props}
-    format="##.###.###/####-##"
+    format="###.###.###-##"
     customInput={Input}
-    placeholder="CNPJ"
+    placeholder="CPF"
     size="middle"
   />
 );
-export function FiltroOrdersBandaLargaPJForm({
+export function FiltroOrdersBandaLargaPFForm({
   control,
   handleSubmit,
   onSubmit,
   onClear,
-}: FiltroPedidosPJFormProps) {
+}: FiltroPedidosFormProps) {
   const { RangePicker } = DatePicker;
 
   return (
@@ -38,7 +40,6 @@ export function FiltroOrdersBandaLargaPJForm({
       onReset={onClear}
       className="flex min-w-[200px] flex-wrap gap-2 mt-4"
     >
-      {" "}
       <ConfigProvider
         locale={ptBR}
         theme={{
@@ -85,6 +86,7 @@ export function FiltroOrdersBandaLargaPJForm({
               />
             )}
           />
+
           <Controller
             control={control}
             name="availability"
@@ -104,32 +106,18 @@ export function FiltroOrdersBandaLargaPJForm({
           />
           <Controller
             control={control}
-            name="cnpj"
+            name="cpf"
             render={({ field }) => (
-              <CNPJInput
+              <CPFInput
                 {...field}
-                format="##.###.###/####-##"
+                format="###.###.###-##"
                 value={field.value || ""}
                 onValueChange={(values) => field.onChange(values.value)}
                 style={{ width: "150px" }}
               />
             )}
           />
-          <Controller
-            control={control}
-            name="razaosocial"
-            render={({ field }) => (
-              <Input
-                {...field}
-                placeholder="Razão Social"
-                value={field.value || ""}
-                onChange={field.onChange}
-                style={{
-                  width: "170px",
-                }}
-              />
-            )}
-          />
+
           <Controller
             control={control}
             name="phone"
@@ -225,26 +213,16 @@ export function FiltroOrdersBandaLargaPJForm({
             <Button
               variant="outlined"
               color="default"
+              style={{
+                width: "24px",
+                height: "28px",
+                color: "#8b8e8f",
+              }}
               onClick={onClear}
-              style={{ width: "24px", height: "28px", color: "#8b8e8f" }}
             >
               X
             </Button>
           </Tooltip>
-          {/* <Tooltip
-          title="Download"
-          placement="top"
-          styles={{ body: { fontSize: "11px" } }}
-        >
-          <Button
-            variant="outlined"
-            color="default"
-            style={{ width: "24px", height: "28px", color: "#8b8e8f" }}
-            onClick={() => handleExportXLSX(orderBandaLargaPJ, selectedRowKeys)}
-          >
-            <DownloadOutlined />
-          </Button>
-        </Tooltip> */}
         </div>
       </ConfigProvider>
     </form>

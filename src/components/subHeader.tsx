@@ -1,5 +1,5 @@
 import { useAuthContext } from "@/pages/login/context";
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { MenuProps } from "antd";
@@ -9,8 +9,8 @@ export default function SubHeader() {
   const navigate = useNavigate();
   const [selectedLink, setSelectedLink] = useState<string>("pedidos");
   const { logout } = useAuthContext();
-  const user = JSON.parse(localStorage.getItem("vivoGold@user") || "null");
-  const userID = user?.id;
+  // const user = JSON.parse(localStorage.getItem("vivoGold@user") || "null");
+  // const userID = user?.id;
 
   const handleLogOut = useCallback(() => {
     logout();
@@ -48,15 +48,28 @@ export default function SubHeader() {
 
   const ordersMenuItems: MenuProps["items"] = [
     {
-      key: "leads",
+      key: "leads-pj",
       label: (
         <span
           onClick={() => {
-            setSelectedLink("leads");
-            navigate(`/admin/leads`);
+            setSelectedLink("leads-pj");
+            navigate(`/admin/leads-pj`);
           }}
         >
-          Leads
+          Leads PJ
+        </span>
+      ),
+    },
+    {
+      key: "leads-pf",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("leads-pf");
+            navigate(`/admin/leads-pf`);
+          }}
+        >
+          Leads PF
         </span>
       ),
     },
@@ -79,13 +92,13 @@ export default function SubHeader() {
   return (
     <div className="relative z-2">
       <div className="">
-        <div className="flex  justify-between items-center p-2 bg-[#15757c] px-6 md:px-10 lg:px-14">
+        <div className="flex  justify-between items-center p-2 bg-[#797b7c] px-6 md:px-10 lg:px-14">
           <div className="flex items-center gap-8">
             <Dropdown menu={{ items: ordersMenuItems }} placement="bottom">
               <a
                 onClick={(e) => e.preventDefault()}
                 className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-100 ${
-                  selectedLink === "pedidos-aparelhos"
+                  selectedLink === "leads-pj" || selectedLink === "leads-pf"
                     ? "font-bold text-neutral-100"
                     : ""
                 }`}
@@ -102,14 +115,14 @@ export default function SubHeader() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button
+            {/* <Button
               type="link"
               onClick={() => navigate(`/admin/perfil-usuario/${userID}`)}
               style={{ padding: 0 }}
               className="logout-btn "
             >
               <UserOutlined style={{ color: "#e4e0e0" }} />
-            </Button>
+            </Button> */}
             <Button
               type="link"
               onClick={handleLogOut}

@@ -19,13 +19,13 @@ export function useAllOrdersController() {
     useQuery<OrderBandaLargaPFResponse>({
       refetchOnWindowFocus: false,
       queryKey: [
-        "ordersBandaLargaPJ",
+        "ordersBandaLargaPF",
         filters.availability || true,
-        filters.status_pos_venda || "",
-
         filters.plan || "",
+        filters.status_pos_venda || "",
         filters.fullname || "",
         filters.phone || "",
+        filters.cpf || "",
         filters.cnpj || "",
         filters.razaosocial || "",
         filters.ordernumber || "",
@@ -35,9 +35,10 @@ export function useAllOrdersController() {
         filters.data_ate || undefined,
         filters.sort || "data_criacao",
         filters.status || "",
-        filters.initial_status || "",
-
         filters.order || "desc",
+        filters.consulta || undefined,
+        filters.pedido || undefined,
+        filters.initial_status || "",
       ],
       queryFn: async (): Promise<OrderBandaLargaPFResponse> => {
         const response = await bandaLargaService.allBandaLargaFiltered({
@@ -47,11 +48,23 @@ export function useAllOrdersController() {
               : filters.availability === "false"
                 ? false
                 : undefined,
-          status_pos_venda: filters.status_pos_venda || "",
-
+          consulta:
+            filters.consulta === "true"
+              ? true
+              : filters.consulta === "false"
+                ? false
+                : undefined,
+          pedido:
+            filters.pedido === "true"
+              ? true
+              : filters.pedido === "false"
+                ? false
+                : undefined,
           plan: filters.plan || "",
+          status_pos_venda: filters.status_pos_venda || "",
           fullname: filters.fullname || "",
           phone: filters.phone || "",
+          cpf: filters.cpf || "",
           cnpj: filters.cnpj || "",
           razaosocial: filters.razaosocial || "",
           ordernumber: filters.ordernumber || "",
@@ -67,45 +80,45 @@ export function useAllOrdersController() {
               : "desc",
           initial_status: filters.initial_status || "",
         });
+
         return response;
       },
     });
-
   const { mutate: updateBandaLargaOrder, isPending: isUpdatePurchaseFetching } =
     useMutation({
       mutationFn: async ({ id, data }: { id: number; data: any }) =>
         bandaLargaService.updateBandaLargaOrderInfo(id, data),
       onMutate: async () =>
-        await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPJ"] }),
+        await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPF"] }),
       onSuccess: () => {
         toast.success("Pedido alterado com sucesso!");
-        queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPJ"] });
+        queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPF"] });
       },
       onError: (error) => {
         toast.error("Houve um erro ao alterar o pedido. Tente novamente");
         console.error(error.message);
       },
     });
-  // Remoção de pedido completo
+
   const {
-    mutate: removeBandaLargaPJOrder,
-    isPending: isRemoveBandaLargaPJOrderFetching,
+    mutate: removeBandaLargaOrder,
+    isPending: isRemoveBandaLargaOrderFetching,
   } = useMutation({
     mutationFn: async ({ id }: { id: number }) =>
       bandaLargaService.removeBandaLargaOrder(id),
     onMutate: async () =>
-      await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPJ"] }),
+      await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPF"] }),
     onError: (error) => {
       toast.error("Houve um erro ao remover o pedido. Tente novamente");
       console.error(error.message);
     },
     onSuccess: () => {
       toast.success("Pedido removido com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPJ"] });
+      queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPF"] });
     },
   });
 
-  const { mutate: changeBandaLargaPJOrderStatus } = useMutation({
+  const { mutate: changeBandaLargaOrderStatus } = useMutation({
     mutationFn: async ({
       id,
       data,
@@ -114,10 +127,10 @@ export function useAllOrdersController() {
       data: { status: string };
     }) => bandaLargaService.changeBandaLargaOrderStatus(id, data),
     onMutate: async () =>
-      await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPJ"] }),
+      await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPF"] }),
     onSuccess: () => {
       toast.success("Status do pedido alterado com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPJ"] });
+      queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPF"] });
     },
     onError: (error) => {
       toast.error("Houve um erro ao alterar o status do pedido.");
@@ -148,24 +161,25 @@ export function useAllOrdersController() {
     });
   };
 
-  const orderBandaLargaPJ = ordersBandaLarga?.pedidos?.filter(
+  const orderBandaLargaPF = ordersBandaLarga?.pedidos?.filter(
     (order: OrderBandaLargaPFResponse["pedidos"][0]) =>
       (order.status === "aberto" || order.status === "cancelado") &&
-      order.typeclient === "PJ",
+      order.typeclient === "PF",
   );
 
   return {
     ordersBandaLarga,
+
     showModal,
     closeModal,
     isModalOpen,
-    orderBandaLargaPJ,
+    orderBandaLargaPF,
     isLoading,
     updateBandaLargaOrder,
     isUpdatePurchaseFetching,
-    removeBandaLargaPJOrder,
-    isRemoveBandaLargaPJOrderFetching,
-    changeBandaLargaPJOrderStatus,
+    removeBandaLargaOrder,
+    isRemoveBandaLargaOrderFetching,
     updateDataIdVivoAndConsultorResponsavel,
+    changeBandaLargaOrderStatus,
   };
 }

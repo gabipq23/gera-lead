@@ -5,7 +5,7 @@ export default function HeaderInputs({
   setLocalData,
   selectedId,
   updateDataIdVivoAndConsultorResponsavel,
-  changeBandaLargaPJOrderStatus,
+  changeBandaLargaOrderStatus,
   consultor,
   setConsultor,
   idVivo,
@@ -26,13 +26,13 @@ export default function HeaderInputs({
             theme={{
               components: {
                 Select: {
-                  hoverBorderColor: "#8b8e8f",
-                  activeBorderColor: "#8b8e8f",
+                  hoverBorderColor: "#660099",
+                  activeBorderColor: "#660099",
                   activeOutlineColor: "none",
                 },
                 Input: {
-                  hoverBorderColor: "#8b8e8f",
-                  activeBorderColor: "#8b8e8f",
+                  hoverBorderColor: "#660099",
+                  activeBorderColor: "#660099",
                 },
               },
             }}
@@ -107,9 +107,9 @@ export default function HeaderInputs({
                   value={localData?.status}
                   onChange={(value) => {
                     setLocalData((prev: any) =>
-                      prev ? { ...prev, status: value } : null,
+                      prev ? { ...prev, status: value } : null
                     );
-                    changeBandaLargaPJOrderStatus({
+                    changeBandaLargaOrderStatus({
                       id: selectedId?.id,
                       data: { status: value },
                     });
@@ -135,7 +135,7 @@ export default function HeaderInputs({
                   }}
                   onChange={(value) => {
                     setLocalData((prev: any) =>
-                      prev ? { ...prev, status_pos_venda: value } : null,
+                      prev ? { ...prev, status_pos_venda: value } : null
                     );
                     updateOrderData({
                       id: selectedId?.id,
@@ -150,7 +150,7 @@ export default function HeaderInputs({
               </div>
               <div className="flex items-center gap-2 ">
                 <span className="text-[14px] font-semibold">Equipe:</span>
-                <span className="font-normal">-</span>
+                <span className="font-normal">{selectedId?.equipe || "-"}</span>
               </div>
             </div>
           </ConfigProvider>

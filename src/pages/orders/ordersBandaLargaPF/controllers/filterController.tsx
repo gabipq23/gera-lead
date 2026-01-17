@@ -4,19 +4,12 @@ import { useForm } from "react-hook-form";
 import { TableColumnsType, Tooltip } from "antd";
 import { createStyles } from "antd-style";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
-import { formatCNPJ } from "@/utils/formatCNPJ";
-import { BandaLargaPJFilters } from "@/interfaces/bandaLargaPJ";
+import { formatCPF } from "@/utils/formatCPF";
+import { BandaLargaFilters } from "@/interfaces/bandaLargaPF";
 
-function getFiltersFromURL(): BandaLargaPJFilters {
+function getFiltersFromURL(): BandaLargaFilters {
   const params = new URLSearchParams(window.location.search);
 
-  const rawInitialStatus = params.get("initial_status");
-  const initial_status =
-    rawInitialStatus === "consulta"
-      ? "consulta"
-      : rawInitialStatus === "pedido"
-        ? "pedido"
-        : "";
   const availability = params.get("availability");
   let availabilityBool: boolean | undefined = undefined;
   if (availability === "true") availabilityBool = true;
@@ -24,6 +17,7 @@ function getFiltersFromURL(): BandaLargaPJFilters {
   const plan = params.get("plan") || undefined;
   const fullname = params.get("fullname") || undefined;
   const phone = params.get("phone") || undefined;
+  const cpf = params.get("cpf") || undefined;
   const cnpj = params.get("cnpj") || undefined;
   const razaosocial = params.get("razaosocial") || undefined;
   const ordernumber = params.get("ordernumber") || undefined;
@@ -40,20 +34,21 @@ function getFiltersFromURL(): BandaLargaPJFilters {
     plan,
     fullname,
     phone,
+    cpf,
     cnpj,
     razaosocial,
-    status,
     ordernumber,
     data_ate,
     data_de,
     page,
     limit,
     order: order === "asc" || order === "desc" ? order : undefined,
+    status,
     sort,
     status_pos_venda,
-    initial_status,
   };
 }
+
 const useStyle = createStyles(({ css }) => {
   return {
     customTable: css`
@@ -103,7 +98,7 @@ const useStyle = createStyles(({ css }) => {
         display: flex;
         justify-content: center;
         margin-top: 16px; /* opcional: dá um espaçamento
-        colorText: "#8b8e8f",
+        colorText: "#660099",
         colorTextActive: "#550088", */
       }
     `,
@@ -119,30 +114,31 @@ export function useAllOrdersFilterController() {
   const currentPage = filters.page;
   const pageSize = filters.limit;
 
-  const { handleSubmit, reset, control } = useForm<BandaLargaPJFilters>({
+  const { handleSubmit, reset, control } = useForm<BandaLargaFilters>({
     defaultValues: {
       availability: undefined,
       plan: "",
       fullname: "",
       phone: "",
+      cpf: "",
       cnpj: "",
       razaosocial: "",
-      status: null,
-      status_pos_venda: "",
-      initial_status: filters.initial_status || "",
-
       ordernumber: "",
       data_ate: "",
       data_de: "",
       order: undefined,
       sort: "",
+      status: null,
+      status_pos_venda: "",
+      initial_status: filters.initial_status || "",
     },
   });
 
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
 
-  const onSubmit = (data: BandaLargaPJFilters) => {
+  const onSubmit = (data: BandaLargaFilters) => {
     const params = new URLSearchParams();
+
     if (data.availability !== undefined)
       params.set("availability", String(data.availability));
     if (data.plan) params.set("plan", data.plan);
@@ -151,19 +147,22 @@ export function useAllOrdersFilterController() {
       const phoneSemMascara = data.phone.replace(/\D/g, "");
       params.set("phone", phoneSemMascara);
     }
+    if (data.status_pos_venda)
+      params.set("status_pos_venda", data.status_pos_venda);
+    if (data.cpf) {
+      const cpfSemMascara = data.cpf.replace(/\D/g, "");
+      params.set("cpf", cpfSemMascara);
+    }
     if (data.cnpj) {
       const cnpjSemMascara = data.cnpj.replace(/\D/g, "");
       params.set("cnpj", cnpjSemMascara);
     }
-    if (data.initial_status) params.set("initial_status", data.initial_status);
-
     if (data.razaosocial) params.set("razaosocial", data.razaosocial);
     if (data.ordernumber) params.set("ordernumber", data.ordernumber);
     if (data.data_de) params.set("data_de", data.data_de);
     if (data.data_ate) params.set("data_ate", data.data_ate);
     if (data.status) params.set("status", data.status);
-    if (data.status_pos_venda)
-      params.set("status_pos_venda", data.status_pos_venda);
+    if (data.initial_status) params.set("initial_status", data.initial_status);
 
     params.set("page", "1");
     params.set("limit", "200");
@@ -181,14 +180,12 @@ export function useAllOrdersFilterController() {
   };
 
   const { styles } = useStyle();
-  const capitalizeWords = (text: string) => {
-    return text.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+
   const columns: TableColumnsType<any> = [
     {
       title: "ID",
       dataIndex: "ordernumber",
-      width: 80,
+      width: 100,
       render: (ordernumber, record) =>
         ordernumber ? ordernumber : record.id || "-",
     },
@@ -196,7 +193,6 @@ export function useAllOrdersFilterController() {
     {
       title: "Abertura",
       dataIndex: "created_at",
-
       width: 110,
       sorter: true,
       sortOrder:
@@ -239,10 +235,10 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
-      title: "CNPJ",
-      dataIndex: "cnpj",
-      width: 140,
-      render: (cnpj) => (cnpj ? formatCNPJ(cnpj) : "-"),
+      title: "CPF",
+      dataIndex: "cpf",
+      width: 120,
+      render: (cpf) => (cpf ? formatCPF(cpf) : "-"),
       filters: [
         {
           text: "Preenchido",
@@ -257,42 +253,37 @@ export function useAllOrdersFilterController() {
       onFilter: (value, record) => {
         if (value === "preenchido") {
           return (
-            record.cnpj !== null &&
-            record.cnpj !== undefined &&
-            record.cnpj !== ""
+            record.cpf !== null && record.cpf !== undefined && record.cpf !== ""
           );
         }
         if (value === "vazio") {
           return (
-            record.cnpj === null ||
-            record.cnpj === undefined ||
-            record.cnpj === ""
+            record.cpf === null || record.cpf === undefined || record.cpf === ""
           );
         }
         return true;
       },
     },
     {
-      title: "Razão Social ",
-      dataIndex: "razaosocial",
+      title: "Nome Completo",
+      dataIndex: "fullname",
       ellipsis: {
         showTitle: false,
       },
-      render: (razaosocial) => (
+      render: (fullname) => (
         <Tooltip
           placement="topLeft"
-          title={capitalizeWords(razaosocial)}
+          title={fullname}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {capitalizeWords(razaosocial) || "-"}
+          {fullname}
         </Tooltip>
       ),
       width: 150,
     },
-
     {
       title: "Telefone",
-      dataIndex: ["manager", "phone"],
+      dataIndex: "phone",
       width: 120,
       render: (phone) => (phone ? formatPhoneNumber(phone) : "-"),
       filters: [
@@ -309,16 +300,16 @@ export function useAllOrdersFilterController() {
       onFilter: (value, record) => {
         if (value === "preenchido") {
           return (
-            record.manager?.phone !== null &&
-            record.manager?.phone !== undefined &&
-            record.manager?.phone !== ""
+            record.phone !== null &&
+            record.phone !== undefined &&
+            record.phone !== ""
           );
         }
         if (value === "vazio") {
           return (
-            record.manager?.phone === null ||
-            record.manager?.phone === undefined ||
-            record.manager?.phone === ""
+            record.phone === null ||
+            record.phone === undefined ||
+            record.phone === ""
           );
         }
         return true;
@@ -350,7 +341,7 @@ export function useAllOrdersFilterController() {
     },
     {
       title: "Email",
-      dataIndex: ["manager", "email"],
+      dataIndex: "email",
       ellipsis: {
         showTitle: false,
       },
@@ -360,12 +351,34 @@ export function useAllOrdersFilterController() {
           title={email}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {email || "-"}
+          {email}
         </Tooltip>
       ),
       width: 140,
     },
 
+    {
+      title: "Data de Nascimento",
+      dataIndex: "birthdate",
+      width: 150,
+    },
+    {
+      title: "Nome da Mãe",
+      dataIndex: "motherfullname",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (motherfullname) => (
+        <Tooltip
+          placement="topLeft"
+          title={motherfullname}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {motherfullname}
+        </Tooltip>
+      ),
+      width: 140,
+    },
     {
       title: "CEP",
       dataIndex: "cep",

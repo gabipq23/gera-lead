@@ -1,4 +1,4 @@
-import { Button, Input } from "antd";
+import { Button, ConfigProvider, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./context";
 import { useForm, Controller } from "react-hook-form";
@@ -17,7 +17,7 @@ export function Login() {
   const mutation = useMutation<void, Error, ILoginForm>({
     mutationFn: (data: ILoginForm) => login(data),
     onSuccess: () => {
-      navigate("/admin/leads");
+      navigate("/admin/leads-pf");
     },
     onError: (error: any) => {
       const errorMessage =
@@ -37,45 +37,76 @@ export function Login() {
 
   return (
     <div className=" flex flex-col items-center bg-neutral-100 justify-center h-screen ">
-      <div className="flex flex-col md:w-[400px] lg:w-[400px] bg-[#116e75] justify-start gap-10 shadow-lg  rounded-lg p-6 h-[400px]">
-        <div className="flex justify-center items-center ">
+      <div className="flex flex-col md:w-[400px] lg:w-[400px] bg-[#878787] justify-start gap-10 shadow-lg  rounded-lg p-6 h-[400px]">
+        <div className="flex justify-between items-center  mb-4">
           <p className="text-[32px] text-neutral-200">Gera Lead</p>
+          <img
+            src="\assets\logoMello.png"
+            className="h-8 hover:cursor-pointer"
+          ></img>
         </div>
+        <ConfigProvider
+          theme={{
+            components: {
+              Input: {
+                hoverBorderColor: "#8b8e8f",
+                activeBorderColor: "#8b8e8f",
+                activeShadow: "none",
+                colorBorder: "#bfbfbf",
+                colorTextPlaceholder: "#666666",
+              },
+              Select: {
+                hoverBorderColor: "#8b8e8f",
+                activeBorderColor: "#8b8e8f",
+                activeOutlineColor: "none",
+                colorBorder: "#bfbfbf",
+                colorTextPlaceholder: "#666666",
+              },
+              Button: {
+                colorBorder: "#8b8e8f",
+                colorText: "#8b8e8f",
+                colorPrimary: "#8b8e8f",
 
-        <div className="flex flex-col gap-2">
-          <form
-            onSubmit={handleSubmit((data) => {
-              onSubmit(data);
-            })}
-            className="flex flex-col gap-5"
-          >
-            <p className="text-[14px] text-neutral-300">Email: </p>
+                colorPrimaryHover: "#8a7e7f",
+              },
+            },
+          }}
+        >
+          <div className="flex flex-col gap-2">
+            <form
+              onSubmit={handleSubmit((data) => {
+                onSubmit(data);
+              })}
+              className="flex flex-col gap-5"
+            >
+              <p className="text-[14px] text-neutral-300">Email: </p>
 
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <Input {...field} placeholder="Digite seu email" />
-              )}
-            />
-            <p className="text-[14px] text-neutral-300">Senha: </p>
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <Input {...field} placeholder="Digite seu email" />
+                )}
+              />
+              <p className="text-[14px] text-neutral-300">Senha: </p>
 
-            <Controller
-              name="senha"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <Input.Password {...field} placeholder="Digite sua senha" />
-              )}
-            />
-            <div className="flex justify-center mt-4">
-              <Button variant="outlined" color="cyan" htmlType="submit">
-                Entrar
-              </Button>
-            </div>
-          </form>
-        </div>
+              <Controller
+                name="senha"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <Input.Password {...field} placeholder="Digite sua senha" />
+                )}
+              />
+              <div className="flex justify-center mt-4">
+                <Button variant="outlined" color="default" htmlType="submit">
+                  Entrar
+                </Button>
+              </div>
+            </form>
+          </div>
+        </ConfigProvider>
       </div>
     </div>
   );

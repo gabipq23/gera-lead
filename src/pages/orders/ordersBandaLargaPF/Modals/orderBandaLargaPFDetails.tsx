@@ -1,35 +1,34 @@
 import { ConfigProvider, Modal, Form } from "antd";
 import { useState, useEffect } from "react";
-import { OrderBandaLargaPJDisplay } from "./BLPJDisplay";
-import { OrderBandaLargaPJEdit } from "./BLPJEdit";
-import { OrderBandaLargaPJ } from "@/interfaces/bandaLargaPJ";
-import dayjs from "dayjs";
+import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
+import { OrderBandaLargaPFDisplay } from "./BLPFDisplay";
+import { OrderBandaLargaPFEdit } from "./BLPFEdit";
 
+import dayjs from "dayjs";
 import ConfirmDeleteModal from "@/components/confirmDeleteModal";
 import FooterButtons from "@/components/orders/footerButtons";
 import { generatePDF } from "../controllers/exportPDF";
-
-export function OrderBandaLargaPJDetailsModal({
+export function OrderBandaLargaPFDetailsModal({
   isModalOpen,
   closeModal,
   selectedId,
-  updateOrderData,
-  removeBandaLargaPJOrder,
-  isRemoveBandaLargaPJOrderFetching,
+  removeOrderData,
+  isRemoveOrderFetching,
 }: {
   isModalOpen: boolean;
   closeModal: () => void;
-  selectedId: OrderBandaLargaPJ | null;
+  selectedId: OrderBandaLargaPF | null;
   updateOrderData?: (params: { id: number; data: any }) => void;
+  removeOrderData: any;
+  isRemoveOrderFetching: boolean;
   updateDataIdVivoAndConsultorResponsavel: any;
-  removeBandaLargaPJOrder: any;
-  isRemoveBandaLargaPJOrderFetching: boolean;
-  changeBandaLargaPJOrderStatus: any;
+  changeBandaLargaOrderStatus: any;
+
   statusOptions: string[] | undefined;
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [localData, setLocalData] = useState<OrderBandaLargaPJ | null>(null);
+
+  const [localData, setLocalData] = useState<OrderBandaLargaPF | null>(null);
   const [form] = Form.useForm();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -39,10 +38,6 @@ export function OrderBandaLargaPJDetailsModal({
     }
   }, [selectedId]);
 
-  const handlePlanChange = (planId: number) => {
-    console.log("oi", planId);
-  };
-
   useEffect(() => {
     if (localData && isEditing) {
       form.setFieldsValue({
@@ -50,17 +45,17 @@ export function OrderBandaLargaPJDetailsModal({
         plan_name: localData.plan?.name || "",
         plan_price: localData.plan?.price?.toString() || "",
         fullname: localData.fullname,
-
-        cnpj: localData.cnpj,
-        razaosocial: localData.razaosocial,
-
+        cpf: localData.cpf,
+        birthdate: localData.birthdate,
+        motherfullname: localData.motherfullname,
         phone: localData.phone,
         phoneAdditional: localData.phoneAdditional,
-
+        email: localData.email,
         address: localData.address,
         addressnumber: localData.addressnumber,
         addresscomplement: localData.addresscomplement,
         addresslot: localData.addresslot,
+        addressFloor: localData.addressFloor,
         addressblock: localData.addressblock,
         buildingorhouse: localData.buildingorhouse,
         district: localData.district,
@@ -68,7 +63,7 @@ export function OrderBandaLargaPJDetailsModal({
         state: localData.state,
         cep: localData.cep,
         addressreferencepoint: localData.addressreferencepoint,
-
+        cep_unico: localData.cep_unico,
         installation_preferred_date_one:
           localData.installation_preferred_date_one
             ? dayjs(localData.installation_preferred_date_one, "DD/MM/YYYY")
@@ -81,57 +76,21 @@ export function OrderBandaLargaPJDetailsModal({
 
         installation_preferred_period_one:
           localData.installation_preferred_period_one,
+
         installation_preferred_period_two:
           localData.installation_preferred_period_two,
+
         dueday: localData.dueday,
         accept_offers: localData.accept_offers,
         terms_accepted: localData.terms_accepted,
-        status: localData.status,
         url: localData.url,
-        manager: {
-          cpf: localData.manager?.cpf,
-          email: localData.manager?.email,
-          name: localData.manager?.name,
-          phone: localData.manager?.phone,
-          hasLegalAuthorization: localData.manager?.hasLegalAuthorization,
-        },
+        status: localData.status,
       });
     }
   }, [localData, isEditing, form]);
 
   const handleSave = async () => {
-    try {
-      setLoading(true);
-      const values = await form.validateFields();
-
-      if (values.installation_preferred_date_one) {
-        values.installation_preferred_date_one = dayjs(
-          values.installation_preferred_date_one,
-        ).format("DD/MM/YYYY");
-      }
-      if (values.installation_preferred_date_two) {
-        values.installation_preferred_date_two = dayjs(
-          values.installation_preferred_date_two,
-        ).format("DD/MM/YYYY");
-      }
-      if (updateOrderData && localData && localData.id) {
-        const formattedData = {
-          pedido: { ...values },
-        };
-
-        await updateOrderData({
-          id: localData.id,
-          data: formattedData,
-        });
-
-        setLocalData((prev) => (prev ? { ...prev, ...values } : null));
-        setIsEditing(false);
-      }
-    } catch (error) {
-      console.error("Erro ao validar campos:", error);
-    } finally {
-      setLoading(false);
-    }
+    console.log("handleSave called");
   };
 
   const handleCancel = () => {
@@ -179,16 +138,17 @@ export function OrderBandaLargaPJDetailsModal({
       >
         <div className="text-[#666666] mt-4 h-[460px] overflow-y-auto scrollbar-thin">
           {isEditing ? (
-            <OrderBandaLargaPJEdit
+            <OrderBandaLargaPFEdit
               localData={localData}
               form={form}
-              onPlanChange={handlePlanChange}
+              // onPlanChange={handlePlanChange}
+              // planOptions={planOptions}
               handleSave={handleSave}
               handleCancel={handleCancel}
-              loading={loading}
+              // loading={loading}
             />
           ) : (
-            <OrderBandaLargaPJDisplay localData={localData} />
+            <OrderBandaLargaPFDisplay localData={localData} />
           )}
         </div>
         <div className="mt-4 flex gap-4 justify-end">
@@ -205,10 +165,10 @@ export function OrderBandaLargaPJDetailsModal({
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={() => {
-          removeBandaLargaPJOrder({ id: selectedId?.id });
+          removeOrderData({ id: selectedId?.id });
           closeModal();
         }}
-        isLoading={isRemoveBandaLargaPJOrderFetching}
+        isLoading={isRemoveOrderFetching}
         message="Tem certeza que deseja excluir o pedido"
         itemToDelete={selectedId?.ordernumber || selectedId?.id}
       />
