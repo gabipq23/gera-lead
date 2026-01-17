@@ -143,7 +143,7 @@ export default function OrdersBandaLargaPJ() {
                     params.set("limit", pageSize.toString());
                     navigate(`?${params.toString()}`);
                   },
-                  showTotal: (total) => `Total de ${total} pedidos`,
+                  showTotal: (total) => `Total de ${total} leads`,
                 }}
               />
             </div>
