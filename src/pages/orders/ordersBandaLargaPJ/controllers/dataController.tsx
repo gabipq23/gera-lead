@@ -130,7 +130,7 @@ export function useAllOrdersController() {
     values: any,
   ) => {
     if (!id) {
-      toast.error("ID do pedido inválido.");
+      toast.error("ID inválido.");
       return;
     }
 

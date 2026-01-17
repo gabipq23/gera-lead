@@ -47,7 +47,7 @@ function Content({ user }: { user: IUser | null }) {
 
   useEffect(() => {
     if (effectiveUser && isLogin) {
-      navigate("/admin/pedidos-aparelhos-pj", { replace: true });
+      navigate("/admin/leads-pj", { replace: true });
     }
   }, [effectiveUser, isLogin, navigate]);
 

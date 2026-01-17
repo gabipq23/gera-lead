@@ -75,7 +75,7 @@ export function FiltroOrdersBandaLargaPJForm({
             render={({ field }) => (
               <Input
                 {...field}
-                placeholder="ID do Pedido"
+                placeholder="ID"
                 value={field.value || ""}
                 onChange={field.onChange}
                 style={{

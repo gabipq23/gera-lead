@@ -14,7 +14,7 @@ export default function FooterButtons({
   onDelete,
 
   editText = "Editar",
-  deleteText = "Deletar pedido",
+  deleteText = "Deletar",
 }: FooterButtonsProps) {
   return (
     <>

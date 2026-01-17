@@ -7,7 +7,7 @@ import { Button, Dropdown } from "antd";
 
 export default function SubHeader() {
   const navigate = useNavigate();
-  const [selectedLink, setSelectedLink] = useState<string>("pedidos");
+  const [selectedLink, setSelectedLink] = useState<string>("leads-pj");
   const { logout } = useAuthContext();
   // const user = JSON.parse(localStorage.getItem("vivoGold@user") || "null");
   // const userID = user?.id;

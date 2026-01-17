@@ -209,7 +209,7 @@ export function OrderBandaLargaPJDetailsModal({
           closeModal();
         }}
         isLoading={isRemoveBandaLargaPJOrderFetching}
-        message="Tem certeza que deseja excluir o pedido"
+        message="Tem certeza que deseja excluir o lead"
         itemToDelete={selectedId?.ordernumber || selectedId?.id}
       />
     </ConfigProvider>
