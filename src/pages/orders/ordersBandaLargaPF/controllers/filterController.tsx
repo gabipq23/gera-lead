@@ -232,18 +232,7 @@ export function useAllOrdersFilterController() {
         style: { cursor: "pointer" },
       }),
     },
-    {
-      title: "Título WA",
-      dataIndex: "titulo_wa",
-      width: 120,
-      render: (titulo_wa) => (titulo_wa ? titulo_wa : "-"),
-    },
-    {
-      title: "Whatsapp",
-      dataIndex: "whatsapp",
-      width: 100,
-      render: (whatsapp) => (whatsapp ? whatsapp : "-"),
-    },
+
     {
       title: "VIVO",
       dataIndex: "availability",
@@ -286,6 +275,23 @@ export function useAllOrdersFilterController() {
         availability_tim === null || availability_tim === undefined ? (
           "-"
         ) : availability_tim ? (
+          record.encontrado_via_range ? (
+            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+          ) : (
+            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+          )
+        ) : (
+          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+        ),
+    },
+    {
+      title: "OI",
+      dataIndex: "availability_oi",
+      width: 80,
+      render: (availability_oi, record) =>
+        availability_oi === null || availability_oi === undefined ? (
+          "-"
+        ) : availability_oi ? (
           record.encontrado_via_range ? (
             <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
           ) : (
@@ -433,6 +439,18 @@ export function useAllOrdersFilterController() {
           {record.operadora || "-"}
         </Tooltip>
       ),
+    },
+    {
+      title: "Título WA",
+      dataIndex: "titulo_wa",
+      width: 120,
+      render: (titulo_wa) => (titulo_wa ? titulo_wa : "-"),
+    },
+    {
+      title: "Whatsapp",
+      dataIndex: "whatsapp",
+      width: 100,
+      render: (whatsapp) => (whatsapp ? whatsapp : "-"),
     },
     {
       title: "Email",
