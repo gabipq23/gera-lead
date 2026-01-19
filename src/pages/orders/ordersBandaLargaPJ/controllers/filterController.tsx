@@ -186,6 +186,20 @@ export function useAllOrdersFilterController() {
   };
   const columns: TableColumnsType<any> = [
     {
+      title: "",
+      dataIndex: "avatar",
+      width: 80,
+      render: () => {
+        return (
+          <img
+            src="\assets\anonymous_avatar.png"
+            className="h-9 w-9 rounded-full"
+          />
+        );
+      },
+    },
+
+    {
       title: "ID",
       dataIndex: "ordernumber",
       width: 80,
@@ -224,11 +238,93 @@ export function useAllOrdersFilterController() {
     },
 
     {
-      title: "Tem disponibilidade?",
+      title: "Título WA",
+      dataIndex: "titulo_wa",
+      width: 120,
+      render: (titulo_wa) => (titulo_wa ? titulo_wa : "-"),
+    },
+    {
+      title: "Whatsapp",
+      dataIndex: "whatsapp",
+      width: 100,
+      render: (whatsapp) => (whatsapp ? whatsapp : "-"),
+    },
+    {
+      title: "VIVO",
       dataIndex: "availability",
-      width: 150,
+      width: 80,
       render: (availability, record) =>
-        availability ? (
+        availability === null || availability === undefined ? (
+          "-"
+        ) : availability ? (
+          record.encontrado_via_range ? (
+            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+          ) : (
+            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+          )
+        ) : (
+          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+        ),
+    },
+    {
+      title: "CLARO",
+      dataIndex: "availability_claro",
+      width: 80,
+      render: (availability_claro, record) =>
+        availability_claro === null || availability_claro === undefined ? (
+          "-"
+        ) : availability_claro ? (
+          record.encontrado_via_range ? (
+            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+          ) : (
+            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+          )
+        ) : (
+          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+        ),
+    },
+    {
+      title: "TIM",
+      dataIndex: "availability_tim",
+      width: 80,
+      render: (availability_tim, record) =>
+        availability_tim === null || availability_tim === undefined ? (
+          "-"
+        ) : availability_tim ? (
+          record.encontrado_via_range ? (
+            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+          ) : (
+            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+          )
+        ) : (
+          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+        ),
+    },
+    {
+      title: "SKY",
+      dataIndex: "availability_sky",
+      width: 80,
+      render: (availability_sky, record) =>
+        availability_sky === null || availability_sky === undefined ? (
+          "-"
+        ) : availability_sky ? (
+          record.encontrado_via_range ? (
+            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+          ) : (
+            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+          )
+        ) : (
+          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+        ),
+    },
+    {
+      title: "NIO",
+      dataIndex: "availability_nio",
+      width: 80,
+      render: (availability_nio, record) =>
+        availability_nio === null || availability_nio === undefined ? (
+          "-"
+        ) : availability_nio ? (
           record.encontrado_via_range ? (
             <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
           ) : (
@@ -444,6 +540,18 @@ export function useAllOrdersFilterController() {
       dataIndex: "client_ip",
       width: 120,
       render: (client_ip) => (client_ip ? client_ip : "-"),
+    },
+    {
+      title: "Device",
+      dataIndex: "device",
+      width: 120,
+      render: (device) => (device ? device : "-"),
+    },
+    {
+      title: "Sistema Operacional",
+      dataIndex: "so",
+      width: 160,
+      render: (so) => (so ? so : "-"),
     },
     // {
     //   title: "Fingerprint",

@@ -92,12 +92,12 @@ export default function SubHeader() {
   return (
     <div className="relative z-2">
       <div className="">
-        <div className="flex  justify-between items-center p-2 bg-[#797b7c] px-6 md:px-10 lg:px-14">
+        <div className="flex  justify-between items-center p-2 bg-[#959595] px-6 md:px-10 lg:px-14">
           <div className="flex items-center gap-8">
             <Dropdown menu={{ items: ordersMenuItems }} placement="bottom">
               <a
                 onClick={(e) => e.preventDefault()}
-                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-100 ${
+                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
                   selectedLink === "leads-pj" || selectedLink === "leads-pf"
                     ? "font-bold text-neutral-100"
                     : ""
