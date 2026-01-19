@@ -44,14 +44,26 @@ export default function CreateUserModal({
           theme={{
             components: {
               Input: {
-                hoverBorderColor: "#660099",
-                activeBorderColor: "#660099",
+                hoverBorderColor: "#8b8e8f",
+                activeBorderColor: "#8b8e8f",
                 activeShadow: "none",
               },
               Select: {
-                hoverBorderColor: "#660099",
-                activeBorderColor: "#660099",
+                hoverBorderColor: "#8b8e8f",
+                activeBorderColor: "#8b8e8f",
                 activeOutlineColor: "none",
+              },
+              DatePicker: {
+                hoverBorderColor: "#8b8e8f",
+                activeBorderColor: "#8b8e8f",
+                colorPrimaryBorder: "#8b8e8f",
+                colorPrimary: "#8b8e8f",
+              },
+              Button: {
+                colorBorder: "#8b8e8f",
+                colorText: "#8b8e8f",
+                colorPrimary: "#8b8e8f",
+                colorPrimaryHover: "#8a7e7f",
               },
             },
           }}

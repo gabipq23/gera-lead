@@ -25,14 +25,27 @@ export default function HeaderInputs({
           <ConfigProvider
             theme={{
               components: {
+                Input: {
+                  hoverBorderColor: "#8b8e8f",
+                  activeBorderColor: "#8b8e8f",
+                  activeShadow: "none",
+                },
                 Select: {
-                  hoverBorderColor: "#660099",
-                  activeBorderColor: "#660099",
+                  hoverBorderColor: "#8b8e8f",
+                  activeBorderColor: "#8b8e8f",
                   activeOutlineColor: "none",
                 },
-                Input: {
-                  hoverBorderColor: "#660099",
-                  activeBorderColor: "#660099",
+                DatePicker: {
+                  hoverBorderColor: "#8b8e8f",
+                  activeBorderColor: "#8b8e8f",
+                  colorPrimaryBorder: "#8b8e8f",
+                  colorPrimary: "#8b8e8f",
+                },
+                Button: {
+                  colorBorder: "#8b8e8f",
+                  colorText: "#8b8e8f",
+                  colorPrimary: "#8b8e8f",
+                  colorPrimaryHover: "#8a7e7f",
                 },
               },
             }}
@@ -107,7 +120,7 @@ export default function HeaderInputs({
                   value={localData?.status}
                   onChange={(value) => {
                     setLocalData((prev: any) =>
-                      prev ? { ...prev, status: value } : null
+                      prev ? { ...prev, status: value } : null,
                     );
                     changeBandaLargaOrderStatus({
                       id: selectedId?.id,
@@ -135,7 +148,7 @@ export default function HeaderInputs({
                   }}
                   onChange={(value) => {
                     setLocalData((prev: any) =>
-                      prev ? { ...prev, status_pos_venda: value } : null
+                      prev ? { ...prev, status_pos_venda: value } : null,
                     );
                     updateOrderData({
                       id: selectedId?.id,

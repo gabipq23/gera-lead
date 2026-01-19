@@ -20,6 +20,10 @@ import { Login } from "./pages/login/login";
 import { IUser } from "@/interfaces/login";
 import OrdersBandaLargaPJ from "./pages/orders/ordersBandaLargaPJ/ordersBandaLargaPJ";
 import OrdersBandaLargaPF from "./pages/orders/ordersBandaLargaPF/ordersBandaLargaPF";
+import ResultAvailability from "./pages/backoffice/components/consultAvailability/resultAvailability";
+import ResultSearchAvailability from "./pages/backoffice/components/searchAvailability/resultSearchAvailability";
+import ResultBulkAvailability from "./pages/backoffice/components/bulkAvailability/resultBulkAvailability";
+import Availability from "./pages/backoffice/consultAvailability/availability";
 
 export default function App() {
   const { user, checkAuth } = useAuthContext();
@@ -61,7 +65,26 @@ function Content({ user }: { user: IUser | null }) {
             <>
               <Route path="/admin/leads-pj" element={<OrdersBandaLargaPJ />} />
               <Route path="/admin/leads-pf" element={<OrdersBandaLargaPF />} />
-
+              <Route
+                path="/admin/consulta-disponibilidade"
+                element={<Availability />}
+              />{" "}
+              <Route
+                path="/admin/consulta-disponibilidade/:cep"
+                element={<ResultAvailability />}
+              />
+              <Route
+                path="/admin/consulta-disponibilidade/:cep/:numero"
+                element={<ResultAvailability />}
+              />
+              <Route
+                path="/admin/resultado-disponibilidade"
+                element={<ResultSearchAvailability />}
+              />
+              <Route
+                path="/admin/resultado-disponibilidade-massa"
+                element={<ResultBulkAvailability />}
+              />
               {/* <Route
                 path="/admin/estoque-equipamento"
                 element={<EquipamentsStock />}

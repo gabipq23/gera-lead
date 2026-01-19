@@ -45,16 +45,10 @@ function Users() {
           <ConfigProvider
             locale={customLocale}
             theme={{
-              token: {
-                colorPrimary: "#660099",
-                colorPrimaryHover: "#833baa",
-                colorLink: "#660099",
-                colorPrimaryBg: "transparent",
-              },
               components: {
                 Checkbox: {
-                  colorPrimary: "#660099",
-                  colorPrimaryHover: "#660099",
+                  colorPrimary: "#8b8e8f",
+                  colorPrimaryHover: "#8b8e8f",
                   borderRadius: 4,
                   controlInteractiveSize: 18,
                   lineWidth: 2,

@@ -93,15 +93,17 @@ export default function UserProfile() {
                 theme={{
                   components: {
                     Checkbox: {
-                      colorPrimary: "#660099",
-                      colorPrimaryHover: "#660099",
+                      colorPrimary: "#8b8e8f",
+                      colorPrimaryHover: "#8b8e8f",
                       borderRadius: 4,
                       controlInteractiveSize: 18,
                       lineWidth: 2,
                     },
                     Button: {
-                      colorPrimary: "#660099",
-                      colorPrimaryHover: "#cb1ef5",
+                      colorBorder: "#8b8e8f",
+                      colorText: "#8b8e8f",
+                      colorPrimary: "#8b8e8f",
+                      colorPrimaryHover: "#8a7e7f",
                     },
                   },
                 }}

@@ -111,9 +111,9 @@ video {
   max-width: 100%;
   height: auto;
 } */
-.custom-upload-list .ant-upload-list-item-name {
+/* .custom-upload-list .ant-upload-list-item-name {
   color: #660099;
-}
+} */
 button,
 textarea {
   font-family: inherit;

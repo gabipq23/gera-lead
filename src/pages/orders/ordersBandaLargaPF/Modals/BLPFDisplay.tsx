@@ -247,12 +247,10 @@ export function OrderBandaLargaPFDisplay({
               colorTextPlaceholder: "#666666",
             },
             Button: {
-              colorBorder: "#660099",
-              colorText: "#660099",
-
-              colorPrimary: "#660099",
-
-              colorPrimaryHover: "#883fa2",
+              colorBorder: "#8b8e8f",
+              colorText: "#8b8e8f",
+              colorPrimary: "#8b8e8f",
+              colorPrimaryHover: "#8a7e7f",
             },
           },
         }}

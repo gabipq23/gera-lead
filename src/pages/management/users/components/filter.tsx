@@ -30,28 +30,34 @@ export function FiltroUsersForm({
         className="flex min-w-[200px] flex-wrap  gap-2 mb-4"
       >
         <div className="flex gap-2 flex-wrap">
-          <ConfigProvider
-            theme={{
-              components: {
-                Input: {
-                  hoverBorderColor: "#660099",
-                  activeBorderColor: "#660099",
-                  activeShadow: "none",
-                },
-                Select: {
-                  hoverBorderColor: "#660099",
-                  activeBorderColor: "#660099",
-                  activeOutlineColor: "none",
-                },
-                DatePicker: {
-                  hoverBorderColor: "#660099",
-                  activeBorderColor: "#660099",
-                  colorPrimaryBorder: "#660099",
-                  colorPrimary: "#660099",
-                },
-              },
-            }}
-          >
+           <ConfigProvider
+                    theme={{
+                      components: {
+                        Input: {
+                          hoverBorderColor: "#8b8e8f",
+                          activeBorderColor: "#8b8e8f",
+                          activeShadow: "none",
+                        },
+                        Select: {
+                          hoverBorderColor: "#8b8e8f",
+                          activeBorderColor: "#8b8e8f",
+                          activeOutlineColor: "none",
+                        },
+                        DatePicker: {
+                          hoverBorderColor: "#8b8e8f",
+                          activeBorderColor: "#8b8e8f",
+                          colorPrimaryBorder: "#8b8e8f",
+                          colorPrimary: "#8b8e8f",
+                        },
+                        Button: {
+                          colorBorder: "#8b8e8f",
+                          colorText: "#8b8e8f",
+                          colorPrimary: "#8b8e8f",
+                          colorPrimaryHover: "#8a7e7f",
+                        },
+                      },
+                    }}
+                  >
             <Controller
               control={control}
               name="nome"
@@ -121,7 +127,6 @@ export function FiltroUsersForm({
               style={{
                 width: "24px",
                 height: "28px",
-                color: "#660099",
               }}
               htmlType="submit"
             >
@@ -138,7 +143,7 @@ export function FiltroUsersForm({
               variant="outlined"
               color="purple"
               onClick={onClear}
-              style={{ width: "24px", height: "28px", color: "#660099" }}
+              style={{ width: "24px", height: "28px" }}
             >
               X
             </Button>
@@ -152,7 +157,7 @@ export function FiltroUsersForm({
               variant="outlined"
               color="purple"
               onClick={() => setShowCreateUserModal(true)}
-              style={{ width: "24px", height: "28px", color: "#660099" }}
+              style={{ width: "24px", height: "28px" }}
             >
               +
             </Button>
