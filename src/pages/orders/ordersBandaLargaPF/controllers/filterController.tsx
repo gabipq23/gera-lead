@@ -365,6 +365,37 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
+      title: "Plano",
+      dataIndex: ["plan", "name"],
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => (
+        <Tooltip
+          placement="topLeft"
+          title={record.plan?.name}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {record.plan?.name
+            ? record.plan?.name + " - " + record.plan?.speed
+            : "-"}
+        </Tooltip>
+      ),
+      width: 180,
+    },
+    {
+      title: "Valor do Plano",
+      dataIndex: ["plan", "price"],
+      width: 120,
+      render: (_, record) =>
+        record.plan?.price ? `R$ ${record.plan.price}` : "-",
+    },
+    {
+      title: "Vencimento",
+      dataIndex: "dueday",
+      width: 120,
+    },
+    {
       title: "CPF",
       dataIndex: "cpf",
       width: 120,
