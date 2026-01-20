@@ -198,7 +198,12 @@ export function useAllOrdersFilterController() {
         );
       },
     },
-
+    {
+      title: "Temp",
+      dataIndex: "temperatura_lead",
+      width: 80,
+      render: (temperatura_lead) => (temperatura_lead ? temperatura_lead : "-"),
+    },
     {
       title: "ID",
       dataIndex: "ordernumber",
@@ -238,7 +243,11 @@ export function useAllOrdersFilterController() {
     },
 
     {
-      title: "VIVO",
+      title: (
+        <div className="flex items-center justify-center ">
+          <img src="/assets/vivo.png" alt="Vivo" />
+        </div>
+      ),
       dataIndex: "availability",
       width: 80,
       render: (availability, record) =>
@@ -255,7 +264,11 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
-      title: "CLARO",
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-8 w-8" src="/assets/claro.png" alt="Claro" />
+        </div>
+      ),
       dataIndex: "availability_claro",
       width: 80,
       render: (availability_claro, record) =>
@@ -272,7 +285,11 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
-      title: "TIM",
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-9" src="/assets/tim.svg" alt="TIM" />
+        </div>
+      ),
       dataIndex: "availability_tim",
       width: 80,
       render: (availability_tim, record) =>
@@ -289,7 +306,11 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
-      title: "OI",
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-8" src="/assets/oi.svg" alt="OI" />
+        </div>
+      ),
       dataIndex: "availability_oi",
       width: 80,
       render: (availability_oi, record) =>
@@ -306,7 +327,11 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
-      title: "SKY",
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-6" src="/assets/sky.svg" alt="Sky" />
+        </div>
+      ),
       dataIndex: "availability_sky",
       width: 80,
       render: (availability_sky, record) =>
@@ -323,7 +348,11 @@ export function useAllOrdersFilterController() {
         ),
     },
     {
-      title: "NIO",
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-3" src="/assets/nio.svg" alt="NIO" />
+        </div>
+      ),
       dataIndex: "availability_nio",
       width: 80,
       render: (availability_nio, record) =>
@@ -338,6 +367,37 @@ export function useAllOrdersFilterController() {
         ) : (
           <div className="h-2 w-2 bg-red-500 rounded-full"></div>
         ),
+    },
+    {
+      title: "Plano",
+      dataIndex: ["plan", "name"],
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => (
+        <Tooltip
+          placement="topLeft"
+          title={record.plan?.name}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {record.plan?.name
+            ? record.plan?.name + " - " + record.plan?.speed
+            : "-"}
+        </Tooltip>
+      ),
+      width: 180,
+    },
+    {
+      title: "Valor do Plano",
+      dataIndex: ["plan", "price"],
+      width: 120,
+      render: (_, record) =>
+        record.plan?.price ? `R$ ${record.plan.price}` : "-",
+    },
+    {
+      title: "Vencimento",
+      dataIndex: "dueday",
+      width: 120,
     },
     {
       title: "CNPJ",

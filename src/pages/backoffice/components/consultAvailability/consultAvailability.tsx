@@ -48,8 +48,8 @@ export default function ConsultAvailability() {
         <h1 className="text-[22px] ">Consulta de disponibilidade</h1>
         <div className=" flex gap-1 items-center text-[14px] text-neutral-500">
           <p>
-            Verifique se o CEP e o número desejados possuem disponibilidade de
-            plano.
+            Digite CEP e Nº para verificar a cobertura de banda larga em
+            determinado endereço.
           </p>
         </div>
       </div>
