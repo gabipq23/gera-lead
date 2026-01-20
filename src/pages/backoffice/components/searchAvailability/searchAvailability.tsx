@@ -113,8 +113,8 @@ export default function SearchAvailability() {
         <h1 className="text-[22px] ">Buscar CEPs com disponibilidade</h1>
         <div className=" flex gap-1 items-center text-[14px]  text-neutral-500">
           <p>
-            Verifique todos os CEPs que possuem disponibilidade de plano na
-            região desejada.
+            Verifique todos os CEPs com cobertura de banda larga em determinada
+            região.
           </p>
         </div>
       </div>

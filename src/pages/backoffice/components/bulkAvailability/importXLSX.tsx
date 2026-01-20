@@ -80,7 +80,8 @@ export default function ImportXLSX() {
           <div className=" flex gap-1 items-center text-[14px]  text-neutral-500">
             <p>
               Faça o upload de um arquivo .xlsx ou .xls para consultar a
-              disponibilidade de múltiplos CEPs e números.
+              disponibilidade de banda larga em múltiplos endereços. Insira
+              "CEP" na coluna "A" e "números" na coluna "B".
             </p>
           </div>
         </div>

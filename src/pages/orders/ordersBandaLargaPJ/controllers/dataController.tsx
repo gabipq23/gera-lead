@@ -150,7 +150,10 @@ export function useAllOrdersController() {
 
   const orderBandaLargaPJ = ordersBandaLarga?.pedidos?.filter(
     (order: OrderBandaLargaPFResponse["pedidos"][0]) =>
-      (order.status === "aberto" || order.status === "cancelado") &&
+      (order.status === "aberto" ||
+        order.status === "cancelado" ||
+        (order.status === "fechado" &&
+          order.status_pos_venda === "Venda Perdida - Oportunidade futura")) &&
       order.typeclient === "PJ",
   );
 
