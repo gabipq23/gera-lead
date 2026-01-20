@@ -175,7 +175,7 @@ export default function SearchAvailability() {
                 <Select
                   className="h-8  min-w-[200px]"
                   size="middle"
-                  placeholder="Selecione Cidade"
+                  placeholder="Cidade"
                   showSearch
                   loading={isLoadingCidades}
                   disabled={!selectedUf || isLoadingCidades}
@@ -188,26 +188,55 @@ export default function SearchAvailability() {
                   onChange={handleCidadeChange}
                 />
               </Form.Item>
+
+              <Form.Item name="bairro" rules={[]}>
+                <Select
+                  mode="multiple"
+                  className=" min-w-[200px] min-h-8"
+                  size="middle"
+                  style={{
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }}
+                  placeholder="Bairro"
+                  showSearch
+                  loading={isLoadingBairros}
+                  disabled={!selectedCidade || isLoadingBairros}
+                  filterOption={(input, option) =>
+                    String(option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={bairroOptions}
+                />
+              </Form.Item>
+
               <div className="flex">
-                <Form.Item name="bairro" rules={[]}>
+                <Form.Item name="Provedor" rules={[]}>
                   <Select
                     mode="multiple"
-                    className=" min-w-[200px] min-h-8"
+                    className=" min-w-[160px] min-h-8"
                     size="middle"
                     style={{
                       borderTopRightRadius: 0,
                       borderBottomRightRadius: 0,
                     }}
-                    placeholder="Selecione Bairro"
-                    showSearch
-                    loading={isLoadingBairros}
+                    placeholder="Provedor"
                     disabled={!selectedCidade || isLoadingBairros}
+                    showSearch
                     filterOption={(input, option) =>
                       String(option?.label ?? "")
                         .toLowerCase()
                         .includes(input.toLowerCase())
                     }
-                    options={bairroOptions}
+                    options={[
+                      { label: "Claro", value: "claro" },
+                      { label: "Vivo", value: "vivo" },
+                      { label: "Oi", value: "oi" },
+                      { label: "Tim", value: "tim" },
+                      { label: "Sky", value: "sky" },
+                      { label: "Todas", value: "todas" },
+                    ]}
                   />
                 </Form.Item>
                 <Form.Item>
