@@ -252,15 +252,23 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability, record) =>
         availability === null || availability === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              {" "}
+              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            {" "}
+            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          </div>
         ),
     },
     {
@@ -273,15 +281,23 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability_claro, record) =>
         availability_claro === null || availability_claro === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability_claro ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              {" "}
+              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            {" "}
+            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          </div>
         ),
     },
     {
@@ -294,15 +310,23 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability_tim, record) =>
         availability_tim === null || availability_tim === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability_tim ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              {" "}
+              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            {" "}
+            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          </div>
         ),
     },
     {
@@ -315,15 +339,23 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability_oi, record) =>
         availability_oi === null || availability_oi === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability_oi ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              {" "}
+              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            {" "}
+            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          </div>
         ),
     },
     {
@@ -336,15 +368,23 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability_sky, record) =>
         availability_sky === null || availability_sky === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability_sky ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              {" "}
+              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            {" "}
+            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          </div>
         ),
     },
     {
@@ -357,15 +397,23 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability_nio, record) =>
         availability_nio === null || availability_nio === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability_nio ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              {" "}
+              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            {" "}
+            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          </div>
         ),
     },
     {
