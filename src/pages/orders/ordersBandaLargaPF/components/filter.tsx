@@ -106,6 +106,26 @@ export function FiltroOrdersBandaLargaPFForm({
           />
           <Controller
             control={control}
+            name="availability"
+            render={({ field }) => (
+              <Select
+                style={{ minWidth: "120px" }}
+                placeholder="Provedor"
+                value={field.value || undefined}
+                onChange={field.onChange}
+                options={[
+                  { value: "Vivo", label: "Vivo" },
+                  { value: "Claro", label: "Claro" },
+                  { value: "Oi", label: "Oi" },
+                  { value: "Tim", label: "Tim" },
+                  { value: "Sky", label: "Sky" },
+                ]}
+                allowClear
+              />
+            )}
+          />
+          <Controller
+            control={control}
             name="cpf"
             render={({ field }) => (
               <CPFInput
