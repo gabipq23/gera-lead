@@ -110,11 +110,14 @@ export function OrderBandaLargaPFDisplay({
                   )}
                 </td>
                 <td className="text-center p-2">
-                  {localData.availability_claro === null ||
-                  localData.availability_claro === undefined ? (
+                  {localData.availability_operadoras?.claro?.availability ===
+                    null ||
+                  localData.availability_operadoras?.claro?.availability ===
+                    undefined ? (
                     <span className="text-[12px] text-neutral-500">-</span>
-                  ) : localData.availability_claro ? (
-                    localData.encontrado_via_range ? (
+                  ) : localData.availability_operadoras?.claro?.availability ? (
+                    localData.availability_operadoras?.claro
+                      ?.encontrado_via_range ? (
                       <div
                         className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
                         title="Disponível via range"
@@ -133,11 +136,14 @@ export function OrderBandaLargaPFDisplay({
                   )}
                 </td>
                 <td className="text-center p-2">
-                  {localData.availability_tim === null ||
-                  localData.availability_tim === undefined ? (
+                  {localData.availability_operadoras?.tim?.availability ===
+                    null ||
+                  localData.availability_operadoras?.tim?.availability ===
+                    undefined ? (
                     <span className="text-[12px] text-neutral-500">-</span>
-                  ) : localData.availability_tim ? (
-                    localData.encontrado_via_range ? (
+                  ) : localData.availability_operadoras?.tim?.availability ? (
+                    localData.availability_operadoras?.tim
+                      ?.encontrado_via_range ? (
                       <div
                         className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
                         title="Disponível via range"
@@ -156,11 +162,14 @@ export function OrderBandaLargaPFDisplay({
                   )}
                 </td>
                 <td className="text-center p-2">
-                  {localData.availability_oi === null ||
-                  localData.availability_oi === undefined ? (
+                  {localData.availability_operadoras?.oi?.availability ===
+                    null ||
+                  localData.availability_operadoras?.oi?.availability ===
+                    undefined ? (
                     <span className="text-[12px] text-neutral-500">-</span>
-                  ) : localData.availability_oi ? (
-                    localData.encontrado_via_range ? (
+                  ) : localData.availability_operadoras?.oi?.availability ? (
+                    localData.availability_operadoras?.oi
+                      ?.encontrado_via_range ? (
                       <div
                         className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
                         title="Disponível via range"
@@ -179,11 +188,14 @@ export function OrderBandaLargaPFDisplay({
                   )}
                 </td>
                 <td className="text-center p-2">
-                  {localData.availability_sky === null ||
-                  localData.availability_sky === undefined ? (
+                  {localData.availability_operadoras?.sky?.availability ===
+                    null ||
+                  localData.availability_operadoras?.sky?.availability ===
+                    undefined ? (
                     <span className="text-[12px] text-neutral-500">-</span>
-                  ) : localData.availability_sky ? (
-                    localData.encontrado_via_range ? (
+                  ) : localData.availability_operadoras?.sky?.availability ? (
+                    localData.availability_operadoras?.sky
+                      ?.encontrado_via_range ? (
                       <div
                         className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
                         title="Disponível via range"
@@ -202,11 +214,14 @@ export function OrderBandaLargaPFDisplay({
                   )}
                 </td>
                 <td className="text-center p-2">
-                  {localData.availability_nio === null ||
-                  localData.availability_nio === undefined ? (
+                  {localData.availability_operadoras?.nio?.availability ===
+                    null ||
+                  localData.availability_operadoras?.nio?.availability ===
+                    undefined ? (
                     <span className="text-[12px] text-neutral-500">-</span>
-                  ) : localData.availability_nio ? (
-                    localData.encontrado_via_range ? (
+                  ) : localData.availability_operadoras?.nio?.availability ? (
+                    localData.availability_operadoras?.nio
+                      ?.encontrado_via_range ? (
                       <div
                         className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
                         title="Disponível via range"
@@ -227,39 +242,52 @@ export function OrderBandaLargaPFDisplay({
               </tr>
 
               {/* Linha 2: Range de números */}
-              {localData.encontrado_via_range === 1 && (
+              {(localData.encontrado_via_range ||
+                localData.availability_operadoras?.claro
+                  ?.encontrado_via_range ||
+                localData.availability_operadoras?.tim?.encontrado_via_range ||
+                localData.availability_operadoras?.oi?.encontrado_via_range ||
+                localData.availability_operadoras?.sky?.encontrado_via_range ||
+                localData.availability_operadoras?.nio
+                  ?.encontrado_via_range) && (
                 <tr>
                   <td className="text-[12px] w-32 font-medium text-gray-600 p-2 pr-4">
                     Range de números
                   </td>
                   <td className="text-center p-2 text-[11px] ">
-                    {localData.availability
+                    {localData.availability && localData.encontrado_via_range
                       ? `${localData.range_min} - ${localData.range_max}`
                       : "-"}
                   </td>
                   <td className="text-center p-2 text-[11px] ">
-                    {localData.availability_claro
-                      ? `${localData.range_min} - ${localData.range_max}`
+                    {localData.availability_operadoras?.claro?.availability &&
+                    localData.availability_operadoras?.claro
+                      ?.encontrado_via_range
+                      ? `${localData.availability_operadoras.claro.range_min} - ${localData.availability_operadoras.claro.range_max}`
                       : "-"}
                   </td>
                   <td className="text-center p-2 text-[11px] ">
-                    {localData.availability_tim
-                      ? `${localData.range_min} - ${localData.range_max}`
+                    {localData.availability_operadoras?.tim?.availability &&
+                    localData.availability_operadoras?.tim?.encontrado_via_range
+                      ? `${localData.availability_operadoras.tim.range_min} - ${localData.availability_operadoras.tim.range_max}`
                       : "-"}
                   </td>
                   <td className="text-center p-2 text-[11px] ">
-                    {localData.availability_oi
-                      ? `${localData.range_min} - ${localData.range_max}`
+                    {localData.availability_operadoras?.oi?.availability &&
+                    localData.availability_operadoras?.oi?.encontrado_via_range
+                      ? `${localData.availability_operadoras.oi.range_min} - ${localData.availability_operadoras.oi.range_max}`
                       : "-"}
                   </td>
                   <td className="text-center p-2 text-[11px] ">
-                    {localData.availability_sky
-                      ? `${localData.range_min} - ${localData.range_max}`
+                    {localData.availability_operadoras?.sky?.availability &&
+                    localData.availability_operadoras?.sky?.encontrado_via_range
+                      ? `${localData.availability_operadoras.sky.range_min} - ${localData.availability_operadoras.sky.range_max}`
                       : "-"}
                   </td>
                   <td className="text-center p-2 text-[11px] ">
-                    {localData.availability_nio
-                      ? `${localData.range_min} - ${localData.range_max}`
+                    {localData.availability_operadoras?.nio?.availability &&
+                    localData.availability_operadoras?.nio?.encontrado_via_range
+                      ? `${localData.availability_operadoras.nio.range_min} - ${localData.availability_operadoras.nio.range_max}`
                       : "-"}
                   </td>
                 </tr>
@@ -297,6 +325,14 @@ export function OrderBandaLargaPFDisplay({
                 value={localData.birthdate}
               />
               <DisplayGenerator title="Email:" value={localData.email} />
+              <DisplayGenerator
+                title="MEI:"
+                value={localData.mei ? "Sim" : "Não"}
+              />
+              <DisplayGenerator
+                title="Sócio:"
+                value={localData.socio ? "Sim" : "Não"}
+              />
             </div>
 
             {/* Coluna 2 - Visualização */}
@@ -326,6 +362,7 @@ export function OrderBandaLargaPFDisplay({
                 title="Telefone Adicional:"
                 value={formatPhoneNumber(localData.phoneAdditional || "")}
               />
+              <DisplayGenerator title="Empresas:" value={localData.empresas} />
             </div>
           </div>
         </div>
@@ -333,7 +370,7 @@ export function OrderBandaLargaPFDisplay({
       {/* Plano */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
         <div className="flex items-center ">
-          <h2 className="text-[14px] text-[#666666]">Plano Escolhido</h2>
+          <h2 className="text-[14px] text-[#666666]">Plano Desejado</h2>
         </div>
 
         <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
@@ -344,13 +381,27 @@ export function OrderBandaLargaPFDisplay({
                 title="Plano:"
                 value={localData.plan?.name + " " + localData.plan?.speed}
               />
+              <DisplayGenerator
+                title="Preço:"
+                value={formatBRL(localData.plan?.price)}
+              />
+              <DisplayGenerator
+                title="APP:"
+                value={localData.app ? "Sim" : "Não"}
+              />
+              <DisplayGenerator title="Pacote:" value={localData.app_package} />
             </div>
 
             {/* Coluna 2 - Visualização */}
             <div className="flex flex-col">
               <DisplayGenerator
-                title="Preço:"
-                value={formatBRL(localData.plan?.price)}
+                title="TV:"
+                value={localData.tv ? "Sim" : "Não"}
+              />
+              <DisplayGenerator title="Pacote:" value={localData.tv_package} />
+              <DisplayGenerator
+                title="IP Fixo:"
+                value={localData.wantsFixedIp ? "Sim" : "Não"}
               />
             </div>
           </div>
@@ -359,20 +410,27 @@ export function OrderBandaLargaPFDisplay({
       {/* Informações Técnicas */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
         <div className="flex items-center ">
-          <h2 className="text-[14px] text-[#666666]">Informações Técnicas</h2>
+          <h2 className="text-[14px] text-[#666666]">Dados do Tráfego</h2>
         </div>
 
         <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Coluna 1 - Visualização */}
             <div className="flex flex-col ">
-              <DisplayGenerator title="Device:" value="Desktop" />
+              <DisplayGenerator title="Device:" value={localData.device} />
               <DisplayGenerator title="IP:" value={localData.client_ip} />
+              <DisplayGenerator
+                title="Provedor:"
+                value={localData.provider || localData.provedor}
+              />
             </div>
 
             {/* Coluna 2 - Visualização */}
             <div className="flex flex-col">
-              <DisplayGenerator title="Sistema Operacional:" value="Windows" />
+              <DisplayGenerator
+                title="Sistema Operacional:"
+                value={localData.so}
+              />
               <DisplayGenerator
                 title="URL:"
                 value={localData.url}
@@ -386,9 +444,7 @@ export function OrderBandaLargaPFDisplay({
       {/* Informações de Endereço */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
         <div className="flex items-center ">
-          <h2 className="text-[14px] text-[#666666]">
-            Informações de Endereço
-          </h2>
+          <h2 className="text-[14px] text-[#666666]">Endereço</h2>
         </div>
 
         <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
