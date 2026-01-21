@@ -305,10 +305,7 @@ export function OrderBandaLargaPFDisplay({
                 title="Telefone:"
                 value={formatPhoneNumber(localData.phone)}
               />
-              <DisplayGenerator
-                title="Título WA:"
-                value={localData.motherfullname}
-              />
+              <DisplayGenerator title="Título WA:" value="-" />
               <DisplayGenerator title="Whatsapp:" value="Business" />
 
               <DisplayGenerator
