@@ -390,11 +390,7 @@ export function useAllOrdersFilterController() {
       render: (_, record) =>
         record.plan?.price ? `R$ ${record.plan.price}` : "-",
     },
-    {
-      title: "Vencimento",
-      dataIndex: "dueday",
-      width: 120,
-    },
+
     {
       title: "CPF",
       dataIndex: "cpf",

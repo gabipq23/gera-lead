@@ -16,6 +16,13 @@ export interface OrderBandaLargaPJ {
   addressnumber: string;
   addressreferencepoint: string;
   availability: boolean | number;
+  availability_claro: boolean | number;
+  availability_vivo: boolean | number;
+  availability_tim: boolean | number;
+  availability_oi: boolean | number;
+  availability_sky: boolean | number;
+  availability_nio: boolean | number;
+
   buildingorhouse: string;
   cep: string;
   city: string;

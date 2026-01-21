@@ -26,19 +26,6 @@ export function OrderBandaLargaPFEdit({
       onFinish={handleSave}
     >
       <div className="flex flex-col  w-full gap-2">
-        {/* Seção de Ofertas */}
-        <div className="flex flex-col gap-2 bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
-          {/* <p className="text-[14px] text-neutral-700">
-                <strong>Ofertas:</strong>{" "}
-                {localData.accept_offers === 1
-                  ? "Este cliente deseja receber ofertas"
-                  : "Este cliente não deseja receber ofertas"}
-              </p> */}
-          <p className="text-[14px] text-neutral-700">
-            <strong>Possui Disponibilidade? </strong>{" "}
-            {localData.availability ? "Sim" : "Não"}
-          </p>
-        </div>
         {/* Informações do Cliente */}
         <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3  w-full">
           <div className="flex items-center mb-1">
