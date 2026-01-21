@@ -37,12 +37,13 @@ export function Login() {
 
   return (
     <div className=" flex flex-col items-center bg-neutral-100 justify-center h-screen ">
-      <div className="flex flex-col md:w-[400px] lg:w-[400px] bg-[#878787] justify-start gap-10 shadow-lg  rounded-lg p-6 h-[400px]">
-        <div className="flex justify-between items-center  mb-4">
-          <p className="text-[32px] text-neutral-200">Gera Lead</p>
+      <div className="flex flex-col md:w-[400px] lg:w-[400px] bg-[#a3a3a3]  justify-start gap-10 shadow-lg  rounded-lg p-6 h-[400px]">
+        <div className="flex justify-between items-start  mb-4">
+          <img src="\assets\megalead.png" className="h-14 w-38 "></img>
+
           <img
             src="\assets\logoMello.png"
-            className="h-8 hover:cursor-pointer"
+            className="h-8 mt-2 hover:cursor-pointer"
           ></img>
         </div>
         <ConfigProvider
@@ -79,7 +80,7 @@ export function Login() {
               })}
               className="flex flex-col gap-5"
             >
-              <p className="text-[14px] text-neutral-300">Email: </p>
+              <p className="text-[14px] text-neutral-100">Email: </p>
 
               <Controller
                 name="email"
@@ -89,7 +90,7 @@ export function Login() {
                   <Input {...field} placeholder="Digite seu email" />
                 )}
               />
-              <p className="text-[14px] text-neutral-300">Senha: </p>
+              <p className="text-[14px] text-neutral-100">Senha: </p>
 
               <Controller
                 name="senha"
