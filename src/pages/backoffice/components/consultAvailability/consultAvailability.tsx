@@ -78,7 +78,7 @@ export default function ConsultAvailability() {
                 colorBorder: "#8b8e8f",
                 colorText: "#8b8e8f",
                 colorPrimary: "#8b8e8f",
-                colorPrimaryHover: "#8a7e7f",
+                colorPrimaryHover: "#a3a3a3",
               },
             },
           }}
@@ -120,7 +120,6 @@ export default function ConsultAvailability() {
                   loading={isLoading}
                   style={{
                     color: "white",
-                    borderColor: "#000000",
                     borderTopLeftRadius: 0,
                     borderBottomLeftRadius: 0,
                     height: "32px",

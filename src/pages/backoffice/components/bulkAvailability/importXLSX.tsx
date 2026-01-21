@@ -110,7 +110,7 @@ export default function ImportXLSX() {
                   colorBorder: "#8b8e8f",
                   colorText: "#8b8e8f",
                   colorPrimary: "#8b8e8f",
-                  colorPrimaryHover: "#8a7e7f",
+                  colorPrimaryHover: "#a3a3a3",
                 },
               },
             }}
@@ -141,10 +141,8 @@ export default function ImportXLSX() {
                   type="primary"
                   htmlType="submit"
                   loading={isConsulting}
-                  disabled={isConsulting || info.length <= 1}
                   style={{
                     color: "white",
-
                     borderTopLeftRadius: 0,
                     borderBottomLeftRadius: 0,
                     height: "32px",
