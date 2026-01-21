@@ -31,36 +31,6 @@ export function OrderBandaLargaPJEdit({
       onFinish={handleSave}
     >
       <div className="flex flex-col w-full gap-2">
-        {/* Seção de Ofertas */}
-        <div className="flex flex-col gap-2 bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
-          {/* <p className="text-[14px] text-neutral-700">
-            <strong>Ofertas:</strong>{" "}
-            {localData.accept_offers === 1
-              ? "Este cliente deseja receber ofertas"
-              : "Este cliente não deseja receber ofertas"}
-          </p> */}
-          <p className="text-[14px] text-neutral-700">
-            <strong>Possui Disponibilidade? </strong>{" "}
-            {localData.availability ? "Sim" : "Não"}
-          </p>
-
-          <p className="text-[14px] text-neutral-700">
-            <strong>Deseja Portabilidade?</strong>{" "}
-            {localData.hasFixedLinePortability === true ? "Sim" : "Não"}
-          </p>
-
-          {localData.hasFixedLinePortability === true && (
-            <p className="text-[14px] text-neutral-700">
-              <strong>Telefone:</strong>{" "}
-              {formatPhoneNumber(localData?.fixedLineNumberToPort || "") || "-"}
-            </p>
-          )}
-
-          <p className="text-[14px] text-neutral-700">
-            <strong>Deseja IP Fixo?</strong>{" "}
-            {localData.wantsFixedIp === true ? "Sim" : "Não"}
-          </p>
-        </div>
         {/* Informações da Empresa */}
         <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3  w-full">
           <div className="flex items-center mb-1">
