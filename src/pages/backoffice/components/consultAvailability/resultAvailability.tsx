@@ -59,13 +59,246 @@ export default function ResultAvailability() {
           </ConfigProvider>
         </div>
 
+        {/* Seção de Disponibilidade */}
         <div className="text-[14px] bg-white p-4 gap-2 rounded-[4px] border-1 border-neutral-200 w-full mb-4">
-          <div className="flex my-1 gap-2">
-            <span className="text-gray-500 whitespace-nowrap">
-              {data.disponibilidade === true || data.availability === true
-                ? "Há planos disponíveis nesse endereço."
-                : "Não há planos disponíveis nesse endereço."}{" "}
-            </span>
+          {/* Tabela de Disponibilidade */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              {/* Header com logos */}
+              <thead>
+                <tr>
+                  <td className="w-24"></td>{" "}
+                  {/* Coluna vazia para os labels laterais */}
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      src="/assets/vivo.png"
+                      alt="Vivo"
+                      className="max-h-6 mx-auto"
+                    />
+                  </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-8 w-8 mx-auto"
+                      src="/assets/claro.png"
+                      alt="Claro"
+                    />
+                  </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-7 w-14 mx-auto"
+                      src="/assets/tim.svg"
+                      alt="TIM"
+                    />
+                  </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-8=9 w-9 mx-auto"
+                      src="/assets/oi.svg"
+                      alt="OI"
+                    />
+                  </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-5 mx-auto"
+                      src="/assets/sky.svg"
+                      alt="Sky"
+                    />
+                  </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-4 mx-auto"
+                      src="/assets/nio.svg"
+                      alt="NIO"
+                    />
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Linha 1: Disponibilidade */}
+                <tr>
+                  <td className="text-[12px] font-medium text-gray-600 p-2 pr-4">
+                    Disponibilidade
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability === null ||
+                    data.availability === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability ? (
+                      data.encontrado_via_range ? (
+                        <div
+                          className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                          title="Disponível via range"
+                        ></div>
+                      ) : (
+                        <div
+                          className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                          title="Disponível"
+                        ></div>
+                      )
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                        title="Indisponível"
+                      ></div>
+                    )}
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability_claro === null ||
+                    data.availability_claro === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_claro ? (
+                      data.encontrado_via_range ? (
+                        <div
+                          className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                          title="Disponível via range"
+                        ></div>
+                      ) : (
+                        <div
+                          className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                          title="Disponível"
+                        ></div>
+                      )
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                        title="Indisponível"
+                      ></div>
+                    )}
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability_tim === null ||
+                    data.availability_tim === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_tim ? (
+                      data.encontrado_via_range ? (
+                        <div
+                          className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                          title="Disponível via range"
+                        ></div>
+                      ) : (
+                        <div
+                          className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                          title="Disponível"
+                        ></div>
+                      )
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                        title="Indisponível"
+                      ></div>
+                    )}
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability_oi === null ||
+                    data.availability_oi === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_oi ? (
+                      data.encontrado_via_range ? (
+                        <div
+                          className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                          title="Disponível via range"
+                        ></div>
+                      ) : (
+                        <div
+                          className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                          title="Disponível"
+                        ></div>
+                      )
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                        title="Indisponível"
+                      ></div>
+                    )}
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability_sky === null ||
+                    data.availability_sky === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_sky ? (
+                      data.encontrado_via_range ? (
+                        <div
+                          className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                          title="Disponível via range"
+                        ></div>
+                      ) : (
+                        <div
+                          className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                          title="Disponível"
+                        ></div>
+                      )
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                        title="Indisponível"
+                      ></div>
+                    )}
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability_nio === null ||
+                    data.availability_nio === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_nio ? (
+                      data.encontrado_via_range ? (
+                        <div
+                          className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                          title="Disponível via range"
+                        ></div>
+                      ) : (
+                        <div
+                          className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                          title="Disponível"
+                        ></div>
+                      )
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                        title="Indisponível"
+                      ></div>
+                    )}
+                  </td>
+                </tr>
+
+                {/* Linha 2: Range de números */}
+                {data.encontrado_via_range === 1 && (
+                  <tr>
+                    <td className="text-[12px] w-32 font-medium text-gray-600 p-2 pr-4">
+                      Range de números
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability
+                        ? `${data.range_min} - ${data.range_max}`
+                        : "-"}
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability_claro
+                        ? `${data.range_min} - ${data.range_max}`
+                        : "-"}
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability_tim
+                        ? `${data.range_min} - ${data.range_max}`
+                        : "-"}
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability_oi
+                        ? `${data.range_min} - ${data.range_max}`
+                        : "-"}
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability_sky
+                        ? `${data.range_min} - ${data.range_max}`
+                        : "-"}
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability_nio
+                        ? `${data.range_min} - ${data.range_max}`
+                        : "-"}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
         {data.disponibilidade === true && (
