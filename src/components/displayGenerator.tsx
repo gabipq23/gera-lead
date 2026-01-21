@@ -4,10 +4,12 @@ import { useState } from "react";
 type DisplayGeneratorProps = {
   title: string;
   value: string;
+  maxLength?: number;
 };
 export default function DisplayGenerator({
   title,
   value,
+  maxLength,
 }: DisplayGeneratorProps) {
   const [tooltipTitle, setTooltipTitle] = useState("Copiar");
   const handleCopy = (
@@ -38,9 +40,23 @@ export default function DisplayGenerator({
   };
   return (
     <div className="flex py-1 text-[14px] gap-2 text-neutral-700">
-      <p>
-        <strong>{title}</strong> {value || "-"}
-      </p>
+      {maxLength && value && value.length > maxLength ? (
+        <Tooltip
+          styles={{ body: { fontSize: "12px" } }}
+          title={value}
+          trigger="hover"
+          placement="top"
+        >
+          <p className="cursor-pointer">
+            <strong>{title}</strong> {`${value.substring(0, maxLength)}...`}
+          </p>
+        </Tooltip>
+      ) : (
+        <p>
+          <strong>{title}</strong> {value || "-"}
+        </p>
+      )}
+
       {copyComponent(value)}
     </div>
   );

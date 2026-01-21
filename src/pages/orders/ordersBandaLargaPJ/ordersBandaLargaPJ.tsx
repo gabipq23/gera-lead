@@ -71,6 +71,7 @@ export default function OrdersBandaLargaPJ() {
       setSelectedRowKeys(newSelectedRowKeys);
     },
   };
+
   return (
     <>
       <QueryClientProvider client={queryClient}>

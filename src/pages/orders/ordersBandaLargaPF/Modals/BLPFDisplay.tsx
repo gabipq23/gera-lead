@@ -5,7 +5,7 @@ import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
 import DisplayGenerator from "@/components/displayGenerator";
 import { ConfigProvider, Form } from "antd";
 import { useEffect } from "react";
-import { ExclamationOutlined } from "@ant-design/icons";
+import { formatBRL } from "@/utils/formatBRL";
 
 interface OrderBandaLargaPFDisplayProps {
   localData: OrderBandaLargaPF;
@@ -24,78 +24,251 @@ export function OrderBandaLargaPFDisplay({
     }
   }, [localData, form]);
 
-  const getAlertScenarios = (
-    availability?: boolean | number,
-    encontrado_via_range?: number,
-    cep_unico?: number,
-    status?: string,
-  ) => {
-    const scenarios: { color: string; content: React.ReactNode }[] = [];
-    const noAvailability =
-      availability === false || availability === null || availability === 0;
-    const isCoveredByRange = encontrado_via_range === 1;
-    const hasUnicCep = cep_unico === 1;
-
-    if (status === "fechado") {
-      if (noAvailability) {
-        scenarios.push({
-          color: "#ffeaea",
-          content:
-            "Não foi identificada disponibilidade no endereço fornecido.",
-        });
-      } else if (isCoveredByRange) {
-        scenarios.push({
-          color: "#fff6c7",
-          content:
-            "O número fornecido esta dentro de um range com disponibilidade.",
-        });
-      } else if (hasUnicCep) {
-        scenarios.push({
-          color: "#fff6c7",
-          content: "CEP Único",
-        });
-      }
-    }
-
-    if (
-      status === "fechado" &&
-      !hasUnicCep &&
-      !isCoveredByRange &&
-      !noAvailability
-    ) {
-      scenarios.push({
-        color: "#e6ffed",
-        content: "Esse pedido não possui travas",
-      });
-    }
-    return scenarios;
-  };
-
   return (
     <div className="flex flex-col w-full gap-2">
-      {/* Seção de Ofertas */}
+      {/* Seção de Disponibilidade */}
       <div className="flex flex-col gap-2 bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
-        {/* <p className="text-[14px] text-neutral-700">
-          <strong>Ofertas:</strong>{" "}
-          {localData.accept_offers === 1
-            ? "Este cliente deseja receber ofertas"
-            : "Este cliente não deseja receber ofertas"}
-        </p> */}
-        <p className="text-[14px] text-neutral-700">
-          <strong>Possui Disponibilidade? </strong>{" "}
-          {localData.availability
-            ? "Sim"
-            : localData.availability === null
-              ? "-"
-              : "Não"}
-        </p>
-        {localData.encontrado_via_range === 1 && (
-          <p className="text-[14px] text-neutral-700">
-            <strong>Disponibilidade encontrada via range </strong> entre os
-            números {localData.range_min} e {localData.range_max}
-          </p>
-        )}
+        {/* Tabela de Disponibilidade */}
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            {/* Header com logos */}
+            <thead>
+              <tr>
+                <td className="w-24"></td>{" "}
+                {/* Coluna vazia para os labels laterais */}
+                <td className="text-center p-2 border-b border-gray-200">
+                  <img
+                    src="/assets/vivo.png"
+                    alt="Vivo"
+                    className="max-h-6 mx-auto"
+                  />
+                </td>
+                <td className="text-center p-2 border-b border-gray-200">
+                  <img
+                    className="h-8 w-8 mx-auto"
+                    src="/assets/claro.png"
+                    alt="Claro"
+                  />
+                </td>
+                <td className="text-center p-2 border-b border-gray-200">
+                  <img
+                    className="h-7 w-14 mx-auto"
+                    src="/assets/tim.svg"
+                    alt="TIM"
+                  />
+                </td>
+                <td className="text-center p-2 border-b border-gray-200">
+                  <img
+                    className="h-8=9 w-9 mx-auto"
+                    src="/assets/oi.svg"
+                    alt="OI"
+                  />
+                </td>
+                <td className="text-center p-2 border-b border-gray-200">
+                  <img
+                    className="h-5 mx-auto"
+                    src="/assets/sky.svg"
+                    alt="Sky"
+                  />
+                </td>
+                <td className="text-center p-2 border-b border-gray-200">
+                  <img
+                    className="h-4 mx-auto"
+                    src="/assets/nio.svg"
+                    alt="NIO"
+                  />
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Linha 1: Disponibilidade */}
+              <tr>
+                <td className="text-[12px] font-medium text-gray-600 p-2 pr-4">
+                  Disponibilidade
+                </td>
+                <td className="text-center p-2">
+                  {localData.availability === null ||
+                  localData.availability === undefined ? (
+                    <span className="text-[12px] text-neutral-500">-</span>
+                  ) : localData.availability ? (
+                    localData.encontrado_via_range ? (
+                      <div
+                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                        title="Disponível via range"
+                      ></div>
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                        title="Disponível"
+                      ></div>
+                    )
+                  ) : (
+                    <div
+                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                      title="Indisponível"
+                    ></div>
+                  )}
+                </td>
+                <td className="text-center p-2">
+                  {localData.availability_claro === null ||
+                  localData.availability_claro === undefined ? (
+                    <span className="text-[12px] text-neutral-500">-</span>
+                  ) : localData.availability_claro ? (
+                    localData.encontrado_via_range ? (
+                      <div
+                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                        title="Disponível via range"
+                      ></div>
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                        title="Disponível"
+                      ></div>
+                    )
+                  ) : (
+                    <div
+                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                      title="Indisponível"
+                    ></div>
+                  )}
+                </td>
+                <td className="text-center p-2">
+                  {localData.availability_tim === null ||
+                  localData.availability_tim === undefined ? (
+                    <span className="text-[12px] text-neutral-500">-</span>
+                  ) : localData.availability_tim ? (
+                    localData.encontrado_via_range ? (
+                      <div
+                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                        title="Disponível via range"
+                      ></div>
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                        title="Disponível"
+                      ></div>
+                    )
+                  ) : (
+                    <div
+                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                      title="Indisponível"
+                    ></div>
+                  )}
+                </td>
+                <td className="text-center p-2">
+                  {localData.availability_oi === null ||
+                  localData.availability_oi === undefined ? (
+                    <span className="text-[12px] text-neutral-500">-</span>
+                  ) : localData.availability_oi ? (
+                    localData.encontrado_via_range ? (
+                      <div
+                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                        title="Disponível via range"
+                      ></div>
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                        title="Disponível"
+                      ></div>
+                    )
+                  ) : (
+                    <div
+                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                      title="Indisponível"
+                    ></div>
+                  )}
+                </td>
+                <td className="text-center p-2">
+                  {localData.availability_sky === null ||
+                  localData.availability_sky === undefined ? (
+                    <span className="text-[12px] text-neutral-500">-</span>
+                  ) : localData.availability_sky ? (
+                    localData.encontrado_via_range ? (
+                      <div
+                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                        title="Disponível via range"
+                      ></div>
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                        title="Disponível"
+                      ></div>
+                    )
+                  ) : (
+                    <div
+                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                      title="Indisponível"
+                    ></div>
+                  )}
+                </td>
+                <td className="text-center p-2">
+                  {localData.availability_nio === null ||
+                  localData.availability_nio === undefined ? (
+                    <span className="text-[12px] text-neutral-500">-</span>
+                  ) : localData.availability_nio ? (
+                    localData.encontrado_via_range ? (
+                      <div
+                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
+                        title="Disponível via range"
+                      ></div>
+                    ) : (
+                      <div
+                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                        title="Disponível"
+                      ></div>
+                    )
+                  ) : (
+                    <div
+                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                      title="Indisponível"
+                    ></div>
+                  )}
+                </td>
+              </tr>
+
+              {/* Linha 2: Range de números */}
+              {localData.encontrado_via_range === 1 && (
+                <tr>
+                  <td className="text-[12px] w-32 font-medium text-gray-600 p-2 pr-4">
+                    Range de números
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_claro
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_tim
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_oi
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_sky
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_nio
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
+
       {/* Informações do Cliente */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
         <div className="flex items-center ">
@@ -106,9 +279,17 @@ export function OrderBandaLargaPFDisplay({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Coluna 1 - Visualização */}
             <div className="flex flex-col ">
+              <img
+                src="\assets\anonymous_avatar.png"
+                className="h-9 w-9 rounded-full"
+              />
               <DisplayGenerator
                 title="Nome Completo:"
                 value={localData.fullname}
+              />
+              <DisplayGenerator
+                title="Nome da Mãe:"
+                value={localData.motherfullname}
               />
               <DisplayGenerator title="CPF:" value={formatCPF(localData.cpf)} />
               <DisplayGenerator
@@ -121,14 +302,15 @@ export function OrderBandaLargaPFDisplay({
             {/* Coluna 2 - Visualização */}
             <div className="flex flex-col">
               <DisplayGenerator
-                title="Nome da Mãe:"
-                value={localData.motherfullname}
-              />
-
-              <DisplayGenerator
                 title="Telefone:"
                 value={formatPhoneNumber(localData.phone)}
               />
+              <DisplayGenerator
+                title="Título WA:"
+                value={localData.motherfullname}
+              />
+              <DisplayGenerator title="Whatsapp:" value="Business" />
+
               <DisplayGenerator
                 title="Anatel:"
                 value={
@@ -146,6 +328,58 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator
                 title="Telefone Adicional:"
                 value={formatPhoneNumber(localData.phoneAdditional || "")}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Plano */}
+      <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
+        <div className="flex items-center ">
+          <h2 className="text-[14px] text-[#666666]">Plano Escolhido</h2>
+        </div>
+
+        <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Coluna 1 - Visualização */}
+            <div className="flex flex-col ">
+              <DisplayGenerator
+                title="Plano:"
+                value={localData.plan?.name + " " + localData.plan?.speed}
+              />
+            </div>
+
+            {/* Coluna 2 - Visualização */}
+            <div className="flex flex-col">
+              <DisplayGenerator
+                title="Preço:"
+                value={formatBRL(localData.plan?.price)}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Informações Técnicas */}
+      <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
+        <div className="flex items-center ">
+          <h2 className="text-[14px] text-[#666666]">Informações Técnicas</h2>
+        </div>
+
+        <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Coluna 1 - Visualização */}
+            <div className="flex flex-col ">
+              <DisplayGenerator title="Device:" value="Desktop" />
+              <DisplayGenerator title="IP:" value={localData.client_ip} />
+            </div>
+
+            {/* Coluna 2 - Visualização */}
+            <div className="flex flex-col">
+              <DisplayGenerator title="Sistema Operacional:" value="Windows" />
+              <DisplayGenerator
+                title="URL:"
+                value={localData.url}
+                maxLength={50}
               />
             </div>
           </div>
@@ -207,34 +441,6 @@ export function OrderBandaLargaPFDisplay({
           </div>
         </div>
       </div>
-
-      {localData?.status === "fechado" &&
-        getAlertScenarios(
-          localData?.availability,
-          localData?.encontrado_via_range,
-          localData?.cep_unico,
-          localData?.status,
-        ).map((scenario, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col gap-2 mb-3 rounded-[4px] p-3 w-full"
-            style={{ backgroundColor: scenario.color }}
-          >
-            <div className="flex items-center">
-              <h2 className="text-[14px] font-semibold">
-                <ExclamationOutlined />
-                <ExclamationOutlined /> ALERTA
-                <ExclamationOutlined />
-                <ExclamationOutlined />
-              </h2>
-            </div>
-            <div className="flex flex-col text-neutral-800 gap-2 rounded-lg min-h-[50px] p-3">
-              <div className="text-[14px] w-full text-neutral-700">
-                {scenario.content}
-              </div>
-            </div>
-          </div>
-        ))}
 
       <ConfigProvider
         theme={{

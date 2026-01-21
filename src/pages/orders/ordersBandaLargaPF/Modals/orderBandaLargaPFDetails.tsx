@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import ConfirmDeleteModal from "@/components/confirmDeleteModal";
 import FooterButtons from "@/components/orders/footerButtons";
 import { generatePDF } from "../controllers/exportPDF";
+import { Thermometer } from "lucide-react";
 export function OrderBandaLargaPFDetailsModal({
   isModalOpen,
   closeModal,
@@ -130,7 +131,14 @@ export function OrderBandaLargaPFDetailsModal({
     >
       <Modal
         centered
-        title="Lead"
+        title={
+          <div className="flex justify-between mr-8">
+            <p className="text-[16px] text-neutral-700">Lead {localData.id}</p>{" "}
+            <p className="text-[16px] flex items-center  text-neutral-700">
+              <Thermometer /> Temperatura: 4
+            </p>
+          </div>
+        }
         open={isModalOpen}
         onCancel={closeModal}
         footer={null}
