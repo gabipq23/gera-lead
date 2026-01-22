@@ -700,13 +700,13 @@ export function useAllOrdersFilterController() {
       ),
     },
     {
-      title: "Títular PF/PJ",
+      title: "Titular",
       dataIndex: "titular_pf_pj",
       width: 120,
       render: (titular_pf_pj) => (titular_pf_pj ? titular_pf_pj : "-"),
     },
     {
-      title: "Títularidade",
+      title: "Titularidade",
       dataIndex: "titularidade",
       width: 120,
       render: (titularidade) => (titularidade ? titularidade : "-"),
