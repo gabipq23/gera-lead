@@ -257,18 +257,34 @@ export function useAllOrdersFilterController() {
         ) : availability ? (
           record.encontrado_via_range ? (
             <div className="flex items-center justify-center ">
-              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              <Tooltip
+                title="VIVO -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
             </div>
           ) : (
             <div className="flex items-center justify-center ">
-              {" "}
-              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              <Tooltip
+                title="VIVO -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
             </div>
           )
         ) : (
           <div className="flex items-center justify-center ">
-            {" "}
-            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            <Tooltip
+              title="VIVO -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
           </div>
         ),
     },
@@ -288,18 +304,34 @@ export function useAllOrdersFilterController() {
         ) : claro?.availability ? (
           claro?.encontrado_via_range ? (
             <div className="flex items-center justify-center ">
-              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              <Tooltip
+                title="CLARO -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
             </div>
           ) : (
             <div className="flex items-center justify-center ">
-              {" "}
-              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              <Tooltip
+                title="CLARO -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
             </div>
           )
         ) : (
           <div className="flex items-center justify-center ">
-            {" "}
-            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            <Tooltip
+              title="CLARO -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
           </div>
         );
       },
@@ -319,18 +351,34 @@ export function useAllOrdersFilterController() {
         ) : tim?.availability ? (
           tim?.encontrado_via_range ? (
             <div className="flex items-center justify-center ">
-              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              <Tooltip
+                title="TIM -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
             </div>
           ) : (
             <div className="flex items-center justify-center ">
-              {" "}
-              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              <Tooltip
+                title="TIM -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
             </div>
           )
         ) : (
           <div className="flex items-center justify-center ">
-            {" "}
-            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            <Tooltip
+              title="TIM -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
           </div>
         );
       },
@@ -350,18 +398,34 @@ export function useAllOrdersFilterController() {
         ) : oi?.availability ? (
           oi?.encontrado_via_range ? (
             <div className="flex items-center justify-center ">
-              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              <Tooltip
+                title="OI -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
             </div>
           ) : (
             <div className="flex items-center justify-center ">
-              {" "}
-              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              <Tooltip
+                title="OI -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
             </div>
           )
         ) : (
           <div className="flex items-center justify-center ">
-            {" "}
-            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            <Tooltip
+              title="OI -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
           </div>
         );
       },
@@ -381,18 +445,34 @@ export function useAllOrdersFilterController() {
         ) : sky?.availability ? (
           sky?.encontrado_via_range ? (
             <div className="flex items-center justify-center ">
-              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              <Tooltip
+                title="SKY -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
             </div>
           ) : (
             <div className="flex items-center justify-center ">
-              {" "}
-              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              <Tooltip
+                title="SKY -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
             </div>
           )
         ) : (
           <div className="flex items-center justify-center ">
-            {" "}
-            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            <Tooltip
+              title="SKY -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
           </div>
         );
       },
@@ -412,18 +492,34 @@ export function useAllOrdersFilterController() {
         ) : nio?.availability ? (
           nio?.encontrado_via_range ? (
             <div className="flex items-center justify-center ">
-              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              <Tooltip
+                title="NIO -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
             </div>
           ) : (
             <div className="flex items-center justify-center ">
-              {" "}
-              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              <Tooltip
+                title="NIO -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
             </div>
           )
         ) : (
           <div className="flex items-center justify-center ">
-            {" "}
-            <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            <Tooltip
+              title="NIO -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
           </div>
         );
       },
