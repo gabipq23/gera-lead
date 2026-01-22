@@ -3,7 +3,7 @@ import { formatCEP } from "@/utils/formatCEP";
 import { formatCPF } from "@/utils/formatCPF";
 import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
 import DisplayGenerator from "@/components/displayGenerator";
-import { ConfigProvider, Form } from "antd";
+import { ConfigProvider, Form, Tooltip } from "antd";
 import { useEffect } from "react";
 import { formatBRL } from "@/utils/formatBRL";
 
@@ -92,21 +92,30 @@ export function OrderBandaLargaPFDisplay({
                     <span className="text-[12px] text-neutral-500">-</span>
                   ) : localData.availability ? (
                     localData.encontrado_via_range ? (
-                      <div
-                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
-                        title="Disponível via range"
-                      ></div>
+                      <Tooltip
+                        title="Disponível (via range numérico)"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                      </Tooltip>
                     ) : (
-                      <div
-                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                      <Tooltip
                         title="Disponível"
-                      ></div>
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
                     )
                   ) : (
-                    <div
-                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                    <Tooltip
                       title="Indisponível"
-                    ></div>
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
                   )}
                 </td>
                 <td className="text-center p-2">
@@ -118,21 +127,30 @@ export function OrderBandaLargaPFDisplay({
                   ) : localData.availability_operadoras?.claro?.availability ? (
                     localData.availability_operadoras?.claro
                       ?.encontrado_via_range ? (
-                      <div
-                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
-                        title="Disponível via range"
-                      ></div>
+                      <Tooltip
+                        title="Disponível (via range numérico)"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                      </Tooltip>
                     ) : (
-                      <div
-                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                      <Tooltip
                         title="Disponível"
-                      ></div>
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
                     )
                   ) : (
-                    <div
-                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                    <Tooltip
                       title="Indisponível"
-                    ></div>
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
                   )}
                 </td>
                 <td className="text-center p-2">
@@ -144,21 +162,30 @@ export function OrderBandaLargaPFDisplay({
                   ) : localData.availability_operadoras?.tim?.availability ? (
                     localData.availability_operadoras?.tim
                       ?.encontrado_via_range ? (
-                      <div
-                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
-                        title="Disponível via range"
-                      ></div>
+                      <Tooltip
+                        title="Disponível (via range numérico)"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                      </Tooltip>
                     ) : (
-                      <div
-                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                      <Tooltip
                         title="Disponível"
-                      ></div>
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
                     )
                   ) : (
-                    <div
-                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                    <Tooltip
                       title="Indisponível"
-                    ></div>
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
                   )}
                 </td>
                 <td className="text-center p-2">
@@ -170,21 +197,30 @@ export function OrderBandaLargaPFDisplay({
                   ) : localData.availability_operadoras?.oi?.availability ? (
                     localData.availability_operadoras?.oi
                       ?.encontrado_via_range ? (
-                      <div
-                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
-                        title="Disponível via range"
-                      ></div>
+                      <Tooltip
+                        title="Disponível (via range numérico)"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                      </Tooltip>
                     ) : (
-                      <div
-                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                      <Tooltip
                         title="Disponível"
-                      ></div>
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
                     )
                   ) : (
-                    <div
-                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                    <Tooltip
                       title="Indisponível"
-                    ></div>
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
                   )}
                 </td>
                 <td className="text-center p-2">
@@ -196,21 +232,30 @@ export function OrderBandaLargaPFDisplay({
                   ) : localData.availability_operadoras?.sky?.availability ? (
                     localData.availability_operadoras?.sky
                       ?.encontrado_via_range ? (
-                      <div
-                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
-                        title="Disponível via range"
-                      ></div>
+                      <Tooltip
+                        title="Disponível (via range numérico)"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                      </Tooltip>
                     ) : (
-                      <div
-                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                      <Tooltip
                         title="Disponível"
-                      ></div>
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
                     )
                   ) : (
-                    <div
-                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                    <Tooltip
                       title="Indisponível"
-                    ></div>
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
                   )}
                 </td>
                 <td className="text-center p-2">
@@ -222,21 +267,30 @@ export function OrderBandaLargaPFDisplay({
                   ) : localData.availability_operadoras?.nio?.availability ? (
                     localData.availability_operadoras?.nio
                       ?.encontrado_via_range ? (
-                      <div
-                        className="h-3 w-3 bg-yellow-500 rounded-full mx-auto"
-                        title="Disponível via range"
-                      ></div>
+                      <Tooltip
+                        title="Disponível (via range numérico)"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                      </Tooltip>
                     ) : (
-                      <div
-                        className="h-3 w-3 bg-green-500 rounded-full mx-auto"
+                      <Tooltip
                         title="Disponível"
-                      ></div>
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
                     )
                   ) : (
-                    <div
-                      className="h-3 w-3 bg-red-500 rounded-full mx-auto"
+                    <Tooltip
                       title="Indisponível"
-                    ></div>
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
                   )}
                 </td>
               </tr>
@@ -251,8 +305,8 @@ export function OrderBandaLargaPFDisplay({
                 localData.availability_operadoras?.nio
                   ?.encontrado_via_range) && (
                 <tr>
-                  <td className="text-[12px] w-32 font-medium text-gray-600 p-2 pr-4">
-                    Range de números
+                  <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
+                    Range numérico
                   </td>
                   <td className="text-center p-2 text-[11px] ">
                     {localData.availability && localData.encontrado_via_range
