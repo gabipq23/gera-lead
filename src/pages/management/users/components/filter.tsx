@@ -30,34 +30,34 @@ export function FiltroUsersForm({
         className="flex min-w-[200px] flex-wrap  gap-2 mb-4"
       >
         <div className="flex gap-2 flex-wrap">
-           <ConfigProvider
-                    theme={{
-                      components: {
-                        Input: {
-                          hoverBorderColor: "#8b8e8f",
-                          activeBorderColor: "#8b8e8f",
-                          activeShadow: "none",
-                        },
-                        Select: {
-                          hoverBorderColor: "#8b8e8f",
-                          activeBorderColor: "#8b8e8f",
-                          activeOutlineColor: "none",
-                        },
-                        DatePicker: {
-                          hoverBorderColor: "#8b8e8f",
-                          activeBorderColor: "#8b8e8f",
-                          colorPrimaryBorder: "#8b8e8f",
-                          colorPrimary: "#8b8e8f",
-                        },
-                        Button: {
-                          colorBorder: "#8b8e8f",
-                          colorText: "#8b8e8f",
-                          colorPrimary: "#8b8e8f",
-                          colorPrimaryHover: "#8a7e7f",
-                        },
-                      },
-                    }}
-                  >
+          <ConfigProvider
+            theme={{
+              components: {
+                Input: {
+                  hoverBorderColor: "#8b8e8f",
+                  activeBorderColor: "#8b8e8f",
+                  activeShadow: "none",
+                },
+                Select: {
+                  hoverBorderColor: "#8b8e8f",
+                  activeBorderColor: "#8b8e8f",
+                  activeOutlineColor: "none",
+                },
+                DatePicker: {
+                  hoverBorderColor: "#8b8e8f",
+                  activeBorderColor: "#8b8e8f",
+                  colorPrimaryBorder: "#8b8e8f",
+                  colorPrimary: "#8b8e8f",
+                },
+                Button: {
+                  colorBorder: "#8b8e8f",
+                  colorText: "#8b8e8f",
+                  colorPrimary: "#8b8e8f",
+                  colorPrimaryHover: "#a3a3a3",
+                },
+              },
+            }}
+          >
             <Controller
               control={control}
               name="nome"

@@ -64,7 +64,7 @@ export function FiltroOrdersBandaLargaPFForm({
               colorBorder: "#8b8e8f",
               colorText: "#8b8e8f",
               colorPrimary: "#8b8e8f",
-              colorPrimaryHover: "#8a7e7f",
+              colorPrimaryHover: "#a3a3a3",
             },
           },
         }}
