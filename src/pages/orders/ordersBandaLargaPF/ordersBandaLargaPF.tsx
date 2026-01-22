@@ -7,7 +7,6 @@ import { useAllOrdersFilterController } from "./controllers/filterController";
 import { useNavigate } from "react-router-dom";
 import { OrderBandaLargaPFDetailsModal } from "./Modals/orderBandaLargaPFDetails";
 import { FiltroOrdersBandaLargaPFForm } from "./components/filter";
-import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
 import { TableProps } from "antd/lib";
 import { useState } from "react";
 
@@ -43,25 +42,6 @@ export default function OrdersBandaLargaPF() {
 
   const totalItems = 0;
 
-  const rowClassName = (record: OrderBandaLargaPF) => {
-    const hasAvaiability = record?.availability;
-    const isCoveredByRange = record?.encontrado_via_range;
-    const hasUnicCep = record?.cep_unico;
-    if (record?.status === "fechado") {
-      if (
-        hasAvaiability === false ||
-        hasAvaiability === null ||
-        hasAvaiability === 0
-      ) {
-        return "ant-table-row-red";
-      } else if (isCoveredByRange === 1 || hasUnicCep === 1) {
-        return "ant-table-row-yellow";
-      }
-
-      return "ant-table-row-green";
-    }
-    return "";
-  };
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const rowSelection: TableProps<any>["rowSelection"] = {
@@ -121,7 +101,6 @@ export default function OrdersBandaLargaPF() {
                 rowSelection={rowSelection}
                 className={styles.customTable}
                 dataSource={orderBandaLargaPF}
-                rowClassName={(record) => rowClassName(record) ?? ""}
                 columns={columns}
                 onRow={(record) => ({
                   onClick: () => {

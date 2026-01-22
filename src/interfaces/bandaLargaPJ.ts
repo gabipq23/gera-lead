@@ -2,27 +2,36 @@ export interface OrderBandaLargaPJResponse {
   pedidos: OrderBandaLargaPJ[];
   status_pos_venda_enum: string[];
 }
+export interface OperadoraAvailability {
+  range_max: number | null;
+  range_min: number | null;
+  availability: boolean;
+  encontrado_via_range: boolean;
+}
+
 export interface OrderBandaLargaPJ {
   accept_offers: number;
   address: string;
   addressblock: string;
   cep_unico: number;
-  encontrado_via_range: number;
-  range_max: string;
-  range_min: string;
+
   addresscomplement: string;
   addressFloor: string;
   addresslot: string;
   addressnumber: string;
   addressreferencepoint: string;
-  availability: boolean | number;
-  availability_claro: boolean | number;
-  availability_vivo: boolean | number;
-  availability_tim: boolean | number;
-  availability_oi: boolean | number;
-  availability_sky: boolean | number;
-  availability_nio: boolean | number;
-
+  range_max: number | null;
+  range_min: number | null;
+  availability: boolean;
+  encontrado_via_range: boolean;
+  availability_operadoras: {
+    claro?: OperadoraAvailability;
+    tim?: OperadoraAvailability;
+    oi?: OperadoraAvailability;
+    sky?: OperadoraAvailability;
+    nio?: OperadoraAvailability;
+    net?: OperadoraAvailability;
+  };
   buildingorhouse: string;
   cep: string;
   city: string;
@@ -77,6 +86,17 @@ export interface OrderBandaLargaPJ {
   typeclient: "PF" | "PJ";
   url: string;
   wantsFixedIp: boolean;
+  tv: boolean;
+  tv_package: string;
+  app: boolean;
+  app_package: string;
+  mei: boolean;
+  socio: boolean;
+  device: string;
+  so: string;
+  provider: string;
+  provedor: string;
+  empresas: string;
 }
 export interface BandaLargaPJFilters {
   availability?: boolean;

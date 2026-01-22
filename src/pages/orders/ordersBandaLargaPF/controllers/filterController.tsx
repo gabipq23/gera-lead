@@ -248,15 +248,39 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (availability, record) =>
         availability === null || availability === undefined ? (
-          "-"
+          <div className="flex items-center justify-center ">-</div>
         ) : availability ? (
           record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="VIVO -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="VIVO -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="VIVO -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
         ),
     },
     {
@@ -265,20 +289,47 @@ export function useAllOrdersFilterController() {
           <img className="h-8 w-8" src="/assets/claro.png" alt="Claro" />
         </div>
       ),
-      dataIndex: "availability_claro",
+      dataIndex: ["availability_operadoras", "claro", "availability"],
       width: 80,
-      render: (availability_claro, record) =>
-        availability_claro === null || availability_claro === undefined ? (
-          "-"
-        ) : availability_claro ? (
-          record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+      render: (_, record) => {
+        const claro = record.availability_operadoras?.claro;
+        return claro?.availability === null ||
+          claro?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : claro?.availability ? (
+          claro?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="CLARO -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="CLARO -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
-        ),
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="CLARO -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
     },
     {
       title: (
@@ -286,20 +337,46 @@ export function useAllOrdersFilterController() {
           <img className="h-9" src="/assets/tim.svg" alt="TIM" />
         </div>
       ),
-      dataIndex: "availability_tim",
+      dataIndex: ["availability_operadoras", "tim", "availability"],
       width: 80,
-      render: (availability_tim, record) =>
-        availability_tim === null || availability_tim === undefined ? (
-          "-"
-        ) : availability_tim ? (
-          record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+      render: (_, record) => {
+        const tim = record.availability_operadoras?.tim;
+        return tim?.availability === null || tim?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : tim?.availability ? (
+          tim?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="TIM -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="TIM -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
-        ),
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="TIM -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
     },
     {
       title: (
@@ -307,20 +384,46 @@ export function useAllOrdersFilterController() {
           <img className="h-8" src="/assets/oi.svg" alt="OI" />
         </div>
       ),
-      dataIndex: "availability_oi",
+      dataIndex: ["availability_operadoras", "oi", "availability"],
       width: 80,
-      render: (availability_oi, record) =>
-        availability_oi === null || availability_oi === undefined ? (
-          "-"
-        ) : availability_oi ? (
-          record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+      render: (_, record) => {
+        const oi = record.availability_operadoras?.oi;
+        return oi?.availability === null || oi?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : oi?.availability ? (
+          oi?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="OI -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="OI -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
-        ),
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="OI -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
     },
     {
       title: (
@@ -328,20 +431,46 @@ export function useAllOrdersFilterController() {
           <img className="h-6" src="/assets/sky.svg" alt="Sky" />
         </div>
       ),
-      dataIndex: "availability_sky",
+      dataIndex: ["availability_operadoras", "sky", "availability"],
       width: 80,
-      render: (availability_sky, record) =>
-        availability_sky === null || availability_sky === undefined ? (
-          "-"
-        ) : availability_sky ? (
-          record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+      render: (_, record) => {
+        const sky = record.availability_operadoras?.sky;
+        return sky?.availability === null || sky?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : sky?.availability ? (
+          sky?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="SKY -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="SKY -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
-        ),
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="SKY -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
     },
     {
       title: (
@@ -349,20 +478,46 @@ export function useAllOrdersFilterController() {
           <img className="h-3" src="/assets/nio.svg" alt="NIO" />
         </div>
       ),
-      dataIndex: "availability_nio",
+      dataIndex: ["availability_operadoras", "nio", "availability"],
       width: 80,
-      render: (availability_nio, record) =>
-        availability_nio === null || availability_nio === undefined ? (
-          "-"
-        ) : availability_nio ? (
-          record.encontrado_via_range ? (
-            <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+      render: (_, record) => {
+        const nio = record.availability_operadoras?.nio;
+        return nio?.availability === null || nio?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : nio?.availability ? (
+          nio?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="NIO -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           ) : (
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="NIO -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
           )
         ) : (
-          <div className="h-2 w-2 bg-red-500 rounded-full"></div>
-        ),
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="NIO -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
     },
     {
       title: "Plano",
@@ -390,7 +545,54 @@ export function useAllOrdersFilterController() {
       render: (_, record) =>
         record.plan?.price ? `R$ ${record.plan.price}` : "-",
     },
-
+    {
+      title: "TV",
+      dataIndex: "tv",
+      width: 70,
+      render: (tv) => (tv ? "Sim" : tv === undefined ? "-" : "Não"),
+    },
+    {
+      title: "Pacote TV",
+      dataIndex: "tv_package",
+      width: 120,
+      render: (tv_package) => (tv_package ? tv_package : "-"),
+    },
+    {
+      title: "APP",
+      dataIndex: "app",
+      width: 70,
+      render: (app) => (app ? "Sim" : app === undefined ? "-" : "Não"),
+    },
+    {
+      title: "Pacote APP",
+      dataIndex: "app_package",
+      width: 120,
+      render: (app_package) => (app_package ? app_package : "-"),
+    },
+    {
+      title: "IP Fixo",
+      dataIndex: "ip_fixo",
+      width: 70,
+      render: (ip_fixo) =>
+        ip_fixo ? "Sim" : ip_fixo === undefined ? "-" : "Não",
+    },
+    {
+      title: "Nome Completo",
+      dataIndex: "fullname",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (fullname) => (
+        <Tooltip
+          placement="topLeft"
+          title={fullname}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {fullname || "-"}
+        </Tooltip>
+      ),
+      width: 150,
+    },
     {
       title: "CPF",
       dataIndex: "cpf",
@@ -422,21 +624,22 @@ export function useAllOrdersFilterController() {
       },
     },
     {
-      title: "Nome Completo",
-      dataIndex: "fullname",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (fullname) => (
-        <Tooltip
-          placement="topLeft"
-          title={fullname}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {fullname}
-        </Tooltip>
-      ),
-      width: 150,
+      title: "MEI",
+      dataIndex: "mei",
+      width: 70,
+      render: (mei) => (mei ? "Sim" : mei === undefined ? "-" : "Não"),
+    },
+    {
+      title: "Sócio",
+      dataIndex: "socio",
+      width: 70,
+      render: (socio) => (socio ? "Sim" : socio === undefined ? "-" : "Não"),
+    },
+    {
+      title: "Empresas",
+      dataIndex: "empresas",
+      width: 140,
+      render: (empresas) => (empresas ? empresas : "-"),
     },
     {
       title: "Telefone",
@@ -497,6 +700,18 @@ export function useAllOrdersFilterController() {
       ),
     },
     {
+      title: "Títular PF/PJ",
+      dataIndex: "titular_pf_pj",
+      width: 120,
+      render: (titular_pf_pj) => (titular_pf_pj ? titular_pf_pj : "-"),
+    },
+    {
+      title: "Títularidade",
+      dataIndex: "titularidade",
+      width: 120,
+      render: (titularidade) => (titularidade ? titularidade : "-"),
+    },
+    {
       title: "Título WA",
       dataIndex: "titulo_wa",
       width: 120,
@@ -520,7 +735,7 @@ export function useAllOrdersFilterController() {
           title={email}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {email}
+          {email || "-"}
         </Tooltip>
       ),
       width: 140,
@@ -543,7 +758,7 @@ export function useAllOrdersFilterController() {
           title={motherfullname}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {motherfullname}
+          {motherfullname || "-"}
         </Tooltip>
       ),
       width: 140,
@@ -628,6 +843,12 @@ export function useAllOrdersFilterController() {
       render: (client_ip) => (client_ip ? client_ip : "-"),
     },
     {
+      title: "Provedor",
+      dataIndex: "provider",
+      width: 120,
+      render: (provider) => (provider ? provider : "-"),
+    },
+    {
       title: "Device",
       dataIndex: "device",
       width: 120,
@@ -639,12 +860,6 @@ export function useAllOrdersFilterController() {
       width: 160,
       render: (so) => (so ? so : "-"),
     },
-    // {
-    //   title: "Fingerprint",
-    //   dataIndex: "finger_print",
-    //   render: (finger_print) => (finger_print ? finger_print : "-"),
-    //   width: 100,
-    // },
   ];
 
   return {

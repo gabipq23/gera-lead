@@ -1,4 +1,7 @@
-import { ISearchAvailabilityResponse } from "@/interfaces/availability";
+import {
+  ISearchAvailabilityResponse,
+  IAvailability,
+} from "@/interfaces/availability";
 import { ConsultAvailabilityService } from "@/services/consultAvailability";
 import { formatCEP } from "@/utils/formatCEP";
 import { useQuery } from "@tanstack/react-query";
@@ -50,7 +53,7 @@ export function useSearchAvailabilityController({
         bairro,
         cidade,
         limite,
-        page
+        page,
       );
       return response;
     },
@@ -98,13 +101,285 @@ export function useSearchAvailabilityController({
   });
   const { styles } = useStyle();
 
-  const tableColumns: TableColumnsType<ISearchAvailabilityResponse> = [
+  const tableColumns: TableColumnsType<IAvailability> = [
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
       width: 80,
     },
+
+    {
+      title: (
+        <div className="flex items-center justify-center">
+          <img src="/assets/vivo.png" alt="Vivo" className="max-h-6" />
+        </div>
+      ),
+      dataIndex: "disponibilidade",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`VIVO - Disponível (via range numérico: ${record.range_min} - ${record.range_max})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="VIVO - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="VIVO - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2  rounded-full">-</div>
+            </Tooltip>
+          </div>
+        ),
+    },
+    {
+      title: (
+        <div className="flex items-center justify-center">
+          <img className="h-8 w-8" src="/assets/claro.png" alt="Claro" />
+        </div>
+      ),
+      dataIndex: "availability_claro",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range_claro ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`CLARO - Disponível (via range numérico: ${record.range_min_claro} - ${record.range_max_claro})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="CLARO - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="CLARO - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2  rounded-full">-</div>
+            </Tooltip>
+          </div>
+        ),
+    },
+    {
+      title: (
+        <div className="flex items-center justify-center">
+          <img className="h-7 w-14" src="/assets/tim.svg" alt="TIM" />
+        </div>
+      ),
+      dataIndex: "availability_tim",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range_tim ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`TIM - Disponível (via range numérico: ${record.range_min_tim} - ${record.range_max_tim})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="TIM - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="TIM - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2  rounded-full">-</div>
+            </Tooltip>
+          </div>
+        ),
+    },
+    {
+      title: (
+        <div className="flex items-center justify-center">
+          <img className="h-8 w-9" src="/assets/oi.svg" alt="OI" />
+        </div>
+      ),
+      dataIndex: "availability_oi",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range_oi ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`OI - Disponível (via range numérico: ${record.range_min_oi} - ${record.range_max_oi})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="OI - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="OI - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2  rounded-full">-</div>
+            </Tooltip>
+          </div>
+        ),
+    },
+    {
+      title: (
+        <div className="flex items-center justify-center">
+          <img className="h-5" src="/assets/sky.svg" alt="Sky" />
+        </div>
+      ),
+      dataIndex: "availability_sky",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range_sky ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`SKY - Disponível (via range numérico: ${record.range_min_sky} - ${record.range_max_sky})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="SKY - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="SKY - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2  rounded-full">-</div>
+            </Tooltip>
+          </div>
+        ),
+    },
+    {
+      title: (
+        <div className="flex items-center justify-center">
+          <img className="h-4" src="/assets/nio.svg" alt="NIO" />
+        </div>
+      ),
+      dataIndex: "availability_nio",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range_nio ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`NIO - Disponível (via range numérico: ${record.range_min_nio} - ${record.range_max_nio})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="NIO - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="NIO - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2  rounded-full">-</div>
+            </Tooltip>
+          </div>
+        ),
+    },
+
     {
       title: "UF",
       dataIndex: "UF",
@@ -243,7 +518,7 @@ export function useSearchAvailabilityController({
   };
 
   const filteredTableColumns = tableColumns.filter((col) =>
-    visibleColumns.includes(col.key as string)
+    visibleColumns.includes(col.key as string),
   );
 
   return {
@@ -290,7 +565,7 @@ export function useGetAllBairrosController(uf: string, cidade: string) {
     queryFn: async (): Promise<any> => {
       const response = await consultAvailabilityService.getAllBairros(
         uf,
-        cidade
+        cidade,
       );
       return response;
     },

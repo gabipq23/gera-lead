@@ -132,11 +132,17 @@ export function OrderBandaLargaPFDetailsModal({
       <Modal
         centered
         title={
-          <div className="flex justify-between mr-8">
-            <p className="text-[16px] text-neutral-700">Lead {localData.id}</p>{" "}
-            <p className="text-[16px] flex items-center  text-neutral-700">
-              <Thermometer /> Temperatura: 4
-            </p>
+          <div className="flex  flex-col md:flex-row lg:flex-row gap-4 mg:items-start lg:items-start justify-between">
+            <span className="flex items-center gap-1">
+              <span style={{ color: "#252525" }}>Lead:</span>{" "}
+              <p className="text-neutral-700">{localData.id}</p>
+            </span>{" "}
+            <span className="flex items-center gap-1 mr-8">
+              <span className="flex items-center " style={{ color: "#252525" }}>
+                <Thermometer /> Temperatura:{" "}
+              </span>{" "}
+              <p className="text-neutral-700">4</p>
+            </span>
           </div>
         }
         open={isModalOpen}

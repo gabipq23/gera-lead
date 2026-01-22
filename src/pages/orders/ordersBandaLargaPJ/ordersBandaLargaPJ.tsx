@@ -7,7 +7,6 @@ import { useAllOrdersFilterController } from "./controllers/filterController";
 import { useNavigate } from "react-router-dom";
 import { OrderBandaLargaPJDetailsModal } from "./Modals/orderBandaLargaPJDetails";
 import { FiltroOrdersBandaLargaPJForm } from "./components/filter";
-import { OrderBandaLargaPJ } from "@/interfaces/bandaLargaPJ";
 import { TableProps } from "antd/lib";
 import { useState } from "react";
 
@@ -44,25 +43,6 @@ export default function OrdersBandaLargaPJ() {
 
   const totalItems = 0;
 
-  const rowClassName = (record: OrderBandaLargaPJ) => {
-    const hasAvaiability = record?.availability;
-    const isCoveredByRange = record?.encontrado_via_range;
-    const hasUnicCep = record?.cep_unico;
-    if (record?.status === "fechado") {
-      if (
-        hasAvaiability === false ||
-        hasAvaiability === null ||
-        hasAvaiability === 0
-      ) {
-        return "ant-table-row-red";
-      } else if (isCoveredByRange === 1 || hasUnicCep === 1) {
-        return "ant-table-row-yellow";
-      }
-
-      return "ant-table-row-green";
-    }
-    return "";
-  };
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const rowSelection: TableProps<any>["rowSelection"] = {
@@ -122,7 +102,6 @@ export default function OrdersBandaLargaPJ() {
                 rowSelection={rowSelection}
                 className={styles.customTable}
                 dataSource={orderBandaLargaPJ}
-                rowClassName={(record) => rowClassName(record) ?? ""}
                 columns={columns}
                 onRow={(record) => ({
                   onClick: () => {
