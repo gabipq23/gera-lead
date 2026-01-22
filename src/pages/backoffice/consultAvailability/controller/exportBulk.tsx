@@ -4,9 +4,27 @@ import { IBulkAvailabilityResult } from "@/interfaces/availability";
 import { useBulkAvailabilityStore } from "../context/BulkAvailabilityContext";
 import { ConsultAvailabilityService } from "@/services/consultAvailability";
 
+// Função helper para formatar status da operadora
+function formatOperadoraStatus(
+  availability: boolean,
+  encontrado_via_range: boolean,
+  range_min: number | null,
+  range_max: number | null,
+): string {
+  if (!availability) {
+    return "Indisponível";
+  }
+
+  if (encontrado_via_range && range_min !== null && range_max !== null) {
+    return `Disponível via range numérico (${range_min} - ${range_max})`;
+  }
+
+  return "Disponível";
+}
+
 export function useExportBulkAvailabilityController() {
   const originalDados = useBulkAvailabilityStore(
-    (state) => state.originalDados
+    (state) => state.originalDados,
   );
   const consultAvailabilityService = new ConsultAvailabilityService();
 
@@ -15,7 +33,7 @@ export function useExportBulkAvailabilityController() {
       const response = await consultAvailabilityService.consultAvailabilityBulk(
         originalDados,
         originalDados.length,
-        1
+        1,
       );
       return response.resultados;
     },
@@ -38,7 +56,42 @@ function exportToXLSX(dados: IBulkAvailabilityResult[]) {
     const exportData = dados.map((item) => ({
       CEP: item.cep || "",
       Número: item.numero || "",
-      Disponibilidade: item.disponibilidade ? "Sim" : "Não",
+      Vivo: formatOperadoraStatus(
+        item.disponibilidade,
+        item.encontrado_via_range,
+        item.range_min,
+        item.range_max,
+      ),
+      Claro: formatOperadoraStatus(
+        item.availability_claro,
+        item.encontrado_via_range_claro,
+        item.range_min_claro,
+        item.range_max_claro,
+      ),
+      TIM: formatOperadoraStatus(
+        item.availability_tim,
+        item.encontrado_via_range_tim,
+        item.range_min_tim,
+        item.range_max_tim,
+      ),
+      OI: formatOperadoraStatus(
+        item.availability_oi,
+        item.encontrado_via_range_oi,
+        item.range_min_oi,
+        item.range_max_oi,
+      ),
+      Sky: formatOperadoraStatus(
+        item.availability_sky,
+        item.encontrado_via_range_sky,
+        item.range_min_sky,
+        item.range_max_sky,
+      ),
+      NIO: formatOperadoraStatus(
+        item.availability_nio,
+        item.encontrado_via_range_nio,
+        item.range_min_nio,
+        item.range_max_nio,
+      ),
       UF: item.uf || "",
       Cidade: item.cidade || "",
       Bairro: item.bairro || "",
@@ -47,9 +100,6 @@ function exportToXLSX(dados: IBulkAvailabilityResult[]) {
       Armário: item.armario || "",
       Tipo: item.tipo || "",
       Território: item.territorio || "",
-      "Via Range": item.encontrado_via_range ? "Sim" : "Não",
-      "Range Min": item.encontrado_via_range ? item.range_min || "" : "",
-      "Range Max": item.encontrado_via_range ? item.range_max || "" : "",
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(exportData);
@@ -77,7 +127,7 @@ function generateFileName(): string {
 
 export function useExportBulkAvailabilityCSVController() {
   const originalDados = useBulkAvailabilityStore(
-    (state) => state.originalDados
+    (state) => state.originalDados,
   );
   const consultAvailabilityService = new ConsultAvailabilityService();
 
@@ -87,7 +137,7 @@ export function useExportBulkAvailabilityCSVController() {
       const response = await consultAvailabilityService.consultAvailabilityBulk(
         originalDados,
         originalDados.length, // limite = quantidade total de CEPs/números
-        1 // página 1
+        1, // página 1
       );
       return response.resultados;
     },
@@ -108,7 +158,42 @@ function exportToCSV(dados: IBulkAvailabilityResult[]) {
     const exportData = dados.map((item) => ({
       CEP: item.cep || "",
       Número: item.numero || "",
-      Disponibilidade: item.disponibilidade ? "Sim" : "Não",
+      Vivo: formatOperadoraStatus(
+        item.disponibilidade,
+        item.encontrado_via_range,
+        item.range_min,
+        item.range_max,
+      ),
+      Claro: formatOperadoraStatus(
+        item.availability_claro,
+        item.encontrado_via_range_claro,
+        item.range_min_claro,
+        item.range_max_claro,
+      ),
+      TIM: formatOperadoraStatus(
+        item.availability_tim,
+        item.encontrado_via_range_tim,
+        item.range_min_tim,
+        item.range_max_tim,
+      ),
+      OI: formatOperadoraStatus(
+        item.availability_oi,
+        item.encontrado_via_range_oi,
+        item.range_min_oi,
+        item.range_max_oi,
+      ),
+      Sky: formatOperadoraStatus(
+        item.availability_sky,
+        item.encontrado_via_range_sky,
+        item.range_min_sky,
+        item.range_max_sky,
+      ),
+      NIO: formatOperadoraStatus(
+        item.availability_nio,
+        item.encontrado_via_range_nio,
+        item.range_min_nio,
+        item.range_max_nio,
+      ),
       UF: item.uf || "",
       Cidade: item.cidade || "",
       Bairro: item.bairro || "",
@@ -117,9 +202,6 @@ function exportToCSV(dados: IBulkAvailabilityResult[]) {
       Armário: item.armario || "",
       Tipo: item.tipo || "",
       Território: item.territorio || "",
-      "Via Range": item.encontrado_via_range ? "Sim" : "Não",
-      "Range Min": item.encontrado_via_range ? item.range_min || "" : "",
-      "Range Max": item.encontrado_via_range ? item.range_max || "" : "",
     }));
 
     const headers = Object.keys(exportData[0]);
@@ -134,7 +216,7 @@ function exportToCSV(dados: IBulkAvailabilityResult[]) {
               ? `"${value.replace(/"/g, '""')}"`
               : value;
           })
-          .join(",")
+          .join(","),
       ),
     ].join("\n");
     const BOM = "\uFEFF";
