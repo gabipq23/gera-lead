@@ -154,7 +154,7 @@ export default function SearchAvailability() {
             layout="vertical"
             onFinish={handleSearchFinish}
           >
-            <div className="flex gap-1">
+            <div className="flex flex-wrap gap-1">
               <Form.Item name="uf" rules={[]}>
                 <Select
                   className="h-8 max-w-[80px]"
