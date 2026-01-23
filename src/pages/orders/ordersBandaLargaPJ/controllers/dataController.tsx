@@ -21,8 +21,6 @@ export function useAllOrdersController() {
       queryKey: [
         "ordersBandaLargaPJ",
         filters.availability || true,
-        filters.status_pos_venda || "",
-
         filters.plan || "",
         filters.fullname || "",
         filters.phone || "",
@@ -34,9 +32,6 @@ export function useAllOrdersController() {
         filters.data_de || undefined,
         filters.data_ate || undefined,
         filters.sort || "data_criacao",
-        filters.status || "",
-        filters.initial_status || "",
-
         filters.order || "desc",
       ],
       queryFn: async (): Promise<OrderBandaLargaPFResponse> => {
@@ -47,8 +42,6 @@ export function useAllOrdersController() {
               : filters.availability === "false"
                 ? false
                 : undefined,
-          status_pos_venda: filters.status_pos_venda || "",
-
           plan: filters.plan || "",
           fullname: filters.fullname || "",
           phone: filters.phone || "",
@@ -59,13 +52,11 @@ export function useAllOrdersController() {
           limit: filters.limit || 200,
           data_de: filters.data_de || undefined,
           data_ate: filters.data_ate || undefined,
-          status: filters.status || "",
           sort: filters.sort || "data_criacao",
           order:
             filters.order === "asc" || filters.order === "desc"
               ? filters.order
               : "desc",
-          initial_status: filters.initial_status || "",
         });
         return response;
       },

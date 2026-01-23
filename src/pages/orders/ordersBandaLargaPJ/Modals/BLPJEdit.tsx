@@ -8,8 +8,6 @@ import { formatCPF } from "@/utils/formatCPF";
 interface OrderBandaLargaPJEditProps {
   localData: OrderBandaLargaPJ;
   form: FormInstance;
-  onPlanChange: (planId: number) => void;
-
   handleSave: () => void;
   handleCancel: () => void;
   loading: boolean;
@@ -17,7 +15,6 @@ interface OrderBandaLargaPJEditProps {
 
 export function OrderBandaLargaPJEdit({
   localData,
-
   form,
   handleSave,
   handleCancel,
