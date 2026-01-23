@@ -633,7 +633,7 @@ export function useAllOrdersFilterController() {
       width: 150,
     },
     {
-      title: "Nome Gestor",
+      title: "Nome",
       dataIndex: ["manager", "name"],
 
       ellipsis: {
@@ -651,7 +651,7 @@ export function useAllOrdersFilterController() {
       width: 150,
     },
     {
-      title: "CPF Gestor",
+      title: "CPF",
       dataIndex: ["manager", "cpf"],
       width: 120,
       render: (cpf) => (cpf ? formatCPF(cpf) : "-"),
