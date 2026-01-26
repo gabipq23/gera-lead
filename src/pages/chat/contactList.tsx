@@ -11,7 +11,7 @@ export default function ContactsList() {
         platformData: { name: "João Silva", picture: null },
         lastInteraction: new Date().toISOString(),
         conversationCount: 3,
-        data: { temperatura_lead: 4, conversa_pausada: true },
+        data: { temperatura_lead: 4, conversa_pausada: false },
       },
       messages: [
         {

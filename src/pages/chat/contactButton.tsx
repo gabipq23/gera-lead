@@ -59,11 +59,11 @@ export function ContactButton({
         margin: "4px 0",
         borderRadius: "8px",
         backgroundColor: isSelected
-          ? "#e6f7ff"
+          ? "#a3a3a3"
           : isHovered
-            ? "#f5f5f5"
+            ? "#b3b3b3"
             : "transparent",
-        border: isSelected ? "1px solid #1890ff" : "1px solid transparent",
+        border: isSelected ? "1px solid #b3b3b3" : "1px solid transparent",
         cursor: "pointer",
         transition: "all 0.2s ease",
       }}
