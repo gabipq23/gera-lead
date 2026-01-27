@@ -15,6 +15,7 @@ export function OrderBandaLargaPFDetailsModal({
   selectedId,
   removeOrderData,
   isRemoveOrderFetching,
+  updateOrderData,
 }: {
   isModalOpen: boolean;
   closeModal: () => void;
@@ -28,6 +29,7 @@ export function OrderBandaLargaPFDetailsModal({
   statusOptions: string[] | undefined;
 }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [localData, setLocalData] = useState<OrderBandaLargaPF | null>(null);
   const [form] = Form.useForm();
@@ -91,7 +93,38 @@ export function OrderBandaLargaPFDetailsModal({
   }, [localData, isEditing, form]);
 
   const handleSave = async () => {
-    console.log("handleSave called");
+    try {
+      setLoading(true);
+      const values = await form.validateFields();
+
+      if (values.installation_preferred_date_one) {
+        values.installation_preferred_date_one = dayjs(
+          values.installation_preferred_date_one,
+        ).format("DD/MM/YYYY");
+      }
+      if (values.installation_preferred_date_two) {
+        values.installation_preferred_date_two = dayjs(
+          values.installation_preferred_date_two,
+        ).format("DD/MM/YYYY");
+      }
+      if (updateOrderData && localData && localData.id) {
+        const formattedData = {
+          pedido: { ...values },
+        };
+
+        await updateOrderData({
+          id: localData.id,
+          data: formattedData,
+        });
+
+        setLocalData((prev) => (prev ? { ...prev, ...values } : null));
+        setIsEditing(false);
+      }
+    } catch (error) {
+      console.error("Erro ao validar campos:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -159,7 +192,7 @@ export function OrderBandaLargaPFDetailsModal({
               // planOptions={planOptions}
               handleSave={handleSave}
               handleCancel={handleCancel}
-              // loading={loading}
+              loading={loading}
             />
           ) : (
             <OrderBandaLargaPFDisplay localData={localData} />
