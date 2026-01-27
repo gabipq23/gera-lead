@@ -97,6 +97,8 @@ export interface OrderBandaLargaPJ {
   provider: string;
   provedor: string;
   empresas: string;
+  ip_isp: string;
+  ip_tipo_acesso: string;
 }
 export interface BandaLargaPJFilters {
   availability?: boolean;

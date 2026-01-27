@@ -505,11 +505,25 @@ export function OrderBandaLargaPJDisplay({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Coluna 1 - Visualização */}
             <div className="flex flex-col ">
-              <DisplayGenerator title="Device:" value={localData.device} />
               <DisplayGenerator title="IP:" value={localData.client_ip} />
+              <DisplayGenerator title="Provedor:" value={localData.ip_isp} />
               <DisplayGenerator
-                title="Provedor:"
-                value={localData.provider || localData.provedor}
+                title="Tipo de acesso:"
+                value={
+                  localData.ip_tipo_acesso === "movel"
+                    ? "Móvel"
+                    : localData.ip_tipo_acesso === "fixo"
+                      ? "Fixo"
+                      : localData.ip_tipo_acesso === "hosting"
+                        ? "Hosting"
+                        : localData.ip_tipo_acesso === "proxy"
+                          ? "Proxy"
+                          : localData.ip_tipo_acesso === "local"
+                            ? "Local"
+                            : localData.ip_tipo_acesso === "desconhecido"
+                              ? "Desconhecido"
+                              : "-"
+                }
               />
             </div>
 
@@ -519,6 +533,7 @@ export function OrderBandaLargaPJDisplay({
                 title="Sistema Operacional:"
                 value={localData.so}
               />
+              <DisplayGenerator title="Device:" value={localData.device} />
               <DisplayGenerator
                 title="URL:"
                 value={localData.url}
