@@ -7,7 +7,7 @@ const { Option } = Select;
 
 export function Chat() {
   return (
-    <div style={{ height: "calc(100vh - 150px)" }}>
+    <div className="h-[calc(100vh-150px)]">
       <ConfigProvider
         theme={{
           token: {
@@ -15,39 +15,30 @@ export function Chat() {
           },
         }}
       >
-        <Splitter
-          style={{ height: "100%", boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
-        >
+        <Splitter className="h-full shadow-lg">
           <Splitter.Panel defaultSize="18%" min="16%" max="22%">
-            <div style={{ padding: "16px" }}>
+            <div className="p-4 flex flex-col">
               {/* Filtros */}
-              <div style={{ marginBottom: "16px" }}>
-                <Button size="small" type="text" style={{ float: "right" }}>
-                  Limpar Filtros
+              <div>
+                <Button type="text" className="float-right">
+                  <p className="text-[12px]">Limpar Filtros</p>
                 </Button>
               </div>
 
-              <div
-                style={{ display: "flex", gap: "8px", marginBottom: "16px" }}
-              >
-                <Select placeholder="Bot" style={{ flex: 1 }}>
+              <div className="flex gap-2 mb-4">
+                <Select placeholder="Bot" className="flex-1">
                   <Option value="bot1">Bot 1</Option>
                 </Select>
 
-                <Input placeholder="Buscar..." style={{ flex: 1 }} />
+                <Input placeholder="Buscar..." className="flex-1" />
               </div>
 
-              <div
-                style={{ display: "flex", gap: "8px", marginBottom: "16px" }}
-              >
-                <Select placeholder="Plataforma" style={{ flex: 1 }}>
+              <div className="flex gap-2 mb-4">
+                <Select placeholder="Plataforma" className="flex-1">
                   <Option value="whatsapp">WhatsApp</Option>
                 </Select>
 
-                <div
-                  className="text-[#a3a3a3]"
-                  style={{ display: "flex", gap: "4px" }}
-                >
+                <div className="text-[#a3a3a3] flex gap-1">
                   <Tooltip title="Favoritos">
                     <Button icon={<StarOutlined />} />
                   </Tooltip>
@@ -63,8 +54,8 @@ export function Chat() {
               </div>
 
               {/* Lista de chats com scroll */}
-              <div style={{ height: "calc(100% - 120px)", overflowY: "auto" }}>
-                {/* Seus ContactButton aqui */}
+              <div className="h-[calc(100%-120px)] overflow-y-auto">
+                {/* {/* Seus ContactButton aqui  */}
               </div>
             </div>
             <div>

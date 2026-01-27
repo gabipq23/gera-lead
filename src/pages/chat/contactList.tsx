@@ -24,6 +24,25 @@ export default function ContactsList() {
         },
       ],
     },
+    {
+      id: "2",
+      prospect: {
+        platformData: { name: "Ana Paula", picture: null },
+        lastInteraction: new Date().toISOString(),
+        conversationCount: 3,
+        data: { temperatura_lead: 2, conversa_pausada: false },
+      },
+      messages: [
+        {
+          id: "2",
+          sender: "prospect",
+          data: {
+            content: "Você poderia falar mais sobre os preços?",
+          },
+          read: false,
+        },
+      ],
+    },
   ];
 
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);

@@ -43,7 +43,7 @@ export function ContactButton({
 
     return parts.map((part, index) =>
       regex.test(part) ? (
-        <mark key={index} style={{ backgroundColor: "#fff2a8" }}>
+        <mark key={index} className="bg-yellow-200">
           {part}
         </mark>
       ) : (
@@ -54,53 +54,33 @@ export function ContactButton({
 
   return (
     <List.Item
-      style={{
-        padding: "12px",
-        margin: "4px 0",
-        borderRadius: "8px",
-        backgroundColor: isSelected
-          ? "#a3a3a3"
+      className={`p-2 my-1  rounded-lg cursor-pointer transition-all duration-200  ${
+        isSelected
+          ? "bg-gray-200 border border-gray-200"
           : isHovered
-            ? "#b3b3b3"
-            : "transparent",
-        border: isSelected ? "1px solid #b3b3b3" : "1px solid transparent",
-        cursor: "pointer",
-        transition: "all 0.2s ease",
-      }}
+            ? "bg-gray-200 border border-gray-200"
+            : "bg-transparent border border-transparent"
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       <List.Item.Meta
         avatar={
-          <Badge
-            dot
-            status={
-              chat.prospect?.data?.conversa_pausada ? "default" : "success"
-            }
-            offset={[-8, 8]}
-          >
-            <Avatar
-              src={chat.prospect?.platformData?.picture}
-              icon={<UserOutlined />}
-              size={48}
-            />
-          </Badge>
+          <Avatar
+            src={chat.prospect?.platformData?.picture}
+            icon={<UserOutlined />}
+            size={48}
+          />
         }
         title={
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Text strong style={{ fontSize: "14px" }}>
+          <div className="flex justify-between items-center mr-3">
+            <Text strong className="text-sm">
               {highlightText(contactName, searchedTerm)}
             </Text>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <Text type="secondary" style={{ fontSize: "11px" }}>
+            <div className="flex items-center gap-1">
+              <Text type="secondary" className="text-[11px]">
                 {lastTime}
               </Text>
             </div>
@@ -109,22 +89,10 @@ export function ContactButton({
         description={
           <div>
             {/* Última mensagem */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-                marginTop: "4px",
-              }}
-            >
+            <div className="flex items-center gap-1 mt-1 mr-3">
               <Paragraph
                 ellipsis={{ rows: 1 }}
-                style={{
-                  margin: 0,
-                  fontSize: "12px",
-                  color: "#666",
-                  flex: 1,
-                }}
+                className="m-0 text-xs text-gray-600 flex-1"
               >
                 {lastMessage?.sender === "user" && "📱 "}
                 {highlightText(
@@ -135,7 +103,7 @@ export function ContactButton({
             </div>
 
             {/* Indicadores adicionais */}
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -156,7 +124,7 @@ export function ContactButton({
                   />
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         }
       />
