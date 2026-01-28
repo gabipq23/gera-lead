@@ -6,14 +6,14 @@ import InputGenerator from "@/components/inputGenerator";
 interface OrderBandaLargaPFEditProps {
   localData: OrderBandaLargaPF;
   form: FormInstance;
-
+  loading: boolean;
   handleSave: () => void;
   handleCancel: () => void;
 }
 
 export function OrderBandaLargaPFEdit({
   localData,
-
+  loading,
   form,
   handleSave,
   handleCancel,
@@ -249,7 +249,7 @@ export function OrderBandaLargaPFEdit({
         </Button>
         <Button
           htmlType="submit"
-          // loading={loading}
+          loading={loading}
           color="default"
           variant="outlined"
           style={{
