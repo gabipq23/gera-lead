@@ -1,8 +1,10 @@
-import { List, Avatar, Typography, Badge } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { useState } from "react";
-
-const { Text, Paragraph } = Typography;
+import { WhatsAppOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { Circle, Hand, Star } from "lucide-react";
+import anonymousAvatar from "/assets/anonymous_avatar.png";
+import { MessagePreview } from "./components/message-preview";
+import { FireFromThermometer } from "./components/fire-from-thermometer";
+import { Thermometer } from "./components/thermometer";
 
 interface ContactButtonProps {
   chat: any;
@@ -10,6 +12,7 @@ interface ContactButtonProps {
   isFavorite?: boolean;
   isHandHelpActive?: boolean;
   searchedTerm?: string;
+  isByGlobalSearch?: boolean;
   onClick?: () => void;
   onFavorite?: () => void;
   onHandHelp?: () => void;
@@ -18,116 +21,124 @@ interface ContactButtonProps {
 export function ContactButton({
   chat,
   isSelected = false,
-
   searchedTerm = "",
+  isByGlobalSearch = false,
   onClick,
 }: ContactButtonProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   // Simular dados do chat
   const lastMessage = chat.messages?.[chat.messages.length - 1];
   const contactName = chat.prospect?.platformData?.name || "Contato";
-  const lastTime = new Date(chat.prospect?.lastInteraction).toLocaleTimeString(
-    "pt-BR",
-    {
-      hour: "2-digit",
-      minute: "2-digit",
-    },
-  );
 
-  const highlightText = (text: string, searchTerm: string) => {
-    if (!searchTerm) return text;
+  const clientMaxTemperature = 4;
+  const value = chat.prospect.data?.temperatura_lead || 0;
+  const isClienteMaxTemperatureDefined = value > 0;
+  const percentage = (value / clientMaxTemperature) * 100;
 
-    const regex = new RegExp(`(${searchTerm})`, "gi");
-    const parts = text.split(regex);
-
-    return parts.map((part, index) =>
-      regex.test(part) ? (
-        <mark key={index} className="bg-yellow-200">
-          {part}
-        </mark>
-      ) : (
-        part
-      ),
-    );
-  };
+  // Calcular data da última interação
+  const lastInteractionDate = new Date(
+    chat.prospect?.lastInteraction,
+  ).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 
   return (
-    <List.Item
-      className={`p-2 my-1  rounded-lg cursor-pointer transition-all duration-200  ${
-        isSelected
-          ? "bg-gray-200 border border-gray-200"
-          : isHovered
-            ? "bg-gray-200 border border-gray-200"
-            : "bg-transparent border border-transparent"
-      }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-    >
-      <List.Item.Meta
-        avatar={
-          <Avatar
-            src={chat.prospect?.platformData?.picture}
-            icon={<UserOutlined />}
-            size={48}
-          />
-        }
-        title={
-          <div className="flex justify-between items-center mr-3">
-            <Text strong className="text-sm">
-              {highlightText(contactName, searchedTerm)}
-            </Text>
-
-            <div className="flex items-center gap-1">
-              <Text type="secondary" className="text-[11px]">
-                {lastTime}
-              </Text>
-            </div>
+    <>
+      <button
+        type="button"
+        onClick={onClick}
+        className={`
+    flex  hover:shadow-md hover:bg-slate-400/[.2] p-1.5 pt-3  rounded-lg duration-200  items-center justify-between  cursor-pointer  mr-2
+    ${isSelected ? "bg-slate-400/[.2] dark:bg-slate-400/[.2]" : ""}
+  `}
+      >
+        <div className="flex  my-2 mx-2 w-full items-center justify-center gap-3 relative">
+          <div className="relative">
+            <img
+              src={chat.prospect?.platformData?.picture}
+              alt={contactName}
+              className="rounded-full min-w-10 max-w-10"
+            />
           </div>
-        }
-        description={
-          <div>
-            {/* Última mensagem */}
-            <div className="flex items-center gap-1 mt-1 mr-3">
-              <Paragraph
-                ellipsis={{ rows: 1 }}
-                className="m-0 text-xs text-gray-600 flex-1"
-              >
-                {lastMessage?.sender === "user" && "📱 "}
-                {highlightText(
-                  lastMessage?.data?.content || "Sem mensagem",
-                  searchedTerm,
-                )}
-              </Paragraph>
-            </div>
 
-            {/* Indicadores adicionais */}
-            {/* <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: "4px",
-              }}
+          <Tooltip title="Whatsapp">
+            <WhatsAppOutlined
+              size={16}
+              className="absolute top-[-10px] left-[-5px] text-green-600"
+            />
+          </Tooltip>
+
+          <Tooltip title="Favoritar" className="dark:bg-muted text-slate-200">
+            <div
+              className="absolute bottom-[-5px] left-[-5px]"
+              // onClick={onFavoriteChange}
             >
-              <div style={{ display: "flex", gap: "4px" }}>
-                {chat.messages?.filter((m) => m.sender !== "user" && !m.read)
-                  .length > 0 && (
-                  <Badge
-                    count={
-                      chat.messages.filter(
-                        (m) => m.sender !== "user" && !m.read,
-                      ).length
-                    }
-                    size="small"
-                  />
-                )}
-              </div>
-            </div> */}
+              <Star size={16} className=" text-red-500" />
+            </div>
+          </Tooltip>
+
+          <Tooltip title="Bot Name" className="dark:bg-muted text-slate-200">
+            <img
+              className="absolute top-[28px] left-[30px] w-5 rounded-full border border-slate-300"
+              src={anonymousAvatar}
+            />
+          </Tooltip>
+
+          <div className="flex flex-col items-start">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xs font-bold text-neutral-800  max-w-45 truncate">
+                {chat?.prospect?.platformData?.name}
+              </h2>
+              <Tooltip title="Ajuda" className="dark:bg-muted text-slate-200">
+                <div>
+                  <Hand size={16} className=" text-red-500" />
+                </div>
+              </Tooltip>
+            </div>
+
+            <MessagePreview
+              message={lastMessage}
+              searchedTerm={searchedTerm}
+              isByGlobalSearch={isByGlobalSearch}
+            />
           </div>
-        }
-      />
-    </List.Item>
+
+          {isClienteMaxTemperatureDefined && (
+            <div className="absolute top-1 right-10">
+              <FireFromThermometer
+                value={value}
+                max={clientMaxTemperature}
+                percentage={percentage}
+                showIcons={true}
+              />
+            </div>
+          )}
+
+          {/* Pin */}
+          {isSelected && (
+            <Circle
+              size={10}
+              className="absolute top-7 right-1 text-green-300 fill-green-300"
+            />
+          )}
+
+          <div className="flex w-full items-center justify-between gap-4 pl-13">
+            {isClienteMaxTemperatureDefined && (
+              <div className="flex-3 h-2">
+                <Thermometer
+                  min={0}
+                  max={clientMaxTemperature}
+                  value={chat.prospect?.data?.temperatura_lead ?? 0}
+                />
+              </div>
+            )}
+            <span className="flex-1 w-full text-end  text-[10px] text-neutral-500 dark:text-neutral-300 whitespace-nowrap">
+              {lastInteractionDate}
+            </span>
+          </div>
+        </div>
+      </button>
+    </>
   );
 }

@@ -7,7 +7,7 @@ const { Option } = Select;
 
 export function Chat() {
   return (
-    <div className="h-[calc(100vh-150px)]">
+    <div className="h-[calc(100vh-150px)] px-2">
       <ConfigProvider
         theme={{
           token: {

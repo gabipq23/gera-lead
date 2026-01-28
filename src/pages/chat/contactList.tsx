@@ -8,7 +8,10 @@ export default function ContactsList() {
     {
       id: "1",
       prospect: {
-        platformData: { name: "João Silva", picture: null },
+        platformData: {
+          name: "João Silva",
+          picture: `/assets/anonymous_avatar.png`,
+        },
         lastInteraction: new Date().toISOString(),
         conversationCount: 3,
         data: { temperatura_lead: 4, conversa_pausada: false },
@@ -27,7 +30,10 @@ export default function ContactsList() {
     {
       id: "2",
       prospect: {
-        platformData: { name: "Ana Paula", picture: null },
+        platformData: {
+          name: "Ana Paula",
+          picture: `/assets/anonymous_avatar.png`,
+        },
         lastInteraction: new Date().toISOString(),
         conversationCount: 3,
         data: { temperatura_lead: 2, conversa_pausada: false },
