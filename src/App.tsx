@@ -24,7 +24,7 @@ import ResultAvailability from "./pages/backoffice/components/consultAvailabilit
 import ResultSearchAvailability from "./pages/backoffice/components/searchAvailability/resultSearchAvailability";
 import ResultBulkAvailability from "./pages/backoffice/components/bulkAvailability/resultBulkAvailability";
 import Availability from "./pages/backoffice/consultAvailability/availability";
-import { Chat } from "./pages/chat/chat";
+// import { Chat } from "./pages/chat/chat";
 
 export default function App() {
   const { user, checkAuth } = useAuthContext();
@@ -64,7 +64,7 @@ function Content({ user }: { user: IUser | null }) {
         <Routes>
           {effectiveUser ? (
             <>
-              <Route path="/admin/chat" element={<Chat />} />
+              {/* <Route path="/admin/chat" element={<Chat />} /> */}
               <Route path="/admin/leads-pj" element={<OrdersBandaLargaPJ />} />
               <Route path="/admin/leads-pf" element={<OrdersBandaLargaPF />} />
               <Route
