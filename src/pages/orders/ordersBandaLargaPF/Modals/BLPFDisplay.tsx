@@ -41,7 +41,7 @@ export function OrderBandaLargaPFDisplay({
             {/* Coluna 1 - Visualização */}
             <div className="flex flex-col ">
               <img
-                src="\assets\anonymous_avatar.png"
+                src={localData.avatar || "/assets/anonymous_avatar.png"}
                 className="h-9 w-9 rounded-full"
               />
               <DisplayGenerator
@@ -74,9 +74,21 @@ export function OrderBandaLargaPFDisplay({
                 title="Telefone:"
                 value={formatPhoneNumber(localData.phone)}
               />
-              <DisplayGenerator title="Título WA:" value="-" />
-              <DisplayGenerator title="Whatsapp:" value="Business" />
-
+              <DisplayGenerator
+                title="Título WA:"
+                value={localData.nome_whatsapp}
+              />
+              <DisplayGenerator
+                title="Whatsapp:"
+                value={
+                  localData.is_comercial === true
+                    ? "Business"
+                    : localData.is_comercial === false
+                      ? "Messenger"
+                      : "-"
+                }
+              />
+              <DisplayGenerator title="Status:" value={localData.recado} />
               <DisplayGenerator
                 title="Anatel:"
                 value={

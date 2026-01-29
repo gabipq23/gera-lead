@@ -99,6 +99,10 @@ export interface OrderBandaLargaPJ {
   empresas: string;
   ip_isp: string;
   ip_tipo_acesso: string;
+  is_comercial?: boolean;
+  nome_whatsapp?: string;
+  recado?: string;
+  avatar?: string;
 }
 export interface BandaLargaPJFilters {
   availability?: boolean;

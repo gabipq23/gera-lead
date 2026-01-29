@@ -94,6 +94,10 @@ export interface OrderBandaLargaPF {
   empresas: string;
   ip_isp: string;
   ip_tipo_acesso: string;
+  is_comercial?: boolean;
+  nome_whatsapp?: string;
+  recado?: string;
+  avatar?: string;
 }
 
 export interface BandaLargaFilters {
