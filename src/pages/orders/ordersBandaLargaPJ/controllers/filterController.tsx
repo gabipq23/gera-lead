@@ -190,10 +190,10 @@ export function useAllOrdersFilterController() {
       title: "",
       dataIndex: "avatar",
       width: 80,
-      render: () => {
+      render: (avatar) => {
         return (
           <img
-            src="\assets\anonymous_avatar.png"
+            src={avatar || "/assets/anonymous_avatar.png"}
             className="h-9 w-9 rounded-full"
           />
         );
@@ -773,15 +773,37 @@ export function useAllOrdersFilterController() {
     },
     {
       title: "Título WA",
-      dataIndex: "titulo_wa",
+      dataIndex: "nome_whatsapp",
       width: 120,
-      render: (titulo_wa) => (titulo_wa ? titulo_wa : "-"),
+      render: (nome_whatsapp) => (nome_whatsapp ? nome_whatsapp : "-"),
     },
     {
       title: "Whatsapp",
-      dataIndex: "whatsapp",
+      dataIndex: "is_comercial",
       width: 100,
-      render: (whatsapp) => (whatsapp ? whatsapp : "-"),
+      render: (is_comercial) =>
+        is_comercial === true
+          ? "Business"
+          : is_comercial === false
+            ? "Messenger"
+            : "-",
+    },
+    {
+      title: "Status",
+      dataIndex: "recado",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (recado) => (
+        <Tooltip
+          placement="topLeft"
+          title={recado}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {recado || "-"}
+        </Tooltip>
+      ),
+      width: 140,
     },
     {
       title: "Email",

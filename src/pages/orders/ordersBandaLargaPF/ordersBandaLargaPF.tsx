@@ -9,6 +9,7 @@ import { OrderBandaLargaPFDetailsModal } from "./Modals/orderBandaLargaPFDetails
 import { FiltroOrdersBandaLargaPFForm } from "./components/filter";
 import { TableProps } from "antd/lib";
 import { useState } from "react";
+import TableStyle from "./style/tableStyle";
 
 export default function OrdersBandaLargaPF() {
   const queryClient = new QueryClient();
@@ -36,10 +37,9 @@ export default function OrdersBandaLargaPF() {
     setSelectedBLOrder,
     currentPage,
     pageSize,
-    columns,
-    styles,
   } = useAllOrdersFilterController();
 
+  const { columns, styles } = TableStyle();
   const totalItems = 0;
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);

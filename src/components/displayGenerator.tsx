@@ -3,7 +3,7 @@ import { Tooltip } from "antd";
 import { useState } from "react";
 type DisplayGeneratorProps = {
   title: string;
-  value: string;
+  value: string | undefined | null;
   maxLength?: number;
 };
 export default function DisplayGenerator({
@@ -57,7 +57,7 @@ export default function DisplayGenerator({
         </p>
       )}
 
-      {copyComponent(value)}
+      {copyComponent(value || "-")}
     </div>
   );
 }

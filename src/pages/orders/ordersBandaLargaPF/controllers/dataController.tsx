@@ -22,7 +22,6 @@ export function useAllOrdersController() {
         "ordersBandaLargaPF",
         filters.availability || true,
         filters.plan || "",
-        filters.status_pos_venda || "",
         filters.fullname || "",
         filters.phone || "",
         filters.cpf || "",
@@ -34,11 +33,7 @@ export function useAllOrdersController() {
         filters.data_de || undefined,
         filters.data_ate || undefined,
         filters.sort || "data_criacao",
-        filters.status || "",
         filters.order || "desc",
-        filters.consulta || undefined,
-        filters.pedido || undefined,
-        filters.initial_status || "",
       ],
       queryFn: async (): Promise<OrderBandaLargaPFResponse> => {
         const response = await bandaLargaService.allBandaLargaFiltered({
@@ -48,20 +43,7 @@ export function useAllOrdersController() {
               : filters.availability === "false"
                 ? false
                 : undefined,
-          consulta:
-            filters.consulta === "true"
-              ? true
-              : filters.consulta === "false"
-                ? false
-                : undefined,
-          pedido:
-            filters.pedido === "true"
-              ? true
-              : filters.pedido === "false"
-                ? false
-                : undefined,
           plan: filters.plan || "",
-          status_pos_venda: filters.status_pos_venda || "",
           fullname: filters.fullname || "",
           phone: filters.phone || "",
           cpf: filters.cpf || "",
@@ -72,13 +54,11 @@ export function useAllOrdersController() {
           limit: filters.limit || 200,
           data_de: filters.data_de || undefined,
           data_ate: filters.data_ate || undefined,
-          status: filters.status || "",
           sort: filters.sort || "data_criacao",
           order:
             filters.order === "asc" || filters.order === "desc"
               ? filters.order
               : "desc",
-          initial_status: filters.initial_status || "",
         });
 
         return response;
@@ -172,7 +152,6 @@ export function useAllOrdersController() {
 
   return {
     ordersBandaLarga,
-
     showModal,
     closeModal,
     isModalOpen,

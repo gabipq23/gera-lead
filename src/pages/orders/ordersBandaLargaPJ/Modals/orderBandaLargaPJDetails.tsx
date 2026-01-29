@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import ConfirmDeleteModal from "@/components/confirmDeleteModal";
 import FooterButtons from "@/components/orders/footerButtons";
 import { generatePDF } from "../controllers/exportPDF";
-import { Thermometer } from "lucide-react";
+import ModalHeader from "@/components/orders/modalHeader";
 
 export function OrderBandaLargaPJDetailsModal({
   isModalOpen,
@@ -39,10 +39,6 @@ export function OrderBandaLargaPJDetailsModal({
       setLocalData(selectedId);
     }
   }, [selectedId]);
-
-  const handlePlanChange = (planId: number) => {
-    console.log("oi", planId);
-  };
 
   useEffect(() => {
     if (localData && isEditing) {
@@ -164,7 +160,6 @@ export function OrderBandaLargaPJDetailsModal({
             colorBorder: "#8b8e8f",
             colorText: "#8b8e8f",
             colorPrimary: "#8b8e8f",
-
             colorPrimaryHover: "#a3a3a3",
           },
         },
@@ -172,20 +167,7 @@ export function OrderBandaLargaPJDetailsModal({
     >
       <Modal
         centered
-        title={
-          <div className="flex  flex-col md:flex-row lg:flex-row gap-4 mg:items-start lg:items-start justify-between">
-            <span className="flex items-center gap-1">
-              <span style={{ color: "#252525" }}>Lead:</span>{" "}
-              <p className="text-neutral-700">{localData.id}</p>
-            </span>{" "}
-            <span className="flex items-center gap-1 mr-8">
-              <span className="flex items-center " style={{ color: "#252525" }}>
-                <Thermometer /> Temperatura:{" "}
-              </span>{" "}
-              <p className="text-neutral-700">4</p>
-            </span>
-          </div>
-        }
+        title={<ModalHeader localData={localData} />}
         open={isModalOpen}
         onCancel={closeModal}
         footer={null}
@@ -196,7 +178,6 @@ export function OrderBandaLargaPJDetailsModal({
             <OrderBandaLargaPJEdit
               localData={localData}
               form={form}
-              onPlanChange={handlePlanChange}
               handleSave={handleSave}
               handleCancel={handleCancel}
               loading={loading}
