@@ -99,6 +99,7 @@ export default function OrdersBandaLargaPJ() {
               <Table<any>
                 rowKey="id"
                 loading={isLoading}
+                scroll={{ y: 800 }}
                 rowSelection={rowSelection}
                 className={styles.customTable}
                 dataSource={orderBandaLargaPJ}

@@ -100,6 +100,7 @@ export default function OrdersBandaLargaPF() {
                 className={styles.customTable}
                 dataSource={orderBandaLargaPF}
                 columns={columns}
+                scroll={{ y: 800 }}
                 onRow={(record) => ({
                   onClick: () => {
                     setSelectedBLOrder(record);

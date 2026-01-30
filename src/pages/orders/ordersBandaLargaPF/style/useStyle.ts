@@ -49,7 +49,7 @@ export const useStyle = createStyles(({ css }) => {
         display: flex;
         justify-content: center;
         margin-top: 16px; /* opcional: dá um espaçamento
-        colorText: "#660099",
+        colorText: "#8b8e8f",
         colorTextActive: "#550088", */
       }
     `,
