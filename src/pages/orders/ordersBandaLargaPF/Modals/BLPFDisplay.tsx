@@ -44,18 +44,27 @@ export function OrderBandaLargaPFDisplay({
                 src={localData.avatar || "/assets/anonymous_avatar.png"}
                 className="h-9 w-9 rounded-full"
               />
+              <DisplayGenerator title="Nome:" value={localData.fullname} />
               <DisplayGenerator
-                title="Nome Completo:"
-                value={localData.fullname}
+                title="Nome (RFB):"
+                value={localData.nome_receita}
               />
               <DisplayGenerator
                 title="Nome da Mãe:"
                 value={localData.motherfullname}
               />
+              <DisplayGenerator
+                title="Nome Mãe (RFB):"
+                value={localData.nome_da_mae_receita}
+              />
               <DisplayGenerator title="CPF:" value={formatCPF(localData.cpf)} />
               <DisplayGenerator
                 title="Data de Nascimento:"
                 value={localData.birthdate}
+              />
+              <DisplayGenerator
+                title="Data Nascimento (RFB):"
+                value={localData.data_de_nascimento_receita}
               />
               <DisplayGenerator title="Email:" value={localData.email} />
               <DisplayGenerator

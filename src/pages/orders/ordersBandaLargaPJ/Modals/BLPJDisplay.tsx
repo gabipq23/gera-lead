@@ -76,6 +76,10 @@ export function OrderBandaLargaPJDisplay({
                 value={localData?.manager?.name}
               />
               <DisplayGenerator
+                title="Nome (RFB):"
+                value={localData.nome_receita}
+              />
+              <DisplayGenerator
                 title="CPF"
                 value={formatCPF(localData?.manager?.cpf)}
               />

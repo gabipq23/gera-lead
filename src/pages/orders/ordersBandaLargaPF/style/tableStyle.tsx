@@ -461,6 +461,12 @@ export default function TableStyle() {
       render: (birthdate) => (birthdate ? birthdate : "-"),
     },
     {
+      title: "Data de Nascimento (RFB)",
+      dataIndex: "data_de_nascimento_receita",
+      width: 180,
+      render: (data_de_nascimento_receita) => data_de_nascimento_receita || "-",
+    },
+    {
       title: "Nome da Mãe",
       dataIndex: "motherfullname",
       ellipsis: {
@@ -476,6 +482,24 @@ export default function TableStyle() {
         </Tooltip>
       ),
       width: 140,
+    },
+    {
+      title: "Nome da Mãe (RFB)",
+      dataIndex: "nome_da_mae_receita",
+
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (nome_da_mae_receita) => (
+        <Tooltip
+          placement="topLeft"
+          title={nome_da_mae_receita}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {nome_da_mae_receita || "-"}
+        </Tooltip>
+      ),
+      width: 150,
     },
     {
       title: "CEP",

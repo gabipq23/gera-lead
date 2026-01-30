@@ -658,6 +658,24 @@ export function useAllOrdersFilterController() {
       width: 150,
     },
     {
+      title: "Nome (RFB)",
+      dataIndex: "nome_receita",
+
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (nome_receita) => (
+        <Tooltip
+          placement="topLeft"
+          title={nome_receita}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {nome_receita || "-"}
+        </Tooltip>
+      ),
+      width: 150,
+    },
+    {
       title: "CPF",
       dataIndex: ["manager", "cpf"],
       width: 120,

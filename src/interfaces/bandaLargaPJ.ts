@@ -106,6 +106,9 @@ export interface OrderBandaLargaPJ {
   voz_fixa?: string;
   browser?: string;
   resolution?: string;
+  nome_receita: string;
+  data_de_nascimento_receita: string;
+  nome_da_mae_receita: string;
 }
 export interface BandaLargaPJFilters {
   availability?: boolean;
