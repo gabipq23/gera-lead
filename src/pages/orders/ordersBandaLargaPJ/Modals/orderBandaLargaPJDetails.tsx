@@ -173,7 +173,7 @@ export function OrderBandaLargaPJDetailsModal({
         footer={null}
         width={1200}
       >
-        <div className="text-[#666666] mt-4 h-[460px] overflow-y-auto scrollbar-thin">
+        <div className="text-[#666666] mt-4 h-[500px] overflow-y-auto scrollbar-thin">
           {isEditing ? (
             <OrderBandaLargaPJEdit
               localData={localData}
