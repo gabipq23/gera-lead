@@ -7,6 +7,7 @@ import { ConfigProvider, Form } from "antd";
 import { useEffect } from "react";
 import { formatBRL } from "@/utils/formatBRL";
 import AvailabilityTable from "@/components/orders/availabilityTable";
+import { EmpresasDisplay } from "@/components/empresasDisplay";
 
 interface OrderBandaLargaPFDisplayProps {
   localData: OrderBandaLargaPF;
@@ -32,22 +33,34 @@ export function OrderBandaLargaPFDisplay({
 
       {/* Informações do Cliente */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
-        <div className="flex items-center ">
-          <h2 className="text-[14px] text-[#666666]">Informações do Cliente</h2>
+        <div className="flex items-center mb-3">
+          <h2 className="text-[14px] text-[#666666] font-medium">
+            Informações do Cliente
+          </h2>
         </div>
 
-        <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Coluna 1 - Visualização */}
-            <div className="flex flex-col ">
-              <img
-                src={localData.avatar || "/assets/anonymous_avatar.png"}
-                className="h-9 w-9 rounded-full"
-              />
+        <div className="flex flex-col text-neutral-800 gap-4 rounded-lg">
+          {/* Dados Pessoais */}
+          <div className="bg-white rounded-md p-2">
+            <img
+              src={localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"}
+              className="h-10 w-10 rounded-full mr-3"
+            />{" "}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator title="Nome:" value={localData.fullname} />
               <DisplayGenerator
                 title="Nome (RFB):"
                 value={localData.nome_receita}
+              />
+              <DisplayGenerator title="CPF:" value={formatCPF(localData.cpf)} />
+              <DisplayGenerator title="Email:" value={localData.email} />
+              <DisplayGenerator
+                title="Data de Nascimento:"
+                value={localData.birthdate}
+              />
+              <DisplayGenerator
+                title="Data Nascimento (RFB):"
+                value={localData.data_de_nascimento_receita}
               />
               <DisplayGenerator
                 title="Nome da Mãe:"
@@ -57,66 +70,100 @@ export function OrderBandaLargaPFDisplay({
                 title="Nome Mãe (RFB):"
                 value={localData.nome_da_mae_receita}
               />
-              <DisplayGenerator title="CPF:" value={formatCPF(localData.cpf)} />
-              <DisplayGenerator
-                title="Data de Nascimento:"
-                value={localData.birthdate}
-              />
-              <DisplayGenerator
-                title="Data Nascimento (RFB):"
-                value={localData.data_de_nascimento_receita}
-              />
-              <DisplayGenerator title="Email:" value={localData.email} />
-              <DisplayGenerator
-                title="MEI:"
-                value={localData.mei ? "Sim" : "Não"}
-              />
+            </div>
+          </div>
+
+          {/* Informações de Contato */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {/* Telefone Principal */}
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-gray-500">
+                  Telefone Principal
+                </div>
+                <div className="p-1 space-y-1">
+                  <DisplayGenerator
+                    title="Número:"
+                    value={formatPhoneNumber(localData.phone)}
+                  />
+                  <DisplayGenerator
+                    title="Anatel:"
+                    value={
+                      localData.numero_valido
+                        ? "Sim"
+                        : localData.numero_valido === null
+                          ? "-"
+                          : "Não"
+                    }
+                  />
+                  <DisplayGenerator
+                    title="Operadora:"
+                    value={localData.operadora}
+                  />
+                  <DisplayGenerator
+                    title="WhatsApp:"
+                    value={
+                      localData.whatsapp?.is_comercial === true
+                        ? "Business"
+                        : localData.is_comercial === false
+                          ? "Messenger"
+                          : "-"
+                    }
+                  />
+                  <DisplayGenerator
+                    title="Status:"
+                    value={localData.whatsapp?.recado}
+                  />
+                  {/* <DisplayGenerator
+                    title="Título WA:"
+                    value={localData.nome_whatsapp}
+                  /> */}
+                </div>
+              </div>
+
+              {/* Telefone Adicional */}
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-gray-500">
+                  Telefone Adicional
+                </div>
+                <div className="rounded p-1 space-y-1">
+                  <DisplayGenerator
+                    title="Número:"
+                    value={formatPhoneNumber(localData.phoneAdditional || "")}
+                  />
+                  <DisplayGenerator
+                    title="Anatel:"
+                    value={
+                      localData.numero_adicional_valido
+                        ? "Sim"
+                        : localData.numero_adicional_valido === null
+                          ? "-"
+                          : "Não"
+                    }
+                  />
+                  <DisplayGenerator
+                    title="Operadora:"
+                    value={localData.operadora_adicional}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Informações Empresariais */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
                 title="Sócio:"
                 value={localData.socio ? "Sim" : "Não"}
-              />
-            </div>
-
-            {/* Coluna 2 - Visualização */}
-            <div className="flex flex-col">
-              <DisplayGenerator
-                title="Telefone:"
-                value={formatPhoneNumber(localData.phone)}
-              />
-              <DisplayGenerator
-                title="Título WA:"
-                value={localData.nome_whatsapp}
-              />
-              <DisplayGenerator
-                title="Whatsapp:"
-                value={
-                  localData.is_comercial === true
-                    ? "Business"
-                    : localData.is_comercial === false
-                      ? "Messenger"
-                      : "-"
-                }
-              />
-              <DisplayGenerator title="Status:" value={localData.recado} />
-              <DisplayGenerator
-                title="Anatel:"
-                value={
-                  localData.numero_valido
-                    ? "Sim"
-                    : localData.numero_valido === null
-                      ? "-"
-                      : "Não"
-                }
-              />
-              <DisplayGenerator
-                title="Operadora:"
-                value={localData.operadora}
-              />
-              <DisplayGenerator
-                title="Telefone Adicional:"
-                value={formatPhoneNumber(localData.phoneAdditional || "")}
-              />
-              <DisplayGenerator title="Empresas:" value={localData.empresas} />
+              />{" "}
+              <EmpresasDisplay empresas={localData.socios_empresas} />
+              <div className="md:col-span-2">
+                <DisplayGenerator
+                  title="MEI:"
+                  value={localData.is_mei ? "Sim" : "Não"}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -127,10 +174,10 @@ export function OrderBandaLargaPFDisplay({
           <h2 className="text-[14px] text-[#666666]">Plano Desejado</h2>
         </div>
 
-        <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
+        <div className="flex flex-col text-neutral-800 gap-2 bg-white rounded-md p-2 mt-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Coluna 1 - Visualização */}
-            <div className="flex flex-col ">
+            <div className="flex flex-col gap-2">
               <DisplayGenerator
                 title="Plano:"
                 value={localData.plan?.name + " " + localData.plan?.speed}
@@ -147,7 +194,7 @@ export function OrderBandaLargaPFDisplay({
             </div>
 
             {/* Coluna 2 - Visualização */}
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <DisplayGenerator
                 title="TV:"
                 value={localData.tv ? "Sim" : "Não"}
@@ -165,16 +212,18 @@ export function OrderBandaLargaPFDisplay({
           </div>
         </div>
       </div>
-      {/* Informações Técnicas */}
+      {/* Dados do Tráfego */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
-        <div className="flex items-center ">
-          <h2 className="text-[14px] text-[#666666]">Dados do Tráfego</h2>
+        <div className="flex items-center mb-3">
+          <h2 className="text-[14px] text-[#666666] font-medium">
+            Dados do Tráfego
+          </h2>
         </div>
 
-        <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Coluna 1 - Visualização */}
-            <div className="flex flex-col ">
+        <div className="flex flex-col text-neutral-800 gap-4 rounded-lg">
+          {/* Informações de Rede */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator title="IP:" value={localData.client_ip} />
               <DisplayGenerator title="Provedor:" value={localData.ip_isp} />
               <DisplayGenerator
@@ -194,16 +243,18 @@ export function OrderBandaLargaPFDisplay({
                               ? "Desconhecido"
                               : "-"
                 }
-              />{" "}
+              />
               <DisplayGenerator
                 title="URL:"
                 value={localData.url}
                 maxLength={50}
               />
             </div>
+          </div>
 
-            {/* Coluna 2 - Visualização */}
-            <div className="flex flex-col">
+          {/* Informações do Dispositivo */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
                 title="Sistema Operacional:"
                 value={localData.so}
@@ -219,17 +270,17 @@ export function OrderBandaLargaPFDisplay({
         </div>
       </div>
 
-      {/* Informações de Endereço */}
+      {/* Endereço */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
-        <div className="flex items-center ">
-          <h2 className="text-[14px] text-[#666666]">Endereço</h2>
+        <div className="flex items-center mb-3">
+          <h2 className="text-[14px] text-[#666666] font-medium">Endereço</h2>
         </div>
 
-        <div className="flex flex-col text-neutral-800 gap-2 rounded-lg p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Coluna 1 - Visualização */}
-            <div className="flex flex-col ">
-              <DisplayGenerator title="Endereço:" value={localData.address} />
+        <div className="flex flex-col text-neutral-800 gap-4 rounded-lg">
+          {/* Dados do Endereço */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <DisplayGenerator title="Rua:" value={localData.address} />
               <DisplayGenerator
                 title="Número:"
                 value={localData.addressnumber}
@@ -238,36 +289,52 @@ export function OrderBandaLargaPFDisplay({
                 title="Complemento:"
                 value={localData.addresscomplement}
               />
-              <DisplayGenerator title="Andar:" value={localData.addressFloor} />
-              <DisplayGenerator title="Lote:" value={localData.addresslot} />
-
-              <DisplayGenerator
-                title="Quadra:"
-                value={localData.addressblock}
-              />
-              <DisplayGenerator
-                title="Ponto de Referência:"
-                value={localData.addressreferencepoint}
-              />
-            </div>
-
-            {/* Coluna 2 - Visualização */}
-            <div className="flex flex-col ">
-              <DisplayGenerator
-                title="Tipo:"
-                value={
-                  localData.buildingorhouse === "building" ? "Edifício" : "Casa"
-                }
-              />
-
               <DisplayGenerator title="Bairro:" value={localData.district} />
               <DisplayGenerator title="Cidade:" value={localData.city} />
               <DisplayGenerator title="UF:" value={localData.state} />
-              <DisplayGenerator title="CEP:" value={formatCEP(localData.cep)} />
-              <DisplayGenerator
-                title="CEP único:"
-                value={localData.cep_unico ? "Sim" : "Não"}
-              />
+            </div>
+          </div>
+
+          {/* Detalhes Técnicos */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <div className="space-y-2">
+                <DisplayGenerator
+                  title="Tipo:"
+                  value={
+                    localData.buildingorhouse === "building"
+                      ? "Edifício"
+                      : "Casa"
+                  }
+                />
+                <DisplayGenerator
+                  title="Andar:"
+                  value={localData.addressFloor}
+                />
+              </div>
+              <div className="space-y-2">
+                <DisplayGenerator
+                  title="CEP:"
+                  value={formatCEP(localData.cep)}
+                />
+                <DisplayGenerator
+                  title="CEP único:"
+                  value={localData.cep_unico ? "Sim" : "Não"}
+                />
+              </div>
+              <div className="space-y-2">
+                <DisplayGenerator title="Lote:" value={localData.addresslot} />
+                <DisplayGenerator
+                  title="Quadra:"
+                  value={localData.addressblock}
+                />
+              </div>
+              <div className="md:col-span-3">
+                <DisplayGenerator
+                  title="Ponto de Referência:"
+                  value={localData.addressreferencepoint}
+                />
+              </div>
             </div>
           </div>
         </div>

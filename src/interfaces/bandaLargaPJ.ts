@@ -109,7 +109,33 @@ export interface OrderBandaLargaPJ {
   nome_receita: string;
   data_de_nascimento_receita: string;
   nome_da_mae_receita: string;
+  is_mei: boolean | number;
+  is_socio: boolean | number;
+  socios_empresas: SociosEmpresas[];
+  numero_adicional_valido: boolean | number;
+  operadora_adicional: string;
+  whatsapp?: WhatsAppInfo;
 }
+
+export interface WhatsAppInfo {
+  links: string[];
+  avatar: string | null;
+  numero: string | null;
+  recado: string;
+  sucesso: boolean;
+  endereco: string | null;
+  categoria: string;
+  is_comercial: boolean;
+  verificado_em: string;
+  existe_no_whatsapp: boolean;
+}
+
+interface SociosEmpresas {
+  cnpj: string;
+  nome: string;
+  porte: string;
+}
+
 export interface BandaLargaPJFilters {
   availability?: boolean;
   plan?: string;

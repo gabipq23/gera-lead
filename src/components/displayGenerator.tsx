@@ -33,7 +33,7 @@ export default function DisplayGenerator({
           onClick={() => handleCopy(text, setTooltipTitle)}
           className="text-[#666666] cursor-pointer"
         >
-          <CopyOutlined style={{ fontSize: 16, color: "#8b8e8f" }} />
+          <CopyOutlined style={{ fontSize: 12, color: "#8b8e8f" }} />
         </div>
       </Tooltip>
     );

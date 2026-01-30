@@ -15,7 +15,7 @@ export default function TableStyle() {
   const columns: TableColumnsType<any> = [
     {
       title: "",
-      dataIndex: "avatar",
+      dataIndex: ["whatsapp", "avatar"],
       width: 80,
       render: (avatar) => {
         return (
@@ -225,7 +225,7 @@ export default function TableStyle() {
         ip_fixo ? "Sim" : ip_fixo === undefined ? "-" : "Não",
     },
     {
-      title: "Nome Completo",
+      title: "Nome",
       dataIndex: "fullname",
       ellipsis: {
         showTitle: false,
@@ -237,6 +237,23 @@ export default function TableStyle() {
           styles={{ body: { fontSize: "12px" } }}
         >
           {fullname || "-"}
+        </Tooltip>
+      ),
+      width: 150,
+    },
+    {
+      title: "Nome (RFB)",
+      dataIndex: "nome_receita",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (nome_receita) => (
+        <Tooltip
+          placement="topLeft"
+          title={nome_receita}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {nome_receita || "-"}
         </Tooltip>
       ),
       width: 150,
@@ -309,21 +326,48 @@ export default function TableStyle() {
     },
     {
       title: "MEI",
-      dataIndex: "mei",
+      dataIndex: "is_mei",
       width: 70,
-      render: (mei) => (mei ? "Sim" : mei === undefined ? "-" : "Não"),
+      render: (is_mei) => (is_mei ? "Sim" : is_mei === undefined ? "-" : "Não"),
     },
     {
       title: "Sócio",
-      dataIndex: "socio",
+      dataIndex: "is_socio",
       width: 70,
-      render: (socio) => (socio ? "Sim" : socio === undefined ? "-" : "Não"),
+      render: (is_socio) =>
+        is_socio ? "Sim" : is_socio === undefined ? "-" : "Não",
     },
     {
       title: "Empresas",
-      dataIndex: "empresas",
-      width: 140,
-      render: (empresas) => (empresas ? empresas : "-"),
+      dataIndex: "socios_empresas",
+      width: 210,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (socios_empresas) => {
+        if (!socios_empresas || socios_empresas.length === 0) {
+          return "-";
+        }
+
+        const empresasFormatadas = socios_empresas
+          .map(
+            (empresa: { cnpj: string; nome: string; porte: string }) =>
+              `${empresa.cnpj}, ${empresa.nome}, ${empresa.porte}`,
+          )
+          .join("; \n");
+
+        return (
+          <Tooltip
+            placement="topLeft"
+            title={
+              <div style={{ whiteSpace: "pre-line" }}>{empresasFormatadas}</div>
+            }
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            {empresasFormatadas}
+          </Tooltip>
+        );
+      },
     },
     {
       title: "Telefone",
@@ -403,7 +447,7 @@ export default function TableStyle() {
     },
     {
       title: "Whatsapp",
-      dataIndex: "is_comercial",
+      dataIndex: ["whatsapp", "is_comercial"],
       width: 100,
       render: (is_comercial) =>
         is_comercial === true
@@ -414,7 +458,7 @@ export default function TableStyle() {
     },
     {
       title: "Status",
-      dataIndex: "recado",
+      dataIndex: ["whatsapp", "recado"],
       ellipsis: {
         showTitle: false,
       },
