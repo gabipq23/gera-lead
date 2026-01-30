@@ -147,6 +147,20 @@ export function OrderBandaLargaPJDisplay({
               <DisplayGenerator
                 title="Telefone adicional:"
                 value={formatPhoneNumber(localData?.phoneAdditional || "")}
+              />{" "}
+              <DisplayGenerator
+                title="Anatel:"
+                value={
+                  localData.numero_adicional_valido
+                    ? "Sim"
+                    : localData.numero_adicional_valido === null
+                      ? "-"
+                      : "Não"
+                }
+              />
+              <DisplayGenerator
+                title="Operadora:"
+                value={localData.operadora_adicional}
               />
               <EmpresasDisplay empresas={localData.socios_empresas} />
             </div>

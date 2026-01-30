@@ -42,7 +42,9 @@ export function OrderBandaLargaPFDisplay({
             {/* Coluna 1 - Visualização */}
             <div className="flex flex-col ">
               <img
-                src={localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"}
+                src={
+                  localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"
+                }
                 className="h-9 w-9 rounded-full"
               />
               <DisplayGenerator title="Nome:" value={localData.fullname} />
@@ -111,6 +113,20 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator
                 title="Telefone Adicional:"
                 value={formatPhoneNumber(localData.phoneAdditional || "")}
+              />{" "}
+              <DisplayGenerator
+                title="Anatel:"
+                value={
+                  localData.numero_adicional_valido
+                    ? "Sim"
+                    : localData.numero_adicional_valido === null
+                      ? "-"
+                      : "Não"
+                }
+              />
+              <DisplayGenerator
+                title="Operadora:"
+                value={localData.operadora_adicional}
               />
               <DisplayGenerator
                 title="MEI:"
