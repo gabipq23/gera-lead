@@ -15,7 +15,7 @@ export default function TableStyle() {
   const columns: TableColumnsType<any> = [
     {
       title: "",
-      dataIndex: "avatar",
+      dataIndex: ["whatsapp", "avatar"],
       width: 80,
       render: (avatar) => {
         return (
@@ -447,7 +447,7 @@ export default function TableStyle() {
     },
     {
       title: "Whatsapp",
-      dataIndex: "is_comercial",
+      dataIndex: ["whatsapp", "is_comercial"],
       width: 100,
       render: (is_comercial) =>
         is_comercial === true
@@ -458,7 +458,7 @@ export default function TableStyle() {
     },
     {
       title: "Status",
-      dataIndex: "recado",
+      dataIndex: ["whatsapp", "recado"],
       ellipsis: {
         showTitle: false,
       },

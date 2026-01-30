@@ -42,7 +42,7 @@ export function OrderBandaLargaPFDisplay({
             {/* Coluna 1 - Visualização */}
             <div className="flex flex-col ">
               <img
-                src={localData.avatar || "/assets/anonymous_avatar.png"}
+                src={localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"}
                 className="h-9 w-9 rounded-full"
               />
               <DisplayGenerator title="Nome:" value={localData.fullname} />
@@ -83,14 +83,17 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator
                 title="Whatsapp:"
                 value={
-                  localData.is_comercial === true
+                  localData.whatsapp?.is_comercial === true
                     ? "Business"
                     : localData.is_comercial === false
                       ? "Messenger"
                       : "-"
                 }
               />
-              <DisplayGenerator title="Status:" value={localData.recado} />
+              <DisplayGenerator
+                title="Status:"
+                value={localData.whatsapp?.recado}
+              />
               <DisplayGenerator
                 title="Anatel:"
                 value={
