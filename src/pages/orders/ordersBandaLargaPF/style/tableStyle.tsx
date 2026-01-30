@@ -507,9 +507,39 @@ export default function TableStyle() {
     },
     {
       title: "Provedor",
-      dataIndex: "provider",
+      dataIndex: "ip_isp",
       width: 120,
-      render: (provider) => (provider ? provider : "-"),
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (ip_isp) => (
+        <Tooltip
+          placement="topLeft"
+          title={ip_isp}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {ip_isp}
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Tipo de acesso",
+      dataIndex: "ip_tipo_acesso",
+      width: 140,
+      render: (ip_tipo_acesso) =>
+        ip_tipo_acesso === "movel"
+          ? "Móvel"
+          : ip_tipo_acesso === "fixo"
+            ? "Fixo"
+            : ip_tipo_acesso === "hosting"
+              ? "Hosting"
+              : ip_tipo_acesso === "proxy"
+                ? "Proxy"
+                : ip_tipo_acesso === "local"
+                  ? "Local"
+                  : ip_tipo_acesso === "desconhecido"
+                    ? "Desconhecido"
+                    : "-",
     },
     {
       title: "Device",
