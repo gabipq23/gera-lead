@@ -68,14 +68,6 @@ export function OrderBandaLargaPFDisplay({
                 value={localData.data_de_nascimento_receita}
               />
               <DisplayGenerator title="Email:" value={localData.email} />
-              <DisplayGenerator
-                title="MEI:"
-                value={localData.is_mei ? "Sim" : "Não"}
-              />
-              <DisplayGenerator
-                title="Sócio:"
-                value={localData.socio ? "Sim" : "Não"}
-              />
             </div>
 
             {/* Coluna 2 - Visualização */}
@@ -116,6 +108,14 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator
                 title="Telefone Adicional:"
                 value={formatPhoneNumber(localData.phoneAdditional || "")}
+              />
+              <DisplayGenerator
+                title="MEI:"
+                value={localData.is_mei ? "Sim" : "Não"}
+              />
+              <DisplayGenerator
+                title="Sócio:"
+                value={localData.socio ? "Sim" : "Não"}
               />
               <EmpresasDisplay empresas={localData.socios_empresas} />
             </div>

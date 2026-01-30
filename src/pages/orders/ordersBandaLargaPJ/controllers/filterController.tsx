@@ -989,6 +989,7 @@ export function useAllOrdersFilterController() {
       title: "UF",
       dataIndex: "state",
       width: 60,
+      render: (state) => (state ? state : "-"),
     },
     {
       title: "URL",
