@@ -107,6 +107,22 @@ export interface OrderBandaLargaPF {
   is_mei: boolean | number;
   is_socio: boolean | number;
   socios_empresas: SociosEmpresas[];
+  numero_adicional_valido: boolean | number;
+  operadora_adicional: string;
+  whatsapp?: WhatsAppInfo;
+}
+
+export interface WhatsAppInfo {
+  links: string[];
+  avatar: string | null;
+  numero: string | null;
+  recado: string;
+  sucesso: boolean;
+  endereco: string | null;
+  categoria: string;
+  is_comercial: boolean;
+  verificado_em: string;
+  existe_no_whatsapp: boolean;
 }
 
 interface SociosEmpresas {
