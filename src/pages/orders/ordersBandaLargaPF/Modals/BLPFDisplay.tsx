@@ -7,6 +7,7 @@ import { ConfigProvider, Form } from "antd";
 import { useEffect } from "react";
 import { formatBRL } from "@/utils/formatBRL";
 import AvailabilityTable from "@/components/orders/availabilityTable";
+import { EmpresasDisplay } from "@/components/empresasDisplay";
 
 interface OrderBandaLargaPFDisplayProps {
   localData: OrderBandaLargaPF;
@@ -69,7 +70,7 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator title="Email:" value={localData.email} />
               <DisplayGenerator
                 title="MEI:"
-                value={localData.mei ? "Sim" : "Não"}
+                value={localData.is_mei ? "Sim" : "Não"}
               />
               <DisplayGenerator
                 title="Sócio:"
@@ -116,7 +117,7 @@ export function OrderBandaLargaPFDisplay({
                 title="Telefone Adicional:"
                 value={formatPhoneNumber(localData.phoneAdditional || "")}
               />
-              <DisplayGenerator title="Empresas:" value={localData.empresas} />
+              <EmpresasDisplay empresas={localData.socios_empresas} />
             </div>
           </div>
         </div>

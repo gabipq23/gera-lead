@@ -104,6 +104,15 @@ export interface OrderBandaLargaPF {
   nome_receita: string;
   data_de_nascimento_receita: string;
   nome_da_mae_receita: string;
+  is_mei: boolean | number;
+  is_socio: boolean | number;
+  socios_empresas: SociosEmpresas[];
+}
+
+interface SociosEmpresas {
+  cnpj: string;
+  nome: string;
+  porte: string;
 }
 
 export interface BandaLargaFilters {

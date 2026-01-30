@@ -8,6 +8,7 @@ import { ConfigProvider, Form } from "antd";
 import { formatCPF } from "@/utils/formatCPF";
 import { formatBRL } from "@/utils/formatBRL";
 import AvailabilityTable from "@/components/orders/availabilityTable";
+import { EmpresasDisplay } from "@/components/empresasDisplay";
 
 interface OrderBandaLargaPJDisplayProps {
   localData: OrderBandaLargaPJ;
@@ -142,7 +143,7 @@ export function OrderBandaLargaPJDisplay({
                 title="Telefone adicional:"
                 value={formatPhoneNumber(localData?.phoneAdditional || "")}
               />
-              <DisplayGenerator title="Empresas:" value={localData.empresas} />
+              <EmpresasDisplay empresas={localData.socios_empresas} />
             </div>
           </div>
         </div>

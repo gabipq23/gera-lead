@@ -743,21 +743,48 @@ export function useAllOrdersFilterController() {
     },
     {
       title: "MEI",
-      dataIndex: "mei",
+      dataIndex: "is_mei",
       width: 70,
-      render: (mei) => (mei ? "Sim" : mei === undefined ? "-" : "Não"),
+      render: (is_mei) => (is_mei ? "Sim" : is_mei === undefined ? "-" : "Não"),
     },
     {
       title: "Sócio",
-      dataIndex: "socio",
+      dataIndex: "is_socio",
       width: 70,
-      render: (socio) => (socio ? "Sim" : socio === undefined ? "-" : "Não"),
+      render: (is_socio) =>
+        is_socio ? "Sim" : is_socio === undefined ? "-" : "Não",
     },
     {
       title: "Empresas",
-      dataIndex: "empresas",
-      width: 140,
-      render: (empresas) => (empresas ? empresas : "-"),
+      dataIndex: "socios_empresas",
+      width: 210,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (socios_empresas) => {
+        if (!socios_empresas || socios_empresas.length === 0) {
+          return "-";
+        }
+
+        const empresasFormatadas = socios_empresas
+          .map(
+            (empresa: { cnpj: string; nome: string; porte: string }) =>
+              `${empresa.cnpj}, ${empresa.nome}, ${empresa.porte}`,
+          )
+          .join("; \n");
+
+        return (
+          <Tooltip
+            placement="topLeft"
+            title={
+              <div style={{ whiteSpace: "pre-line" }}>{empresasFormatadas}</div>
+            }
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            {empresasFormatadas}
+          </Tooltip>
+        );
+      },
     },
 
     {
