@@ -93,10 +93,10 @@ export function OrderBandaLargaPJDisplay({
                   localData?.manager?.hasLegalAuthorization ? "Sim" : "Não"
                 }
               />
-              <DisplayGenerator
+              {/* <DisplayGenerator
                 title="Título WhatsApp:"
                 value={localData.nome_whatsapp}
-              />
+              /> */}
             </div>
           </div>
 
