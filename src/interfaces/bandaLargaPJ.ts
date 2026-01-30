@@ -103,6 +103,9 @@ export interface OrderBandaLargaPJ {
   nome_whatsapp?: string;
   recado?: string;
   avatar?: string;
+  voz_fixa?: string;
+  browser?: string;
+  resolution?: string;
 }
 export interface BandaLargaPJFilters {
   availability?: boolean;
