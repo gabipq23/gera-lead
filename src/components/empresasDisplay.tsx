@@ -61,7 +61,7 @@ export const EmpresasDisplay = ({ empresas }: { empresas: any }) => {
     </Tooltip>
   );
 
-  const maxLength = 60;
+  const maxLength = 50;
 
   return (
     <div className="flex py-1 text-[14px] gap-2 text-neutral-700">

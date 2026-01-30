@@ -34,10 +34,6 @@ export function OrderBandaLargaPFDisplay({
       {/* Informações do Cliente */}
       <div className="flex flex-col bg-neutral-100 mb-3 rounded-[4px] p-3 w-full">
         <div className="flex items-center mb-3">
-          <img
-            src={localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"}
-            className="h-10 w-10 rounded-full mr-3"
-          />
           <h2 className="text-[14px] text-[#666666] font-medium">
             Informações do Cliente
           </h2>
@@ -46,6 +42,10 @@ export function OrderBandaLargaPFDisplay({
         <div className="flex flex-col text-neutral-800 gap-4 rounded-lg">
           {/* Dados Pessoais */}
           <div className="bg-white rounded-md p-2">
+            <img
+              src={localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"}
+              className="h-10 w-10 rounded-full mr-3"
+            />{" "}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator title="Nome:" value={localData.fullname} />
               <DisplayGenerator
@@ -114,10 +114,10 @@ export function OrderBandaLargaPFDisplay({
                     title="Status:"
                     value={localData.whatsapp?.recado}
                   />
-                  <DisplayGenerator
+                  {/* <DisplayGenerator
                     title="Título WA:"
                     value={localData.nome_whatsapp}
-                  />
+                  /> */}
                 </div>
               </div>
 
@@ -154,15 +154,15 @@ export function OrderBandaLargaPFDisplay({
           <div className="bg-white rounded-md p-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
-                title="MEI:"
-                value={localData.is_mei ? "Sim" : "Não"}
-              />
-              <DisplayGenerator
                 title="Sócio:"
                 value={localData.socio ? "Sim" : "Não"}
-              />
+              />{" "}
+              <EmpresasDisplay empresas={localData.socios_empresas} />
               <div className="md:col-span-2">
-                <EmpresasDisplay empresas={localData.socios_empresas} />
+                <DisplayGenerator
+                  title="MEI:"
+                  value={localData.is_mei ? "Sim" : "Não"}
+                />
               </div>
             </div>
           </div>
