@@ -5,6 +5,7 @@ import { formatCPF } from "@/utils/formatCPF";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { useStyle } from "./useStyle";
 import OperatorAvailability from "@/components/OperatorAvailability";
+import { DollarSign } from "lucide-react";
 
 export default function TableStyle() {
   const { styles } = useStyle();
@@ -211,6 +212,12 @@ export default function TableStyle() {
       render: (app_package) => (app_package ? app_package : "-"),
     },
     {
+      title: "Voz Fixa",
+      dataIndex: "voz_fixa",
+      width: 120,
+      render: (voz_fixa) => (voz_fixa ? voz_fixa : "-"),
+    },
+    {
       title: "IP Fixo",
       dataIndex: "ip_fixo",
       width: 70,
@@ -262,6 +269,42 @@ export default function TableStyle() {
           );
         }
         return true;
+      },
+    },
+    {
+      title: "Crédito",
+      dataIndex: "credito",
+      width: 80,
+      render: (credito) => {
+        if (credito === null || credito === undefined) {
+          return "-";
+        }
+
+        return credito ? (
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+              title="Possui crédito"
+            >
+              <div className="bg-green-500 h-5 w-5 rounded-full text-white font-bold text-[16px] flex items-center justify-center">
+                <DollarSign size={15} />
+              </div>
+            </Tooltip>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+              title="Não possui crédito"
+            >
+              <div className="bg-red-500 h-5 w-5 rounded-full text-white font-bold text-[16px] flex items-center justify-center">
+                <DollarSign size={15} />
+              </div>
+            </Tooltip>
+          </div>
+        );
       },
     },
     {
@@ -405,9 +448,17 @@ export default function TableStyle() {
     },
 
     {
+      title: "Email Válido",
+      dataIndex: "is_email_valido",
+      width: 100,
+      render: (is_email_valido) =>
+        is_email_valido ? "Sim" : is_email_valido === undefined ? "-" : "Não",
+    },
+    {
       title: "Data de Nascimento",
       dataIndex: "birthdate",
       width: 150,
+      render: (birthdate) => (birthdate ? birthdate : "-"),
     },
     {
       title: "Nome da Mãe",
@@ -432,6 +483,13 @@ export default function TableStyle() {
       width: 100,
     },
     {
+      title: "CEP Único",
+      dataIndex: "cep_unico",
+      width: 100,
+      render: (cep_unico) =>
+        cep_unico ? "Sim" : cep_unico === undefined ? "-" : "Não",
+    },
+    {
       title: "Endereço",
       dataIndex: "address",
       ellipsis: {
@@ -443,7 +501,7 @@ export default function TableStyle() {
           title={address}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {address}
+          {address || "-"}
         </Tooltip>
       ),
       width: 140,
@@ -452,6 +510,7 @@ export default function TableStyle() {
       title: "Número",
       dataIndex: "addressnumber",
       width: 80,
+      render: (addressnumber) => (addressnumber ? addressnumber : "-"),
     },
 
     {
@@ -467,7 +526,7 @@ export default function TableStyle() {
           title={district}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {district}
+          {district || "-"}
         </Tooltip>
       ),
     },
@@ -476,11 +535,21 @@ export default function TableStyle() {
       title: "Cidade",
       dataIndex: "city",
       width: 120,
+      render: (city) => (
+        <Tooltip
+          placement="topLeft"
+          title={city}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {city || "-"}
+        </Tooltip>
+      ),
     },
     {
       title: "UF",
       dataIndex: "state",
       width: 60,
+      render: (state) => (state ? state : "-"),
     },
     {
       title: "URL",
@@ -552,6 +621,18 @@ export default function TableStyle() {
       dataIndex: "so",
       width: 160,
       render: (so) => (so ? so : "-"),
+    },
+    {
+      title: "Browser",
+      dataIndex: "browser",
+      width: 120,
+      render: (browser) => (browser ? browser : "-"),
+    },
+    {
+      title: "Resolução",
+      dataIndex: "resolution",
+      width: 120,
+      render: (resolution) => (resolution ? resolution : "-"),
     },
   ];
 

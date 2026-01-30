@@ -179,6 +179,10 @@ export function OrderBandaLargaPJDisplay({
                 title="IP Fixo:"
                 value={localData.wantsFixedIp ? "Sim" : "Não"}
               />
+              <DisplayGenerator
+                title="Voz Fixa:"
+                value={localData.voz_fixa ? localData.voz_fixa : "-"}
+              />
             </div>
           </div>
         </div>
@@ -213,6 +217,11 @@ export function OrderBandaLargaPJDisplay({
                               : "-"
                 }
               />
+              <DisplayGenerator
+                title="URL:"
+                value={localData.url}
+                maxLength={50}
+              />
             </div>
 
             {/* Coluna 2 - Visualização */}
@@ -222,10 +231,10 @@ export function OrderBandaLargaPJDisplay({
                 value={localData.so}
               />
               <DisplayGenerator title="Device:" value={localData.device} />
+              <DisplayGenerator title="Browser:" value={localData.browser} />
               <DisplayGenerator
-                title="URL:"
-                value={localData.url}
-                maxLength={50}
+                title="Resolução:"
+                value={localData.resolution}
               />
             </div>
           </div>
@@ -277,6 +286,10 @@ export function OrderBandaLargaPJDisplay({
               <DisplayGenerator title="Cidade:" value={localData.city} />
               <DisplayGenerator title="UF:" value={localData.state} />
               <DisplayGenerator title="CEP:" value={formatCEP(localData.cep)} />
+              <DisplayGenerator
+                title="CEP único:"
+                value={localData.cep_unico ? "Sim" : "Não"}
+              />
             </div>
           </div>
         </div>

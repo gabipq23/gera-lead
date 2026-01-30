@@ -148,6 +148,10 @@ export function OrderBandaLargaPFDisplay({
                 title="IP Fixo:"
                 value={localData.wantsFixedIp ? "Sim" : "Não"}
               />
+              <DisplayGenerator
+                title="Voz Fixa:"
+                value={localData.voz_fixa ? localData.voz_fixa : "-"}
+              />
             </div>
           </div>
         </div>
@@ -181,6 +185,11 @@ export function OrderBandaLargaPFDisplay({
                               ? "Desconhecido"
                               : "-"
                 }
+              />{" "}
+              <DisplayGenerator
+                title="URL:"
+                value={localData.url}
+                maxLength={50}
               />
             </div>
 
@@ -191,10 +200,10 @@ export function OrderBandaLargaPFDisplay({
                 value={localData.so}
               />
               <DisplayGenerator title="Device:" value={localData.device} />
+              <DisplayGenerator title="Browser:" value={localData.browser} />
               <DisplayGenerator
-                title="URL:"
-                value={localData.url}
-                maxLength={50}
+                title="Resolução:"
+                value={localData.resolution}
               />
             </div>
           </div>

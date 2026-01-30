@@ -7,6 +7,7 @@ import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { formatCNPJ } from "@/utils/formatCNPJ";
 import { BandaLargaPJFilters } from "@/interfaces/bandaLargaPJ";
 import { formatCPF } from "@/utils/formatCPF";
+import { DollarSign } from "lucide-react";
 
 function getFiltersFromURL(): BandaLargaPJFilters {
   const params = new URLSearchParams(window.location.search);
@@ -575,6 +576,12 @@ export function useAllOrdersFilterController() {
       render: (app_package) => (app_package ? app_package : "-"),
     },
     {
+      title: "Voz Fixa",
+      dataIndex: "voz_fixa",
+      width: 120,
+      render: (voz_fixa) => (voz_fixa ? voz_fixa : "-"),
+    },
+    {
       title: "IP Fixo",
       dataIndex: "ip_fixo",
       width: 70,
@@ -680,7 +687,42 @@ export function useAllOrdersFilterController() {
         return true;
       },
     },
+    {
+      title: "Crédito",
+      dataIndex: "credito",
+      width: 80,
+      render: (credito) => {
+        if (credito === null || credito === undefined) {
+          return "-";
+        }
 
+        return credito ? (
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+              title="Possui crédito"
+            >
+              <div className="bg-green-500 h-5 w-5 rounded-full text-white font-bold text-[16px] flex items-center justify-center">
+                <DollarSign size={15} />
+              </div>
+            </Tooltip>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+              title="Não possui crédito"
+            >
+              <div className="bg-red-500 h-5 w-5 rounded-full text-white font-bold text-[16px] flex items-center justify-center">
+                <DollarSign size={15} />
+              </div>
+            </Tooltip>
+          </div>
+        );
+      },
+    },
     {
       title: "MEI",
       dataIndex: "mei",
@@ -822,11 +864,25 @@ export function useAllOrdersFilterController() {
       ),
       width: 140,
     },
-
+    {
+      title: "Email Válido",
+      dataIndex: "is_email_valido",
+      width: 100,
+      render: (is_email_valido) =>
+        is_email_valido ? "Sim" : is_email_valido === undefined ? "-" : "Não",
+    },
     {
       title: "CEP",
       dataIndex: "cep",
       width: 100,
+      render: (cep) => (cep ? cep : "-"),
+    },
+    {
+      title: "CEP Único",
+      dataIndex: "cep_unico",
+      width: 100,
+      render: (cep_unico) =>
+        cep_unico ? "Sim" : cep_unico === undefined ? "-" : "Não",
     },
     {
       title: "Endereço",
@@ -840,7 +896,7 @@ export function useAllOrdersFilterController() {
           title={address}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {address}
+          {address || "-"}
         </Tooltip>
       ),
       width: 140,
@@ -849,6 +905,7 @@ export function useAllOrdersFilterController() {
       title: "Número",
       dataIndex: "addressnumber",
       width: 80,
+      render: (addressnumber) => (addressnumber ? addressnumber : "-"),
     },
 
     {
@@ -864,7 +921,7 @@ export function useAllOrdersFilterController() {
           title={district}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {district}
+          {district || "-"}
         </Tooltip>
       ),
     },
@@ -873,6 +930,15 @@ export function useAllOrdersFilterController() {
       title: "Cidade",
       dataIndex: "city",
       width: 120,
+      render: (city) => (
+        <Tooltip
+          placement="topLeft"
+          title={city}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {city || "-"}
+        </Tooltip>
+      ),
     },
     {
       title: "UF",
@@ -949,6 +1015,18 @@ export function useAllOrdersFilterController() {
       dataIndex: "so",
       width: 160,
       render: (so) => (so ? so : "-"),
+    },
+    {
+      title: "Browser",
+      dataIndex: "browser",
+      width: 120,
+      render: (browser) => (browser ? browser : "-"),
+    },
+    {
+      title: "Resolução",
+      dataIndex: "resolution",
+      width: 120,
+      render: (resolution) => (resolution ? resolution : "-"),
     },
   ];
 
