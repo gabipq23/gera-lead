@@ -105,7 +105,7 @@ export function OrderBandaLargaPFDisplay({
                     value={
                       localData.whatsapp?.is_comercial === true
                         ? "Business"
-                        : localData.is_comercial === false
+                        : localData.whatsapp?.is_comercial === false
                           ? "Messenger"
                           : "-"
                     }
