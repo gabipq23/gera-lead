@@ -39,7 +39,7 @@ export default function OrdersBandaLargaPF() {
     pageSize,
   } = useAllOrdersFilterController();
 
-  const { columns, styles } = TableStyle();
+  const { columns, styles, avatarModal } = TableStyle();
   const totalItems = 0;
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -141,6 +141,9 @@ export default function OrdersBandaLargaPF() {
             }
             changeBandaLargaOrderStatus={changeBandaLargaOrderStatus}
           />
+
+          {/* Modal do Avatar */}
+          {avatarModal}
         </div>
       </QueryClientProvider>
     </>

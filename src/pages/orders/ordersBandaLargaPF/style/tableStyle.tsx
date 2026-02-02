@@ -1,16 +1,20 @@
-import { TableColumnsType, Tooltip } from "antd";
+import { Modal, TableColumnsType, Tooltip } from "antd";
 import { getFiltersFromURL } from "../controllers/filterController";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { formatCPF } from "@/utils/formatCPF";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { useStyle } from "./useStyle";
 import OperatorAvailability from "@/components/OperatorAvailability";
+
 import { DollarSign } from "lucide-react";
 
 export default function TableStyle() {
   const { styles } = useStyle();
   const filters = getFiltersFromURL();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState("");
 
   const columns: TableColumnsType<any> = [
     {
@@ -18,10 +22,17 @@ export default function TableStyle() {
       dataIndex: ["whatsapp", "avatar"],
       width: 80,
       render: (avatar) => {
+        const avatarSrc = avatar || "/assets/anonymous_avatar.png";
         return (
           <img
-            src={avatar || "/assets/anonymous_avatar.png"}
-            className="h-9 w-9 rounded-full"
+            src={avatarSrc}
+            className="h-9 w-9 rounded-full cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedAvatar(avatarSrc);
+              setIsModalOpen(true);
+            }}
+            alt="Avatar"
           />
         );
       },
@@ -707,5 +718,25 @@ export default function TableStyle() {
   return {
     columns,
     styles: { customTable: styles.customTable },
+    avatarModal: (
+      <>
+        <Modal
+          open={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          title="Foto de perfil"
+          footer={null}
+          centered
+          width="auto"
+        >
+          <div className="flex justify-center">
+            <img
+              className="rounded-md max-h-[90vh] max-w-[90vw] min-h-[400px] min-w-[400px]"
+              src={selectedAvatar}
+              alt="Avatar"
+            />
+          </div>
+        </Modal>
+      </>
+    ),
   };
 }
