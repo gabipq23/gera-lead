@@ -8,6 +8,8 @@ import { formatCNPJ } from "@/utils/formatCNPJ";
 import { BandaLargaPJFilters } from "@/interfaces/bandaLargaPJ";
 import { formatCPF } from "@/utils/formatCPF";
 import { DollarSign } from "lucide-react";
+import { Thermometer } from "@/components/thermometer";
+import { FireFromThermometer } from "@/components/fire-from-thermometer";
 
 function getFiltersFromURL(): BandaLargaPJFilters {
   const params = new URLSearchParams(window.location.search);
@@ -203,8 +205,19 @@ export function useAllOrdersFilterController() {
     {
       title: "Temp",
       dataIndex: "temperatura_lead",
-      width: 80,
-      render: (temperatura_lead) => (temperatura_lead ? temperatura_lead : "-"),
+      width: 220,
+      render: () => (
+        <div className="flex w-[180px] h-2 items-center gap-1 mr-4">
+          {" "}
+          <Thermometer min={0} max={5} value={5} />
+          <FireFromThermometer
+            value={Number(5)}
+            max={5}
+            percentage={100}
+            showIcons={true}
+          />
+        </div>
+      ),
     },
     {
       title: "ID",
@@ -745,14 +758,19 @@ export function useAllOrdersFilterController() {
       title: "MEI",
       dataIndex: "is_mei",
       width: 70,
-      render: (is_mei) => (is_mei ? "Sim" : is_mei === undefined ? "-" : "Não"),
+      render: (is_mei) =>
+        is_mei ? "Sim" : is_mei === undefined || is_mei === null ? "-" : "Não",
     },
     {
       title: "Sócio",
       dataIndex: "is_socio",
       width: 70,
       render: (is_socio) =>
-        is_socio ? "Sim" : is_socio === undefined ? "-" : "Não",
+        is_socio
+          ? "Sim"
+          : is_socio === undefined || is_socio === null
+            ? "-"
+            : "Não",
     },
     {
       title: "Empresas",
@@ -868,12 +886,37 @@ export function useAllOrdersFilterController() {
       title: "Whatsapp",
       dataIndex: ["whatsapp", "is_comercial"],
       width: 100,
-      render: (is_comercial) =>
-        is_comercial === true
-          ? "Business"
-          : is_comercial === false
-            ? "Messenger"
-            : "-",
+      render: (is_comercial) => (
+        <div className="flex items-center justify-center">
+          {is_comercial === true ? (
+            <Tooltip
+              title="Business"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <img
+                src="/assets/whatsapp-business.png"
+                alt="Business"
+                className="h-6 w-6"
+              />
+            </Tooltip>
+          ) : is_comercial === false ? (
+            <Tooltip
+              title="Messenger"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <img
+                src="/assets/whatsapp-messenger.png"
+                alt="Messenger"
+                className="h-6 w-6"
+              />
+            </Tooltip>
+          ) : (
+            "-"
+          )}
+        </div>
+      ),
     },
     {
       title: "Status",
