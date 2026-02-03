@@ -73,8 +73,8 @@ export const MyMessage = memo(
     if (wasDeleted) {
       return (
         <div className="flex flex-col gap-2 max-w-[60%] w-max ml-auto">
-          <div className="bg-white dark:bg-muted shadow-md p-2 rounded-md w-full flex gap-1 justify-between">
-            <p className="text-sm text-neutral-400 dark:text-neutral-500 break-words flex items-center gap-1 italic">
+          <div className="bg-white shadow-md p-2 rounded-md w-full flex gap-1 justify-between">
+            <p className="text-sm text-neutral-400  break-words flex items-center gap-1 italic">
               <Ban size={12} /> Mensagem apagada
             </p>
           </div>

@@ -87,14 +87,14 @@ export const ChatView = ({
         totalMatchedMessages={matchedMessages.length}
         isByGlobalSearch={isByGlobalSearch}
       />
-      <div className="w-full h-full flex flex-col gap-8 rounded-md border border-[#e2e2e2] dark:border-[#1b1b1b] overflow-x-hidden overflow-y-auto relative">
+      <div className="w-full h-full flex flex-col gap-8 rounded-md border border-[#e2e2e2] ] overflow-x-hidden overflow-y-auto relative">
         {/* Loading overlay apenas na área das mensagens */}
         {isLoading && (
           <div className="absolute inset-0 bg-background/50 flex items-center justify-center z-10 rounded-md">
             <Loader />
           </div>
         )}
-        <div className="h-[500px] overflow-y-auto p-2">
+        <div className="h-[470px] overflow-y-auto p-2">
           <ChatMessagesList
             messages={messages}
             matchedMessages={matchedMessages}

@@ -17,65 +17,67 @@ interface IMyMessage {
   isCurrentMatch: boolean;
 }
 
-export const ProspectMessage = memo(({ message, searchedTerm, isCurrentMatch }: IMyMessage) => {
-  const messageTime = new Date(message.sentAt).toLocaleString("pt-BR", {
-    timeStyle: "medium",
-    dateStyle: "short",
-  });
+export const ProspectMessage = memo(
+  ({ message, searchedTerm, isCurrentMatch }: IMyMessage) => {
+    const messageTime = new Date(message.sentAt).toLocaleString("pt-BR", {
+      timeStyle: "medium",
+      dateStyle: "short",
+    });
 
-  if (!!message.deletedAt) {
-    return (
-      <div className="bg-white dark:bg-muted shadow-md p-2 rounded-md w-full flex gap-1 justify-between">
-        <p className="text-sm text-neutral-400 dark:text-neutral-500 break-words flex items-center gap-1 italic">
-          <Ban size={12} /> Mensagem apagada
-        </p>
-      </div>
-    );
-  }
+    if (!!message.deletedAt) {
+      return (
+        <div className="bg-white shadow-md p-2 rounded-md w-full flex gap-1 justify-between">
+          <p className="text-sm text-neutral-400  break-words flex items-center gap-1 italic">
+            <Ban size={12} /> Mensagem apagada
+          </p>
+        </div>
+      );
+    }
 
-  const messageType = message.data.messageType;
+    const messageType = message.data.messageType;
 
-  switch (messageType) {
-    case "conversation":
-      return (
-        <TextMessage
-          text={message.data.content}
-          messageTime={messageTime}
-          wasEdited={Boolean(message.editedAt)}
-          highlightTerm={searchedTerm} 
-          isCurrentMatch={isCurrentMatch}
-        />
-      );
-    case "imageMessage":
-      return (
-        <ImageMessage
-          imageUrl={message.data.content}
-          caption={message.data.caption}
-          messageTime={messageTime}
-        />
-      );
-    case "stickerMessage":
-      return (
-        <StickerMessage
-          imageUrl={message.data.content}
-          messageTime={messageTime}
-        />
-      );
-    case "audioMessage":
-      return (
-        <AudioMessage
-          audioSource={message.data.content}
-          messageTime={messageTime}
-        />
-      );
-    case "documentMessage":
-      return (
-        <DocumentMessage
-          documentUrl={message.data.content}
-          messageTime={messageTime}
-        />
-      );
-    default:
-      return <p className="text-red-400">formato não suportado</p>;
-  }
-});
+    switch (messageType) {
+      case "conversation":
+        return (
+          <TextMessage
+            text={message.data.content}
+            messageTime={messageTime}
+            wasEdited={Boolean(message.editedAt)}
+            highlightTerm={searchedTerm}
+            isCurrentMatch={isCurrentMatch}
+          />
+        );
+      case "imageMessage":
+        return (
+          <ImageMessage
+            imageUrl={message.data.content}
+            caption={message.data.caption}
+            messageTime={messageTime}
+          />
+        );
+      case "stickerMessage":
+        return (
+          <StickerMessage
+            imageUrl={message.data.content}
+            messageTime={messageTime}
+          />
+        );
+      case "audioMessage":
+        return (
+          <AudioMessage
+            audioSource={message.data.content}
+            messageTime={messageTime}
+          />
+        );
+      case "documentMessage":
+        return (
+          <DocumentMessage
+            documentUrl={message.data.content}
+            messageTime={messageTime}
+          />
+        );
+      default:
+        return <p className="text-red-400">formato não suportado</p>;
+    }
+  },
+);

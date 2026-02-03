@@ -58,9 +58,14 @@ export const TextMessage = ({
     );
   }
 
-  const handleDeleteMessage = () => {
-    onDeleteMessage();
-    setMenuOpen(false);
+  const handleDeleteMessage = async () => {
+    try {
+      await onDeleteMessage();
+      setMenuOpen(false);
+    } catch (error) {
+      console.error("Error in handleDeleteMessage:", error);
+      // O erro já será tratado pela mutation
+    }
   };
 
   const onSubitEditMessage = ({ message }: { message: string }) => {
@@ -82,31 +87,31 @@ export const TextMessage = ({
       <ContextMenu.Root onOpenChange={setMenuOpen}>
         <ContextMenu.Trigger asChild>
           <div className=" relative flex flex-col gap-2 max-w-[60%] w-max ml-auto">
-            <div className="bg-white dark:bg-muted shadow-md p-3 rounded-md w-full flex gap-1 justify-between relative">
+            <div className="bg-white  shadow-md p-3 rounded-md w-full flex gap-1 justify-between relative">
               <Visible when={menuOpen}>
                 <div className="absolute left-0 top-0 bottom-0 w-2 bg-blue-500 rounded-l-md animate-pulse" />
               </Visible>
 
               <p
-                className="text-neutral-500 dark:text-neutral-300 text-sm"
+                className="text-neutral-500  text-sm"
                 dangerouslySetInnerHTML={{ __html: formattedText }}
               />
               <Visible when={wasEdited}>
-                <span className="text-[10px] absolute bottom-1 right-1 text-neutral-400 dark:text-neutral-500 italic pr-2 pt-2">
+                <span className="text-[10px] absolute bottom-1 right-1 text-neutral-400  italic pr-2 pt-2">
                   editada
                 </span>
               </Visible>
             </div>
 
-            <small className="flex items-center text-[11px] font-normal text-neutral-500 dark:text-neutral-300 justify-end">
+            <small className="flex items-center text-[11px] font-normal text-neutral-500  justify-end">
               {formatedMssageTime}
             </small>
           </div>
         </ContextMenu.Trigger>
-        <ContextMenu.Content className="dark:shadow-blue-400 dark:shadow-xs dark:bg-background shadow-sm bg-white rounded-md p-2 z-50">
+        <ContextMenu.Content className="shadow-sm bg-white rounded-md p-2 z-50">
           <ContextMenu.Item
             disabled={!canEdit}
-            className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            className="px-4 py-2 text-sm hover:bg-gray-100  cursor-pointer"
             onSelect={() => setIsEditModalOpen(true)}
           >
             <p
@@ -122,12 +127,12 @@ export const TextMessage = ({
           <button
             type="button"
             disabled={!canDelete}
-            className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            className="px-4 py-2 text-sm hover:bg-gray-100  cursor-pointer"
           >
             <DialogConfirm
               title="Deseja remover essa mensagem?"
               confirmText="Remover"
-              onConfirm={handleDeleteMessage}
+              onConfirm={() => handleDeleteMessage()}
             >
               <p
                 className={`flex items-center gap-2 font-bold ${
@@ -171,14 +176,12 @@ export const TextMessage = ({
                 <Button
                   type="button"
                   variant="secondary"
-                  className="shadow-md hover:bg-slate-100 dark:hover:bg-zinc-900  "
+                  className="shadow-md hover:bg-slate-100   "
                 >
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">
-                <DialogClose>Editar</DialogClose>
-              </Button>
+              <Button type="submit">Editar</Button>
             </DialogFooter>
           </DialogFooter>
         </form>

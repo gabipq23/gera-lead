@@ -101,7 +101,7 @@ const ChatHeaderActions = () => {
 
           <Tooltip
             info={resumoConversa || "Essa conversa não possui um resumo."}
-            className="text-slate-200 w-64 "
+            className="text-slate-200 bg-[#646464] w-64"
           >
             <div>
               <Button
@@ -128,14 +128,14 @@ const ChatHeaderActions = () => {
             {isPaused ? (
               <Tooltip
                 info="Retomar Bot"
-                className="dark:bg-muted text-slate-200"
+                className="text-slate-200 bg-[#646464]"
               >
                 <Play size={16} />
               </Tooltip>
             ) : (
               <Tooltip
                 info="Pausar Bot"
-                className="dark:bg-muted text-slate-200"
+                className="text-slate-200 bg-[#646464]"
               >
                 <Pause size={16} />
               </Tooltip>
@@ -206,7 +206,9 @@ export const ChatHeader = ({
           <p className="flex items-center text-muted-foreground gap-1">
             <img
               className="w-10 rounded-full"
-              src={prospect.platformData?.picture ?? "/assets/anonymous_avatar.png"}
+              src={
+                prospect.platformData?.picture ?? "/assets/anonymous_avatar.png"
+              }
               alt="Avatar"
             />
           </p>
@@ -214,15 +216,16 @@ export const ChatHeader = ({
 
         <div className="flex items-center gap-3">
           <div>
-            <p className="text-sm font-bold text-neutral-500 dark:text-neutral-300">
+            <p
+              style={{ fontWeight: "bold" }}
+              className="text-sm font-bold text-neutral-500 "
+            >
               {shottedName || prospect.externalId}
             </p>
-            <div className="flex flex-wrap items-center gap-1 text-xs text-neutral-500 dark:text-neutral-300">
-              <span className="text-xs text-neutral-500 dark:text-neutral-300">
-                {phoneNumber}
-              </span>
+            <div className="flex flex-wrap items-center gap-1 text-xs text-neutral-500 ">
+              <span className="text-xs text-neutral-500 ">{phoneNumber}</span>
               {prospect.platformData?.name && (
-                <span className="text-xs text-neutral-500 dark:text-neutral-300 w-full sm:w-auto">
+                <span className="text-xs text-neutral-500  w-full sm:w-auto">
                   {prospect.platformData?.name}
                 </span>
               )}
@@ -232,7 +235,7 @@ export const ChatHeader = ({
                 </span>
               )} */}
               {prospect.data?.status && (
-                <span className="text-xs text-neutral-500 dark:text-neutral-300 bg-gray-300 p-1 rounded-sm dark:bg-slate-800 font-medium">
+                <span className="text-xs text-neutral-500  bg-gray-300 p-1 rounded-sm  font-medium">
                   {prospect.data?.status}
                 </span>
               )}
@@ -293,7 +296,7 @@ export const ChatHeader = ({
               </div>
             </div>
           ) : (
-            <Tooltip info="Pesquisar" className="dark:bg-muted text-slate-200">
+            <Tooltip info="Pesquisar" className="text-slate-200 bg-[#646464]">
               <Button
                 variant="outline"
                 disabled={isByGlobalSearch}

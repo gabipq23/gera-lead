@@ -10,7 +10,7 @@ interface Props {
 export const Thermometer = memo(({ value, max, min, showIcons }: Props) => {
   const percentage = Math.max(
     0,
-    Math.min(100, ((value - min) / (max - min)) * 100)
+    Math.min(100, ((value - min) / (max - min)) * 100),
   );
 
   const stagePercentage = 100 / max;
@@ -59,7 +59,7 @@ export const Thermometer = memo(({ value, max, min, showIcons }: Props) => {
           {Array.from({ length: max + 1 }).map((_, index) => (
             <div
               key={index}
-              className="h-full border-r border-gray-400 dark:border-gray-800 "
+              className="h-full border-r border-gray-400 "
               style={{
                 left: `${index * stagePercentage}%`,
               }}
@@ -69,9 +69,7 @@ export const Thermometer = memo(({ value, max, min, showIcons }: Props) => {
       </div>
 
       <div className="flex items-center justify-center pl-2 h-full">
-        <p className="text-[12px] text-gray-500 dark:text-gray-400 font-medium">
-          {value}
-        </p>
+        <p className="text-[12px] text-gray-500  font-medium">{value}</p>
       </div>
       {/* Fire icon on the far right */}
       {/* {[showIcons, value === max].some(Boolean) && (

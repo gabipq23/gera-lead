@@ -62,7 +62,7 @@ export const MessagePreview = memo(
               </span>
             ) : (
               <span key={index}>{part}</span>
-            )
+            ),
           )}
           {showEndEllipsis && <span> ...</span>}
         </>
@@ -70,17 +70,17 @@ export const MessagePreview = memo(
     };
 
     return (
-      <div className="text-[11px] text-neutral-500 dark:text-neutral-300 mt-1 text-left flex items-center gap-0.5 justify-between">
+      <div className="text-[11px] text-neutral-500  mt-1 text-left flex items-center gap-0.5 justify-between">
         <div className="flex flex-row items-center justify-start gap-1 w-full">
           <p className="flex">
             {isDeleted ? (
-              <span className="text-neutral-400 dark:text-neutral-500 break-words flex items-center gap-1 italic">
+              <span className="text-neutral-400  break-words flex items-center gap-1 italic">
                 <Ban size={12} /> Mensagem apagada
               </span>
             ) : (
               <>
                 <Checks size={14} color="#b3b3b3" />
-                <span className="ml-1 max-w-36 truncate text-neutral-400 dark:text-neutral-500">
+                <span className="ml-1 max-w-36 truncate text-neutral-400 ">
                   {messageType === "conversation" && isByGlobalSearch
                     ? highlightTerm(content, searchedTerm)
                     : messageType === "conversation" && content}
@@ -115,5 +115,5 @@ export const MessagePreview = memo(
         </div>
       </div>
     );
-  }
+  },
 );

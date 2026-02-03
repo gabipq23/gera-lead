@@ -87,7 +87,7 @@ export const ChatInputMessage = () => {
       <Input
         type="text"
         placeholder="Digite uma mensagem..."
-        className="w-full text-neutral-500 dark:text-neutral-300"
+        className="w-full text-neutral-500 "
         {...register("message")}
       />
 

@@ -13,7 +13,7 @@ export const StickerMessage = memo(
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
       <div>
-        <div className="bg-primary dark:bg-white shadow-md p-2 rounded-md place-self-start">
+        <div className="bg-primary  shadow-md p-2 rounded-md place-self-start">
           <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
@@ -39,7 +39,7 @@ export const StickerMessage = memo(
             />
           </Button>
         </div>
-        <small className="flex items-center text-[11px] font-normal text-neutral-500 dark:text-neutral-300 justify-start pt-2">
+        <small className="flex items-center text-[11px] font-normal text-neutral-500  justify-start pt-2">
           {messageTime}
         </small>
       </div>

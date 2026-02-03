@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import { WhatsappLogo } from "@phosphor-icons/react";
-import { Flame, Hand, Star } from "lucide-react";
+import { Flame, Hand } from "lucide-react";
 
 // Hooks
 import { useMessageSocket } from "@/hooks/use-message-socket";
@@ -99,9 +99,9 @@ export function Chats() {
     return <p>Error: {query.error?.message || botsQuery.error?.message}</p>;
   }
 
-  const changeFavouritesFilter = () => {
-    setValue("favorite", !control._formValues.favorite);
-  };
+  // const changeFavouritesFilter = () => {
+  //   setValue("favorite", !control._formValues.favorite);
+  // };
 
   const changeHelpFilter = () => {
     setValue("help", !control._formValues.help);
@@ -161,15 +161,15 @@ export function Chats() {
     <>
       <ResizablePanelGroup
         direction="horizontal"
-        className="flex flex-row gap-0.5 mx-auto px-2 h-[calc(100vh-192px)]"
+        className="flex flex-row gap-0.5 mx-auto  px-2 h-[calc(100vh-170px)]"
       >
         <ResizablePanel
           defaultSize={25}
           minSize={24}
           maxSize={28}
-          className="flex flex-col items-start gap-2 resize-x w-[27%] h-[calc(100vh-100px)] shadow-md rounded-lg p-2 min-w-64"
+          className="flex flex-col items-start gap-2 resize-x w-[27%] h-[calc(100vh-160px)] shadow-md rounded-lg p-2 min-w-64"
         >
-          <aside className="flex flex-col w-full h-full mt-2  overflow-scroll">
+          <aside className="flex flex-col w-full h-full  overflow-scroll">
             {/* Componentizar */}
 
             {/* <div className="flex  items-start justify-center div-glow gap-2 w-full pb-1">
@@ -190,12 +190,12 @@ export function Chats() {
                 {/* Filtro de Bot */}
                 <div className="w-full flex items-end justify-end">
                   <Button
-                    className="text-[12px]"
+                    className="text-[10px]"
                     type="button"
                     onClick={onResetFilter}
                     variant="ghost"
                   >
-                    Limpar Filtros
+                    <p className="text-[12px]">Limpar Filtros</p>
                   </Button>
                 </div>
                 <div className="flex justify-evenly gap-2 w-full">
@@ -209,7 +209,10 @@ export function Chats() {
                           onValueChange={field.onChange}
                         >
                           <SelectTrigger className="w-36">
-                            <SelectValue placeholder="Bot" />
+                            <SelectValue
+                              className="placeholder:text-[12px] text-[12px]"
+                              placeholder="Bot"
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
@@ -321,8 +324,11 @@ export function Chats() {
                           value={field.value}
                           onValueChange={field.onChange}
                         >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Plataforma" />
+                          <SelectTrigger className="text-xs">
+                            <SelectValue
+                              className="placeholder:text-[12px] text-[12px]"
+                              placeholder="Plataforma"
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
@@ -346,7 +352,10 @@ export function Chats() {
 
                   {/* Botoes de alerta, favoritos e ajuda */}
                   <div className="flex items-start gap-2">
-                    <Tooltip info="Favoritos" className="text-slate-200">
+                    {/* <Tooltip
+                      info="Favoritos"
+                      className="text-slate-200 bg-[#646464]"
+                    >
                       <Button
                         type="button"
                         variant={filters.favorite ? "default" : "outline"}
@@ -364,14 +373,17 @@ export function Chats() {
                           }
                         />
                         {/* <Visible when={favouritesCount > 0}> */}
-                        <p className="rounded-full bg-orange-400 px-1 text-xs text-gray-100 w-5 h-5 flex items-center justify-center absolute -bottom-2 -left-2">
+                    {/* <p className="rounded-full bg-orange-400 px-1 text-xs text-gray-100 w-5 h-5 flex items-center justify-center absolute -bottom-2 -left-2">
                           {1}
-                        </p>
-                        {/* </Visible> */}
-                      </Button>
-                    </Tooltip>
+                        </p> */}
+                    {/* </Visible> */}
+                    {/* </Button>
+                    </Tooltip>  */}
 
-                    <Tooltip info="Hot Lead" className="text-slate-200">
+                    <Tooltip
+                      info="Hot Lead"
+                      className="text-slate-200 bg-[#646464]"
+                    >
                       <Button
                         type="button"
                         variant={filters.hot_lead ? "default" : "outline"}
@@ -397,7 +409,10 @@ export function Chats() {
                       </Button>
                     </Tooltip>
 
-                    <Tooltip info="Ajuda" className="text-slate-200">
+                    <Tooltip
+                      info="Ajuda"
+                      className="text-slate-200 bg-[#646464]"
+                    >
                       <Button
                         type="button"
                         variant={filters.help ? "default" : "outline"}
@@ -564,7 +579,7 @@ export function Chats() {
         </ResizablePanel>
 
         {isClienteMaxTemperatureDefined && (
-          <section className="flex w-24 flex-col h-full overflow-scroll">
+          <section className="flex w-24 flex-col h-full mt-2 overflow-scroll">
             {allChatsList.map((chat) => {
               if (
                 chat.prospect.data?.temperatura_lead === clientMaxTemperature

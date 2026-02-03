@@ -99,6 +99,21 @@ export function useChatController(isByGlobalSearch: boolean = false) {
     },
   });
 
+  const prospectsFromClientId = useQuery<any[]>({
+    refetchOnWindowFocus: false,
+    queryKey: ["prospectsFromClient", selectedClientId],
+    queryFn: async (): Promise<any[]> => {
+      const clientId = selectedClientId;
+      if (!clientId) return [];
+      const response = await clientsService.getAllProspectsFromClient(
+        clientId,
+        1,
+        500,
+      );
+      return response ? [response] : [];
+    },
+  });
+
   const { searchContact, favorite, help, warning, hot_lead, botId } = watch();
 
   const searchedGlobalMessagesQuery = useQuery({
@@ -342,7 +357,7 @@ export function useChatController(isByGlobalSearch: boolean = false) {
     filters: { searchContact, favorite, help, warning, hot_lead },
     selectChat,
     handHelpProspect,
-
+    prospectsFromClientId,
     // Virtualização
     virtualChatsList,
   };

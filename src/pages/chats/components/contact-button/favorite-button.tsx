@@ -10,7 +10,7 @@ interface IFavorite {
 export const FavoriteButton = memo(
   ({ isFavorited, onFavoriteChange }: IFavorite) => {
     return (
-      <Tooltip info="Favoritar" className="dark:bg-muted text-slate-200">
+      <Tooltip info="Favoritar" className="text-slate-200 bg-[#646464]">
         <div
           className="absolute bottom-[-5px] left-[-5px]"
           onClick={onFavoriteChange}

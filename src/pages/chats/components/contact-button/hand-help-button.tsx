@@ -10,7 +10,7 @@ interface IHandHelp {
 export const HandHelpButton = memo(
   ({ isHandHelpButtonActive, onHandHelpChange }: IHandHelp) => {
     return (
-      <Tooltip info="Ajuda" className="dark:bg-muted text-slate-200">
+      <Tooltip info="Ajuda" className="text-slate-200 bg-[#646464]">
         <div onClick={onHandHelpChange}>
           {isHandHelpButtonActive ? (
             <Hand size={16} className=" text-red-500" />

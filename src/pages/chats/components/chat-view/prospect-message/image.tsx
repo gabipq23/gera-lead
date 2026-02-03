@@ -19,7 +19,7 @@ export const ImageMessage = memo(
     return (
       <div className="flex flex-col items-start gap-2">
         {/* Imagem com botão para abrir o modal */}
-        <div className="dark:bg-muted shadow-md p-1 rounded-md ">
+        <div className="shadow-md p-1 rounded-md ">
           <Button
             variant="ghost"
             className="h-full w-fit"
@@ -37,7 +37,7 @@ export const ImageMessage = memo(
           <Visible when={!!caption}>
             <div className="bg-primary shadow-md p-2 rounded-md border border-b-gray-300 max-w-[250px] break-words mx-auto mb-1">
               <p
-                className="text-sm text-slate-300 dark:text-gray-800"
+                className="text-sm text-slate-300 "
                 dangerouslySetInnerHTML={{ __html: formattedCaption! }}
               />
             </div>
@@ -45,7 +45,7 @@ export const ImageMessage = memo(
         </div>
 
         {/* Horário da mensagem */}
-        <small className="text-[11px] font-normal text-neutral-500 dark:text-neutral-300">
+        <small className="text-[11px] font-normal text-neutral-500 ">
           {messageTime}
         </small>
 

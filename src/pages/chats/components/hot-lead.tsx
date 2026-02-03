@@ -15,7 +15,7 @@ export function HotLead({ chat, onClick }: IHotLeadProps) {
         info={`${chat.prospect.platformData.name || "Nome indisponível"} | ${
           formatPhoneNumber(chat.prospect.externalId) || "Número indisponível"
         }`}
-        className="text-slate-200"
+        className="text-slate-200 bg-[#646464]"
       >
         <button
           type="button"
@@ -40,7 +40,7 @@ export function HotLead({ chat, onClick }: IHotLeadProps) {
               </span>
             </div>
           </div>
-          <p className="text-[10px] text-neutral-500 dark:text-neutral-300 font-bold pt-1">
+          <p className="text-[10px] text-neutral-500  font-bold pt-1">
             {chat.prospect.data.nome ||
               chat.prospect.platformData?.name ||
               chat.prospect.externalId ||

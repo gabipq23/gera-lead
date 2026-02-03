@@ -9,7 +9,6 @@ import { MessagesService } from "@/services/messages";
 import { useMutation } from "@tanstack/react-query";
 import { formatPhoneNumber } from "@/utils/format_number";
 import { Tooltip } from "@/components/chat/common/tooltip";
-import { Button } from "@/components/chat/ui/button";
 import { FireFromThermometer } from "@/components/chat/common/fire-from-thermometer";
 import { Visible } from "@/components/chat/common/visible";
 import { Image } from "@/components/chat/common/image";
@@ -103,9 +102,11 @@ export function ContactButton({
       type="button"
       onClick={onClick}
       className={`
-    flex-col hover:shadow-md hover:bg-slate-400/[.2] p-1.5 pt-3  rounded-lg duration-200 flex items-center justify-between relative cursor-pointer  mr-2
-    ${isSelected ? "bg-slate-400/[.2] dark:bg-slate-400/[.2]" : ""}
-  `}
+        flex flex-col items-center justify-between relative cursor-pointer
+        p-1.5 pt-3 mr-2 rounded-lg duration-200
+        hover:shadow-md hover:bg-slate-300/20 
+        ${isSelected ? "bg-slate-300/20 shadow-sm" : ""}
+      `}
     >
       <div className="flex w-full items-center gap-3 relative">
         {/* Avatar */}
@@ -121,26 +122,23 @@ export function ContactButton({
               {chat.prospect?.data?.conversa_pausada && (
                 <Tooltip
                   info="Retomar Bot"
-                  className="dark:bg-muted text-slate-200"
+                  className="text-slate-200 bg-[#646464]"
                 >
-                  <Button
+                  <div
                     onClick={() => resumeConversationMutation()}
-                    className=" absolute top-2 right-2 flex items-center justify-center w-6 h-6 p-1 rounded-full bg-gray-100 hover:bg-gray-300  cursor-pointer"
+                    className="absolute top-2 right-2 flex items-center justify-center w-7 h-7 rounded-full bg-white/95 hover:bg-white shadow-lg border border-gray-300 cursor-pointer z-10"
                   >
-                    <Pause
-                      size={16}
-                      className="text-slate-600 dark:text-gray-500"
-                    />
-                  </Button>
+                    <Pause size={16} className="text-gray-500" />
+                  </div>
                 </Tooltip>
               )}
             </div>
 
-            <Tooltip info="WhatsApp" className="dark:bg-muted text-slate-200">
+            <Tooltip info="WhatsApp" className="text-slate-200 bg-[#646464]">
               <WhatsappLogo
                 size={16}
                 color="#22c55e"
-                className="absolute top-[-10px] left-[-5px]"
+                className="absolute top-[-10px] left-[-px]"
               />
             </Tooltip>
             {/* 
@@ -151,7 +149,7 @@ export function ContactButton({
 
             <Tooltip
               info={botInfoTooltip}
-              className="dark:bg-muted text-slate-200"
+              className="text-slate-200 bg-[#646464]"
             >
               <Image
                 className="absolute top-[28px] left-[30px] w-5 rounded-full border border-slate-300"
@@ -163,7 +161,10 @@ export function ContactButton({
         )}
         <div className="flex flex-col items-start">
           <div className="flex items-center gap-2">
-            <h2 className="text-xs font-bold text-neutral-500 dark:text-neutral-300 max-w-45 truncate">
+            <h2
+              style={{ fontWeight: "bold" }}
+              className="text-xs font-bold text-neutral-500  max-w-45 truncate"
+            >
               {name}
             </h2>
             {chat?.prospect?.data?.conversa_pendente && (
@@ -216,7 +217,7 @@ export function ContactButton({
             />
           </div>
         )}
-        <span className="flex-1 w-full text-end  text-[10px] text-neutral-500 dark:text-neutral-300 whitespace-nowrap">
+        <span className="flex-1 w-full text-end  text-[10px] text-neutral-500  whitespace-nowrap">
           {lastInteractionDate}
         </span>
       </div>

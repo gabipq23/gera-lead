@@ -59,4 +59,15 @@ export class ClientsService {
     const response = await apiUberich.get("/clients");
     return response.data;
   }
+
+  async getAllProspectsFromClient(
+    clientId: string,
+    page: number,
+    number: number,
+  ): Promise<any[]> {
+    const response = await apiUberich.get(`/prospects/${clientId}`, {
+      params: { page, number },
+    });
+    return response.data;
+  }
 }

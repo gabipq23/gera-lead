@@ -15,14 +15,14 @@ export const TextMessage = memo(
     const changeMessageWithSearchedTerm = (
       highlightTerm: string,
       formattedText: string,
-      isCurrentMatch: boolean
+      isCurrentMatch: boolean,
     ) => {
       const regex = new RegExp(`(${highlightTerm})`, "gi");
       const highlightClass = isCurrentMatch ? "bg-yellow-300" : "bg-yellow-700";
 
       return formattedText.replace(
         regex,
-        `<mark class="${highlightClass}">$1</mark>`
+        `<mark class="${highlightClass}">$1</mark>`,
       );
     };
 
@@ -32,29 +32,29 @@ export const TextMessage = memo(
       formattedText = changeMessageWithSearchedTerm(
         highlightTerm,
         formattedText,
-        isCurrentMatch
+        isCurrentMatch,
       );
     }
 
     return (
       <div>
         <div className="flex flex-col gap-2 max-w-[60%] w-max mr-auto overflow-hidden">
-          <div className="flex justify-between gap-2 bg-primary shadow-md p-2 rounded-md border border-b-gray-300 w-full">
+          <div className="flex justify-between gap-2 bg-[#a3a3a3] shadow-md p-2 rounded-md border border-b-gray-300 w-full">
             <p
-              className="text-sm text-slate-300 dark:text-gray-800 relative"
+              className="text-sm text-slate-100  relative"
               dangerouslySetInnerHTML={{ __html: formattedText }}
             />
             <Checks
               size={16}
-              color="#b3b3b3"
+              color="#ffffff"
               className="justify-self-end mt-1"
             />
           </div>
-          <small className="flex items-center text-[11px] font-normal text-neutral-500 dark:text-neutral-300 justify-start">
+          <small className="flex items-center text-[11px] font-normal text-neutral-500  justify-start">
             {messageTime}
           </small>
         </div>
       </div>
     );
-  }
+  },
 );

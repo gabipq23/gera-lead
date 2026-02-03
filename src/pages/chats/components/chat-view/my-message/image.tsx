@@ -24,7 +24,7 @@ export const ImageMessage = memo(({ imageUrl, messageTime }: IImageMessage) => {
           className="rounded-md max-h-[70vh] max-w-[70vw] items-center flex"
         />
       </Modal>
-      <div className="bg-white dark:bg-muted shadow-md p-2 rounded-md w-full">
+      <div className="bg-white shadow-md p-2 rounded-md w-full">
         <Button
           variant="ghost"
           className="h-full relative"
@@ -39,7 +39,7 @@ export const ImageMessage = memo(({ imageUrl, messageTime }: IImageMessage) => {
           />
         </Button>
       </div>
-      <small className="flex items-center text-[11px] font-normal text-neutral-500 dark:text-neutral-300 justify-end">
+      <small className="flex items-center text-[11px] font-normal text-neutral-500  justify-end">
         {messageTime}
       </small>
     </div>

@@ -52,7 +52,7 @@ export function Pagination({
             id="itemsPerPage"
             value={itemsPerPage}
             onChange={(e) => changeItemsPerPage(Number(e.target.value))}
-            className="bg-background dark:bg-background border p-1 rounded"
+            className="bg-background  border p-1 rounded"
           >
             <option value={25}>25</option>
             <option value={50}>50</option>

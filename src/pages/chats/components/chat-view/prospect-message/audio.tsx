@@ -70,7 +70,7 @@ export const AudioMessage = memo(
 
     return (
       <div className="w-[25%]">
-        <div className="bg-white dark:bg-muted shadow-md p-2 rounded-md flex-row gap-1 w-full">
+        <div className="bg-white shadow-md p-2 rounded-md flex-row gap-1 w-full">
           <div className="w-full flex items-center">
             <audio ref={audioRef} src={audioSource} />
 
@@ -115,12 +115,12 @@ export const AudioMessage = memo(
         <div className="justify-between items-center flex w-full">
           <div className="flex items-center gap-1 pt-1">
             <Clock size={16} className="text-blue-500" />
-            <small className="flex items-center text-[11px] font-normal text-neutral-500 dark:text-neutral-300 justify-start">
+            <small className="flex items-center text-[11px] font-normal text-neutral-500  justify-start">
               {String(Math.floor(timeToShow / 60)).padStart(1, "0")}:
               {String(timeToShow % 60).padStart(2, "0")}
             </small>
           </div>
-          <small className="text-[11px] font-normal text-neutral-500 dark:text-neutral-300 ">
+          <small className="text-[11px] font-normal text-neutral-500  ">
             {messageTime}
           </small>
         </div>

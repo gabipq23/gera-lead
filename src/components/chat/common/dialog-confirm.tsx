@@ -34,7 +34,7 @@ export const DialogConfirm = ({
         <DialogFooter>
           <Button
             variant="secondary"
-            className="shadow-md hover:bg-slate-100 dark:hover:bg-zinc-900"
+            className="shadow-md hover:bg-slate-100"
             asChild
           >
             <DialogClose>Cancelar</DialogClose>
