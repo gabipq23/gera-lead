@@ -119,6 +119,17 @@ export default function SubHeader() {
             >
               Disponibilidade
             </a>
+            <a
+              onClick={() => {
+                setSelectedLink("chats");
+                navigate(`/admin/chats`);
+              }}
+              className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
+                selectedLink === "chats" ? "font-bold text-neutral-100" : ""
+              }`}
+            >
+              Chat
+            </a>
             {/* <Dropdown menu={{ items: managementMenuItems }} placement="bottom">
               <a className="text-[14px] cursor-pointer text-neutral-300 hover:text-neutral-100">
                 Gestão

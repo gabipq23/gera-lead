@@ -28,6 +28,7 @@ export default function TableStyle() {
         );
       },
     },
+
     {
       title: "Temp",
       dataIndex: "temperatura_lead",
