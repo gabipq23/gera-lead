@@ -364,44 +364,44 @@ export default function ResultAvailability() {
         </div>
 
         {data.disponibilidade === true && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 text-[14px] bg-white p-4 gap-2 rounded-[4px] border-1 border-neutral-200 w-full ">
-            <DisplayGenerator
-              title="Armário:"
-              value={capitalizeWords(data.dados.ARMARIO)}
-            />
-            <DisplayGenerator
-              title="Tipo:"
-              value={capitalizeWords(data.dados.TIPO)}
-            />
-            <DisplayGenerator title="CEP:" value={formatCEP(data.dados.CEP)} />
-            <DisplayGenerator
-              title="Logradouro:"
-              value={capitalizeWords(data.dados.LOGRADOURO)}
-              maxLength={30}
-            />
-            <DisplayGenerator
-              title="Número:"
-              value={
-                data.dados.NUM === numeroFromUrl
-                  ? capitalizeWords(data.dados.NUM)
-                  : `Dentro do range de ${data.range_min}/${data.range_max}`
-              }
-            />
-            <DisplayGenerator
-              title="Bairro:"
-              value={capitalizeWords(data.dados.BAIRRO)}
-              maxLength={25}
-            />
-            <DisplayGenerator
-              title="Cidade:"
-              value={capitalizeWords(data.dados.CIDADE)}
-            />
-            <DisplayGenerator
-              title="Território:"
-              value={capitalizeWords(data.dados.TERRITORIO)}
-              maxLength={30}
-            />
-            <DisplayGenerator title="UF:" value={data.dados.UF} />
+          <div className="text-[14px] bg-white p-4 gap-2 rounded-[4px] border-1 border-neutral-200 w-full ">
+            <div className=" flex items-center mb-3">
+              <h2 className=" text-[16px] font-semibold">Detalhamento</h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 ">
+              <DisplayGenerator
+                title="CEP:"
+                value={formatCEP(data.dados.CEP)}
+              />
+              <DisplayGenerator
+                title="Logradouro:"
+                value={capitalizeWords(data.dados.LOGRADOURO)}
+                maxLength={30}
+              />
+              <DisplayGenerator
+                title="Número:"
+                value={
+                  data.dados.NUM === numeroFromUrl
+                    ? capitalizeWords(data.dados.NUM)
+                    : `Dentro do range de ${data.range_min}/${data.range_max}`
+                }
+              />
+              <DisplayGenerator
+                title="Bairro:"
+                value={capitalizeWords(data.dados.BAIRRO)}
+                maxLength={25}
+              />
+              <DisplayGenerator
+                title="Cidade:"
+                value={capitalizeWords(data.dados.CIDADE)}
+              />
+              <DisplayGenerator
+                title="Território:"
+                value={capitalizeWords(data.dados.TERRITORIO)}
+                maxLength={30}
+              />
+              <DisplayGenerator title="UF:" value={data.dados.UF} />
+            </div>
           </div>
         )}
       </div>
