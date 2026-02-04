@@ -49,14 +49,15 @@ export function useZapCheckerFilterController() {
     {
       title: "Avatar",
       dataIndex: "avatar",
-      width: 100,
-      render: (value) => (
-        <img
-          src={value}
-          alt="Avatar"
-          style={{ width: 36, height: 36, borderRadius: "50%" }}
-        />
-      ),
+      width: 80,
+      render: (avatar) => {
+        return (
+          <img
+            src={avatar || "/assets/anonymous_avatar.png"}
+            className="h-9 w-9 rounded-full"
+          />
+        );
+      },
     },
     // {
     //   title: "DDD",

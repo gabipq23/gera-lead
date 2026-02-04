@@ -11,10 +11,10 @@ export default function ModalHeader({ localData }: { localData: any }) {
         </span>{" "}
         <div className="flex w-[340px] h-2 items-center justify-center gap-1 mr-8 mt-2">
           <span style={{ color: "#252525" }}>Temperatura:</span>{" "}
-          <Thermometer min={0} max={5} value={5} />
+          <Thermometer min={0} max={10} value={localData.temperatura_pf || 0} />
           <FireFromThermometer
-            value={Number(5)}
-            max={5}
+            value={Number(localData.temperatura_pf) || 0}
+            max={10}
             percentage={100}
             showIcons={true}
           />

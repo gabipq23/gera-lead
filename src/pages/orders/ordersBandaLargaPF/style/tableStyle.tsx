@@ -76,15 +76,15 @@ export default function TableStyle() {
 
     {
       title: "Temp",
-      dataIndex: "temperatura_lead",
+      dataIndex: "temperatura_pf",
       width: 220,
-      render: () => (
+      render: (temperatura_pf) => (
         <div className="flex w-[180px] h-2 items-center gap-1 mr-4">
           {" "}
-          <Thermometer min={0} max={5} value={5} />
+          <Thermometer min={0} max={10} value={temperatura_pf || 0} />
           <FireFromThermometer
-            value={Number(5)}
-            max={5}
+            value={Number(temperatura_pf) || 0}
+            max={10}
             percentage={100}
             showIcons={true}
           />
