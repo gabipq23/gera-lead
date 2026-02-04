@@ -38,8 +38,14 @@ export const TextMessage = memo(
 
     return (
       <div>
-        <div className="flex flex-col gap-2 max-w-[60%] w-max mr-auto overflow-hidden">
-          <div className="flex justify-between gap-2 bg-[#a3a3a3] shadow-md p-2 rounded-md border border-b-gray-300 w-full">
+        <div
+          style={{ border: "none" }}
+          className="flex flex-col gap-2 max-w-[60%] w-max mr-auto overflow-hidden"
+        >
+          <div
+            style={{ border: "none" }}
+            className="flex justify-between gap-2 bg-[#a3a3a3] shadow-md p-2 rounded-md border border-b-gray-300 w-full"
+          >
             <p
               className="text-sm text-slate-100  relative"
               dangerouslySetInnerHTML={{ __html: formattedText }}

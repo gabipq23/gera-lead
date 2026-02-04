@@ -35,7 +35,10 @@ export const ImageMessage = memo(
           </Button>
           {/* Texto da legenda com quebra de linha */}
           <Visible when={!!caption}>
-            <div className="bg-primary shadow-md p-2 rounded-md border border-b-gray-300 max-w-[250px] break-words mx-auto mb-1">
+            <div
+              style={{ border: "none" }}
+              className="bg-primary shadow-md p-2 rounded-md border border-b-gray-300 max-w-[250px] break-words mx-auto mb-1"
+            >
               <p
                 className="text-sm text-slate-300 "
                 dangerouslySetInnerHTML={{ __html: formattedCaption! }}
