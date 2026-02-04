@@ -101,11 +101,29 @@ export function ContactButton({
     <button
       type="button"
       onClick={onClick}
+      style={{
+        marginInline: "6px",
+        paddingInline: "10px",
+        paddingBlock: "12px",
+        backgroundColor: isSelected ? "rgba(30, 41, 59, 0.15)" : "transparent",
+        transition: "all 0.2s ease-in-out",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = "rgba(51, 65, 85, 0.2)";
+        e.currentTarget.style.boxShadow = "0 4px 6px -1px rgb(0 0 0 / 0.1)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = isSelected
+          ? "rgba(30, 41, 59, 0.15)"
+          : "transparent";
+        e.currentTarget.style.boxShadow = isSelected
+          ? "0 1px 2px 0 rgb(0 0 0 / 0.05)"
+          : "none";
+      }}
       className={`
         flex flex-col items-center justify-between relative cursor-pointer
-        p-1.5 pt-3 mr-2 rounded-lg duration-200
-        hover:shadow-md hover:bg-slate-300/20 
-        ${isSelected ? "bg-slate-300/20 shadow-sm" : ""}
+        p-1.5 pt-3 mr-2 rounded-lg
+        ${isSelected ? "shadow-sm" : ""}
       `}
     >
       <div className="flex w-full items-center gap-3 relative">
@@ -138,7 +156,7 @@ export function ContactButton({
               <WhatsappLogo
                 size={16}
                 color="#22c55e"
-                className="absolute top-[-10px] left-[-px]"
+                className="absolute top-[-10px] left-[-4px]"
               />
             </Tooltip>
             {/* 
