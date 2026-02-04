@@ -195,7 +195,7 @@ export function Chats() {
                     onClick={onResetFilter}
                     variant="ghost"
                   >
-                    <p className="text-[12px]">Limpar Filtros</p>
+                    <p className="text-[12px] text-[#8b8e8f]">Limpar Filtros</p>
                   </Button>
                 </div>
                 <div className="flex justify-evenly gap-2 w-full">
@@ -208,13 +208,19 @@ export function Chats() {
                           value={field.value}
                           onValueChange={field.onChange}
                         >
-                          <SelectTrigger className="w-36">
+                          <SelectTrigger
+                            style={{ fontSize: "12px", color: "#8b8e8f" }}
+                            className="w-36"
+                          >
                             <SelectValue
+                              style={{ fontSize: "12px", color: "#8b8e8f" }}
                               className="placeholder:text-[12px] text-[12px]"
                               placeholder="Bot"
                             />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent
+                            style={{ fontSize: "12px", color: "#8b8e8f" }}
+                          >
                             <SelectGroup>
                               {botsQuery.data?.map((bot: IBot) => (
                                 <SelectItem key={bot?.id} value={bot?.id}>
@@ -234,7 +240,8 @@ export function Chats() {
                     <Input
                       type="text"
                       placeholder="Buscar..."
-                      className=" text-xs"
+                      className=""
+                      style={{ fontSize: "12px", color: "#8b8e8f" }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           e.preventDefault();
@@ -324,13 +331,19 @@ export function Chats() {
                           value={field.value}
                           onValueChange={field.onChange}
                         >
-                          <SelectTrigger className="text-xs">
+                          <SelectTrigger
+                            style={{ fontSize: "12px", color: "#8b8e8f" }}
+                            className="text-xs"
+                          >
                             <SelectValue
+                              style={{ fontSize: "12px", color: "#8b8e8f" }}
                               className="placeholder:text-[12px] text-[12px]"
                               placeholder="Plataforma"
                             />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent
+                            style={{ fontSize: "12px", color: "#8b8e8f" }}
+                          >
                             <SelectGroup>
                               {platforms.map((platform) => (
                                 <SelectItem

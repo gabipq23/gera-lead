@@ -277,6 +277,7 @@ export const ChatHeader = ({
               </Button>
               <div className="relative w-[150px]">
                 <Input
+                  style={{ fontSize: "12px", color: "#8b8e8f" }}
                   type="text"
                   value={searchedTerm}
                   placeholder="Buscar mensagem..."
@@ -285,6 +286,7 @@ export const ChatHeader = ({
                 />
                 {searchedTerm && (
                   <Button
+                    style={{ fontSize: "12px", color: "#8b8e8f" }}
                     variant="ghost"
                     onClick={() => changeSearchedTerm("")}
                     className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full h-1/2 py-3 
@@ -298,6 +300,7 @@ export const ChatHeader = ({
           ) : (
             <Tooltip info="Pesquisar" className="text-slate-200 bg-[#646464]">
               <Button
+                style={{ fontSize: "12px", color: "#8b8e8f" }}
                 variant="outline"
                 disabled={isByGlobalSearch}
                 size="icon"
@@ -312,6 +315,7 @@ export const ChatHeader = ({
           {(!isCurrentChatChanged || isByGlobalSearch) && (
             <div className="flex items-center gap-2">
               <Button
+                style={{ fontSize: "12px", color: "#8b8e8f" }}
                 variant="ghost"
                 onClick={goToPrevious}
                 disabled={searchedTerm === ""}
@@ -319,8 +323,8 @@ export const ChatHeader = ({
               >
                 <ArrowUp size={12} />
               </Button>
-
               <Button
+                style={{ fontSize: "12px", color: "#8b8e8f" }}
                 variant="ghost"
                 onClick={goToNext}
                 disabled={searchedTerm === ""}
@@ -328,7 +332,11 @@ export const ChatHeader = ({
               >
                 <ArrowDown size={12} />
               </Button>
-              <p className="text-muted-foreground text-xs w-[50px]">
+
+              <p
+                className="text-muted-foreground text-xs w-[50px]"
+                style={{ fontSize: "12px", color: "#8b8e8f" }}
+              >
                 {searchedTerm === ""
                   ? "0 de 0"
                   : `${currentIndex} de ${totalMatchedMessages}`}
