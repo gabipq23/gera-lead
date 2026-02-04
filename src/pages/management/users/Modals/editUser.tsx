@@ -79,13 +79,13 @@ export default function EditUserModal({
                 theme={{
                   components: {
                     Input: {
-                      hoverBorderColor: "#660099",
-                      activeBorderColor: "#660099",
+                      hoverBorderColor: "#8b8e8f",
+                      activeBorderColor: "#8b8e8f",
                       activeShadow: "none",
                     },
                     Select: {
-                      hoverBorderColor: "#660099",
-                      activeBorderColor: "#660099",
+                      hoverBorderColor: "#8b8e8f",
+                      activeBorderColor: "#8b8e8f",
                       activeOutlineColor: "none",
                     },
                   },

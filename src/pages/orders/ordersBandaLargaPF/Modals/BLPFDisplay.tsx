@@ -18,6 +18,69 @@ export function OrderBandaLargaPFDisplay({
   // updateOrderData,
 }: OrderBandaLargaPFDisplayProps) {
   const [form] = Form.useForm();
+  const formatOS = (os: string) => {
+    if (!os) return "-";
+    const osLower = os.toLowerCase();
+    const osMap: Record<string, string> = {
+      windows: "Windows",
+      macos: "macOS",
+      linux: "Linux",
+      android: "Android",
+      ios: "iOS",
+      ubuntu: "Ubuntu",
+      fedora: "Fedora",
+      debian: "Debian",
+      centos: "CentOS",
+      "chrome os": "Chrome OS",
+      "windows phone": "Windows Phone",
+      blackberry: "BlackBerry",
+    };
+    return osMap[osLower] || os.charAt(0).toUpperCase() + os.slice(1);
+  };
+
+  const formatBrowser = (browser: string) => {
+    if (!browser) return "-";
+    const browserLower = browser.toLowerCase();
+    const browserMap: Record<string, string> = {
+      chrome: "Google Chrome",
+      firefox: "Firefox",
+      safari: "Safari",
+      edge: "Microsoft Edge",
+      opera: "Opera",
+      brave: "Brave",
+      vivaldi: "Vivaldi",
+      "internet explorer": "Internet Explorer",
+      "samsung internet": "Samsung Internet",
+      "uc browser": "UC Browser",
+      "chrome mobile": "Chrome Mobile",
+      "firefox mobile": "Firefox Mobile",
+      "safari mobile": "Safari Mobile",
+      "opera mobile": "Opera Mobile",
+      "edge mobile": "Edge Mobile",
+    };
+    return (
+      browserMap[browserLower] ||
+      browser.charAt(0).toUpperCase() + browser.slice(1)
+    );
+  };
+
+  const formatDevice = (device: string) => {
+    if (!device) return "-";
+    return device === "mobile"
+      ? "Mobile"
+      : device === "desktop"
+        ? "Desktop"
+        : device === "tablet"
+          ? "Tablet"
+          : device.charAt(0).toUpperCase() + device.slice(1);
+  };
+
+  const formatResolution = (resolution: any) => {
+    if (resolution && resolution.width && resolution.height) {
+      return `${resolution.width} x ${resolution.height}`;
+    }
+    return "-";
+  };
   useEffect(() => {
     if (localData) {
       form.setFieldsValue({
@@ -256,14 +319,20 @@ export function OrderBandaLargaPFDisplay({
           <div className="bg-white rounded-md p-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
-                title="Sistema Operacional:"
-                value={localData.so}
+                title="Plataforma:"
+                value={formatOS(localData.finger_print?.os)}
               />
-              <DisplayGenerator title="Device:" value={localData.device} />
-              <DisplayGenerator title="Browser:" value={localData.browser} />
+              <DisplayGenerator
+                title="Dispositivo:"
+                value={formatDevice(localData.finger_print?.device)}
+              />
+              <DisplayGenerator
+                title="Browser:"
+                value={formatBrowser(localData.finger_print?.browser)}
+              />
               <DisplayGenerator
                 title="Resolução:"
-                value={localData.resolution}
+                value={formatResolution(localData.finger_print?.resolution)}
               />
             </div>
           </div>
@@ -344,8 +413,8 @@ export function OrderBandaLargaPFDisplay({
         theme={{
           components: {
             Input: {
-              hoverBorderColor: "#660099",
-              activeBorderColor: "#660099",
+              hoverBorderColor: "#8b8e8f",
+              activeBorderColor: "#8b8e8f",
               activeShadow: "none",
               colorBorder: "#bfbfbf",
               colorTextPlaceholder: "#666666",

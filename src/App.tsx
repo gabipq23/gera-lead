@@ -25,6 +25,12 @@ import ResultSearchAvailability from "./pages/backoffice/components/searchAvaila
 import ResultBulkAvailability from "./pages/backoffice/components/bulkAvailability/resultBulkAvailability";
 import Availability from "./pages/backoffice/consultAvailability/availability";
 import { Chats } from "./pages/chats/chats";
+import CheckOperadora from "./pages/tools/checkOperadora/checkOperadora";
+import CheckAnatel from "./pages/tools/checkAnatel/checkAnatel";
+import ZapChecker from "./pages/tools/zapChecker/zapChecker";
+import PJChecker from "./pages/tools/pjChecker/pjChecker";
+import Base2bSocio from "./pages/tools/base2bSocio/base2bSocio";
+import Base2bEmpresa from "./pages/tools/base2bEmpresa/base2bEmpresa";
 // import { Chat } from "./pages/chat/chat";
 
 export default function App() {
@@ -65,6 +71,16 @@ function Content({ user }: { user: IUser | null }) {
         <Routes>
           {effectiveUser ? (
             <>
+              {" "}
+              <Route
+                path="/admin/check-operadora"
+                element={<CheckOperadora />}
+              />
+              <Route path="/admin/check-anatel" element={<CheckAnatel />} />
+              <Route path="/admin/zap-checker" element={<ZapChecker />} />
+              <Route path="/admin/pj-checker" element={<PJChecker />} />
+              <Route path="/admin/base2b-socio" element={<Base2bSocio />} />
+              <Route path="/admin/base2b-empresa" element={<Base2bEmpresa />} />
               <Route path="/admin/chats" element={<Chats />} />
               <Route path="/admin/leads-pj" element={<OrdersBandaLargaPJ />} />
               <Route path="/admin/leads-pf" element={<OrdersBandaLargaPF />} />

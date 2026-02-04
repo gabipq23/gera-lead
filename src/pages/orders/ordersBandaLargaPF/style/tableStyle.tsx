@@ -14,6 +14,51 @@ export default function TableStyle() {
   const filters = getFiltersFromURL();
   const navigate = useNavigate();
 
+  const formatOS = (os: string) => {
+    if (!os) return "-";
+    const osLower = os.toLowerCase();
+    const osMap: Record<string, string> = {
+      windows: "Windows",
+      macos: "macOS",
+      linux: "Linux",
+      android: "Android",
+      ios: "iOS",
+      ubuntu: "Ubuntu",
+      fedora: "Fedora",
+      debian: "Debian",
+      centos: "CentOS",
+      "chrome os": "Chrome OS",
+      "windows phone": "Windows Phone",
+      blackberry: "BlackBerry",
+    };
+    return osMap[osLower] || os.charAt(0).toUpperCase() + os.slice(1);
+  };
+
+  const formatBrowser = (browser: string) => {
+    if (!browser) return "-";
+    const browserLower = browser.toLowerCase();
+    const browserMap: Record<string, string> = {
+      chrome: "Google Chrome",
+      firefox: "Firefox",
+      safari: "Safari",
+      edge: "Microsoft Edge",
+      opera: "Opera",
+      brave: "Brave",
+      vivaldi: "Vivaldi",
+      "internet explorer": "Internet Explorer",
+      "samsung internet": "Samsung Internet",
+      "uc browser": "UC Browser",
+      "chrome mobile": "Chrome Mobile",
+      "firefox mobile": "Firefox Mobile",
+      "safari mobile": "Safari Mobile",
+      "opera mobile": "Opera Mobile",
+      "edge mobile": "Edge Mobile",
+    };
+    return (
+      browserMap[browserLower] ||
+      browser.charAt(0).toUpperCase() + browser.slice(1)
+    );
+  };
   const columns: TableColumnsType<any> = [
     {
       title: "",
@@ -514,38 +559,56 @@ export default function TableStyle() {
     {
       title: "Whatsapp",
       dataIndex: ["whatsapp", "is_comercial"],
-      width: 100,
-      render: (is_comercial) => (
-        <div className="flex items-center justify-center">
-          {is_comercial === true ? (
-            <Tooltip
-              title="Business"
-              placement="top"
-              styles={{ body: { fontSize: "12px" } }}
-            >
-              <img
-                src="/assets/whatsapp-business.png"
-                alt="Business"
-                className="h-6 w-6"
-              />
-            </Tooltip>
-          ) : is_comercial === false ? (
-            <Tooltip
-              title="Messenger"
-              placement="top"
-              styles={{ body: { fontSize: "12px" } }}
-            >
-              <img
-                src="/assets/whatsapp-messenger.png"
-                alt="Messenger"
-                className="h-6 w-6"
-              />
-            </Tooltip>
-          ) : (
-            "-"
-          )}
-        </div>
-      ),
+      width: 90,
+      render: (is_comercial, record) => {
+        const whatsappData = record?.whatsapp;
+
+        // Cenário 1: Telefone inválido
+        if (
+          whatsappData?.erro === "Telefone inválido" ||
+          whatsappData?.sucesso === false
+        ) {
+          return <div className="flex items-center justify-center">Não</div>;
+        }
+
+        // Cenário 2: existe_no_whatsapp é false
+        if (whatsappData?.existe_no_whatsapp === false) {
+          return <div className="flex items-center justify-center">Não</div>;
+        }
+
+        // Casos normais com WhatsApp válido
+        return (
+          <div className="flex items-center justify-center">
+            {is_comercial === true ? (
+              <Tooltip
+                title="Business"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <img
+                  src="/assets/whatsapp-business.png"
+                  alt="Business"
+                  className="h-6 w-6"
+                />
+              </Tooltip>
+            ) : is_comercial === false ? (
+              <Tooltip
+                title="Messenger"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <img
+                  src="/assets/whatsapp-messenger.png"
+                  alt="Messenger"
+                  className="h-6 w-6"
+                />
+              </Tooltip>
+            ) : (
+              "-"
+            )}
+          </div>
+        );
+      },
     },
     {
       title: "Status",
@@ -724,28 +787,40 @@ export default function TableStyle() {
                     : "-",
     },
     {
-      title: "Device",
-      dataIndex: "device",
-      width: 120,
-      render: (device) => (device ? device : "-"),
+      title: "Dispositivo",
+      dataIndex: ["finger_print", "device"],
+      width: 100,
+      render: (device) =>
+        device === "mobile"
+          ? "Mobile"
+          : device === "desktop"
+            ? "Desktop"
+            : device === "tablet"
+              ? "Tablet"
+              : "-",
     },
     {
-      title: "Sistema Operacional",
-      dataIndex: "so",
-      width: 160,
-      render: (so) => (so ? so : "-"),
+      title: "Plataforma",
+      dataIndex: ["finger_print", "os"],
+      width: 140,
+      render: (os) => formatOS(os),
     },
     {
       title: "Browser",
-      dataIndex: "browser",
+      dataIndex: ["finger_print", "browser"],
       width: 120,
-      render: (browser) => (browser ? browser : "-"),
+      render: (browser) => formatBrowser(browser),
     },
     {
       title: "Resolução",
-      dataIndex: "resolution",
+      dataIndex: ["finger_print", "resolution"],
       width: 120,
-      render: (resolution) => (resolution ? resolution : "-"),
+      render: (resolution) => {
+        if (resolution && resolution.width && resolution.height) {
+          return `${resolution.width} x ${resolution.height}`;
+        }
+        return "-";
+      },
     },
   ];
 

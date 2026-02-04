@@ -89,6 +89,86 @@ export default function SubHeader() {
     // },
   ];
 
+  const toolsMenuItems: MenuProps["items"] = [
+    {
+      key: "check-operadora",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("check-operadora");
+            navigate(`/admin/check-operadora`);
+          }}
+        >
+          Check Operadora
+        </span>
+      ),
+    },
+    {
+      key: "check-anatel",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("check-anatel");
+            navigate(`/admin/check-anatel`);
+          }}
+        >
+          Check Anatel
+        </span>
+      ),
+    },
+    {
+      key: "zap-checker",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("zap-checker");
+            navigate(`/admin/zap-checker`);
+          }}
+        >
+          Zap Checker
+        </span>
+      ),
+    },
+    {
+      key: "pj-checker",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("pj-checker");
+            navigate(`/admin/pj-checker`);
+          }}
+        >
+          Phone Finder
+        </span>
+      ),
+    },
+    {
+      key: "base2b-socio",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("base2b-socio");
+            navigate(`/admin/base2b-socio`);
+          }}
+        >
+          Base2B / Busca-sócio
+        </span>
+      ),
+    },
+    {
+      key: "base2b-empresa",
+      label: (
+        <span
+          onClick={() => {
+            setSelectedLink("base2b-empresa");
+            navigate(`/admin/base2b-empresa`);
+          }}
+        >
+          Base2B / Busca-empresa
+        </span>
+      ),
+    },
+  ];
   return (
     <div className="relative z-2">
       <div className="">
@@ -99,7 +179,7 @@ export default function SubHeader() {
                 onClick={(e) => e.preventDefault()}
                 className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
                   selectedLink === "leads-pj" || selectedLink === "leads-pf"
-                    ? "font-bold text-neutral-100"
+                    ? "font-bold text-white"
                     : ""
                 }`}
               >
@@ -113,19 +193,36 @@ export default function SubHeader() {
               }}
               className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
                 selectedLink === "consulta-disponibilidade"
-                  ? "font-bold text-neutral-100"
+                  ? "font-bold text-white"
                   : ""
               }`}
             >
               Disponibilidade
             </a>
+            <Dropdown menu={{ items: toolsMenuItems }} placement="bottom">
+              <a
+                onClick={(e) => e.preventDefault()}
+                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-100 ${
+                  selectedLink === "pj-checker" ||
+                  selectedLink === "check-anatel" ||
+                  selectedLink === "zap-checker" ||
+                  selectedLink === "base2b-empresa" ||
+                  selectedLink === "base2b-socio" ||
+                  selectedLink === "check-operadora"
+                    ? "font-bold text-white"
+                    : ""
+                }`}
+              >
+                Tools
+              </a>
+            </Dropdown>
             <a
               onClick={() => {
                 setSelectedLink("chats");
                 navigate(`/admin/chats`);
               }}
               className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
-                selectedLink === "chats" ? "font-bold text-neutral-100" : ""
+                selectedLink === "chats" ? "font-bold text-white" : ""
               }`}
             >
               Chat

@@ -29,3 +29,18 @@ export const apiUberich = axios.create({
       "ff52c550a19a84ce0de929b75874ef8bbd503eeffdaeb324cdb7da0c7f4cd819cfb760c07b0e2578197fc3934c13df24",
   },
 });
+
+export const apiBase2b = axios.create({
+  baseURL: "https://base2b.online:3000/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export const apiCheckOperadora = axios.create({
+  baseURL: "https://zapchecker.bigdates.com.br/api/public",
+  headers: {
+    "Content-Type": "application/json",
+    "X-API-KEY": "sMVD95wfLe3WDLP5b3DQfBNjzdb8dZ",
+  },
+});
