@@ -18,7 +18,7 @@ interface SocketState {
 export const useMessageSocket = () => {
   const { addMessage, addNewChat, pauseConversation, resumeConversation } =
     useChatContext();
-  const selectedClientId = "1f0e74e9-c2ce-421c-a1a8-025a466f7b46"; // mokado de clientId
+  const selectedClientId = "1f5e32d0-a1e5-4bde-aa2c-7ec9e9eae2f0"; // mokado de clientId
 
   const soundRef = useRef<Howl | null>(null);
 
