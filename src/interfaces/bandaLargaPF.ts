@@ -45,11 +45,13 @@ export interface OrderBandaLargaPF {
   dueday: number;
   email: string;
   equipe: string;
-  finger_print: {
-    os: string;
-    browser: string;
+  finger_print?: {
+    os: { name: string; version: string };
+    browser: { name: string; version: string };
     device: string;
-    resolution?: string;
+    timezone: string;
+    timezone_offset: number;
+    resolution?: { dpr: number; height: number; width: number };
   };
   fixedLineNumberToPort?: string | null;
   hasFixedLinePortability?: boolean | number;

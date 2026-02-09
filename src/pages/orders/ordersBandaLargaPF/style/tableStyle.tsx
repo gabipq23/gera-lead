@@ -786,6 +786,7 @@ export default function TableStyle() {
                     ? "Desconhecido"
                     : "-",
     },
+
     {
       title: "Dispositivo",
       dataIndex: ["finger_print", "device"],
@@ -803,13 +804,20 @@ export default function TableStyle() {
       title: "Plataforma",
       dataIndex: ["finger_print", "os"],
       width: 140,
-      render: (os) => formatOS(os),
+      render: (os) => formatOS(os?.name) + " " + os?.version || "-",
     },
     {
       title: "Browser",
       dataIndex: ["finger_print", "browser"],
       width: 120,
-      render: (browser) => formatBrowser(browser),
+      render: (browser) =>
+        formatBrowser(browser?.name) + " " + browser?.version || "-",
+    },
+    {
+      title: "TimeZone",
+      dataIndex: ["finger_print", "timezone"],
+      width: 120,
+      render: (timezone) => timezone || "-",
     },
     {
       title: "Resolução",

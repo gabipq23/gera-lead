@@ -43,7 +43,14 @@ export interface OrderBandaLargaPJ {
   district: string;
   dueday: number;
   equipe: string;
-  finger_print: string;
+  finger_print?: {
+    os: { name: string; version: string };
+    browser: { name: string; version: string };
+    device: string;
+    timezone: string;
+    timezone_offset: number;
+    resolution?: { dpr: number; height: number; width: number };
+  };
   fixedLineNumberToPort?: string;
   hasFixedLinePortability?: boolean | number;
   fullname: string;

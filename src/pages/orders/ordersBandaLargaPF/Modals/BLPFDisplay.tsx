@@ -320,19 +320,33 @@ export function OrderBandaLargaPFDisplay({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
                 title="Plataforma:"
-                value={formatOS(localData.finger_print?.os)}
+                value={
+                  formatOS(localData.finger_print?.os?.name || "-") +
+                  " " +
+                  (localData.finger_print?.os?.version || "")
+                }
               />
               <DisplayGenerator
                 title="Dispositivo:"
-                value={formatDevice(localData.finger_print?.device)}
+                value={formatDevice(localData.finger_print?.device || "-")}
               />
               <DisplayGenerator
                 title="Browser:"
-                value={formatBrowser(localData.finger_print?.browser)}
+                value={
+                  formatBrowser(localData.finger_print?.browser?.name || "-") +
+                  " " +
+                  (localData.finger_print?.browser?.version || "")
+                }
               />
               <DisplayGenerator
                 title="Resolução:"
-                value={formatResolution(localData.finger_print?.resolution)}
+                value={localData.finger_print?.timezone || "-"}
+              />
+              <DisplayGenerator
+                title="Resolução:"
+                value={formatResolution(
+                  localData.finger_print?.resolution || "-",
+                )}
               />
             </div>
           </div>
