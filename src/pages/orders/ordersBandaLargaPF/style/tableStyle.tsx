@@ -5,9 +5,16 @@ import { formatCPF } from "@/utils/formatCPF";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { useStyle } from "./useStyle";
 import OperatorAvailability from "@/components/OperatorAvailability";
-import { DollarSign } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle2,
+  DollarSign,
+  Monitor,
+  Smartphone,
+  Tablet,
+  XCircle,
+} from "lucide-react";
 import { Thermometer } from "@/components/thermometer";
-import { FireFromThermometer } from "@/components/fire-from-thermometer";
 
 export default function TableStyle() {
   const { styles } = useStyle();
@@ -64,7 +71,20 @@ export default function TableStyle() {
       title: "",
       dataIndex: ["whatsapp", "avatar"],
       width: 80,
-      render: (avatar) => {
+      render: (avatar, record) => {
+        if (record.temperatura_pf === 10) {
+          return (
+            <div className="flex bg-[#d63535] rounded-full w-9 h-9 items-center justify-center relative">
+              <img
+                src={avatar || "/assets/anonymous_avatar.png"}
+                className="rounded-full w-9 h-9"
+              />
+              <div className="text-sm absolute -top-1 -right-1 flex items-center justify-center">
+                🔥
+              </div>
+            </div>
+          );
+        }
         return (
           <img
             src={avatar || "/assets/anonymous_avatar.png"}
@@ -73,24 +93,18 @@ export default function TableStyle() {
         );
       },
     },
-
     {
-      title: "Temp",
+      title: "Temperatura",
       dataIndex: "temperatura_pf",
-      width: 220,
+      width: 140,
       render: (temperatura_pf) => (
-        <div className="flex w-[180px] h-2 items-center gap-1 mr-4">
+        <div className="flex w-[120px] h-2 items-center gap-1 mr-4">
           {" "}
           <Thermometer min={0} max={10} value={temperatura_pf || 0} />
-          <FireFromThermometer
-            value={Number(temperatura_pf) || 0}
-            max={10}
-            percentage={100}
-            showIcons={true}
-          />
         </div>
       ),
     },
+
     {
       title: "ID",
       dataIndex: "ordernumber",
@@ -284,87 +298,6 @@ export default function TableStyle() {
         ip_fixo ? "Sim" : ip_fixo === undefined ? "-" : "Não",
     },
     {
-      title: "Nome",
-      dataIndex: "fullname",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (fullname) => (
-        <Tooltip
-          placement="topLeft"
-          title={fullname}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {fullname || "-"}
-        </Tooltip>
-      ),
-      width: 150,
-    },
-    {
-      title: "Nome (RFB)",
-      dataIndex: "nome_receita",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (nome_receita) => (
-        <Tooltip
-          placement="topLeft"
-          title={nome_receita}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {nome_receita || "-"}
-        </Tooltip>
-      ),
-      width: 150,
-    },
-    {
-      title: "Data de Nascimento",
-      dataIndex: "birthdate",
-      width: 150,
-      render: (birthdate) => (birthdate ? birthdate : "-"),
-    },
-    {
-      title: "Data de Nascimento (RFB)",
-      dataIndex: "data_de_nascimento_receita",
-      width: 180,
-      render: (data_de_nascimento_receita) => data_de_nascimento_receita || "-",
-    },
-    {
-      title: "Nome da Mãe",
-      dataIndex: "motherfullname",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (motherfullname) => (
-        <Tooltip
-          placement="topLeft"
-          title={motherfullname}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {motherfullname || "-"}
-        </Tooltip>
-      ),
-      width: 140,
-    },
-    {
-      title: "Nome da Mãe (RFB)",
-      dataIndex: "nome_da_mae_receita",
-
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (nome_da_mae_receita) => (
-        <Tooltip
-          placement="topLeft"
-          title={nome_da_mae_receita}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {nome_da_mae_receita || "-"}
-        </Tooltip>
-      ),
-      width: 150,
-    },
-    {
       title: "CPF",
       dataIndex: "cpf",
       width: 120,
@@ -394,6 +327,213 @@ export default function TableStyle() {
         return true;
       },
     },
+    {
+      title: "Nome",
+      dataIndex: "fullname",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (fullname, record) => {
+        const compareNames = (name1: string, name2: string) => {
+          if (!name1 || !name2) return null;
+
+          const normalizeText = (text: string) => {
+            return text
+              .toLowerCase()
+              .trim()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "");
+          };
+
+          return normalizeText(name1) === normalizeText(name2);
+        };
+
+        const isNamesMatch = compareNames(fullname, record.nome_receita);
+
+        return (
+          <Tooltip
+            placement="topLeft"
+            title={fullname}
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            {fullname ? (
+              <span className="flex items-center gap-1">
+                {fullname}
+                {isNamesMatch === true ? (
+                  <Tooltip
+                    title="Nome confere com RFB"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  </Tooltip>
+                ) : isNamesMatch === false ? (
+                  <Tooltip
+                    title="Nome diferente da RFB"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <XCircle className="h-4 w-4 text-red-500" />
+                  </Tooltip>
+                ) : null}
+              </span>
+            ) : (
+              "-"
+            )}
+          </Tooltip>
+        );
+      },
+      width: 240,
+    },
+    {
+      title: "Nome (RFB)",
+      dataIndex: "nome_receita",
+
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (nome_receita) => (
+        <Tooltip
+          placement="topLeft"
+          title={nome_receita || "-"}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {nome_receita || "-"}
+        </Tooltip>
+      ),
+      width: 150,
+    },
+    {
+      title: "Gênero",
+      dataIndex: "gender",
+      width: 120,
+      render: (gender) => gender || "-",
+    },
+    {
+      title: "Data de Nascimento",
+      dataIndex: "birthdate",
+      width: 150,
+      render: (birthdate, record) => {
+        const compareDates = (date1: string, date2: string) => {
+          if (!date1 || !date2) return null;
+          return date1.trim() === date2.trim();
+        };
+
+        const isDatesMatch = compareDates(
+          birthdate,
+          record.data_de_nascimento_receita,
+        );
+
+        return (
+          <span className="flex items-center gap-1">
+            {birthdate || "-"}
+            {isDatesMatch === true ? (
+              <Tooltip
+                title="Data de nascimento confere com RFB"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : isDatesMatch === false ? (
+              <Tooltip
+                title="Data de nascimento diferente da RFB"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            ) : null}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Data de Nascimento (RFB)",
+      dataIndex: "data_de_nascimento_receita",
+      width: 180,
+      render: (data_de_nascimento_receita) => data_de_nascimento_receita || "-",
+    },
+    {
+      title: "Nome da Mãe",
+      dataIndex: "motherfullname",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (motherfullname, record) => {
+        const compareNames = (name1: string, name2: string) => {
+          if (!name1 || !name2) return null;
+
+          const normalizeText = (text: string) => {
+            return text
+              .toLowerCase()
+              .trim()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "");
+          };
+
+          return normalizeText(name1) === normalizeText(name2);
+        };
+
+        const isNamesMatch = compareNames(
+          motherfullname,
+          record.nome_da_mae_receita,
+        );
+
+        return (
+          <Tooltip
+            placement="topLeft"
+            title={motherfullname}
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            {motherfullname ? (
+              <span className="flex items-center gap-1">
+                {motherfullname}
+                {isNamesMatch === true ? (
+                  <Tooltip
+                    title="Nome da mãe confere com RFB"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  </Tooltip>
+                ) : isNamesMatch === false ? (
+                  <Tooltip
+                    title="Nome da mãe diferente da RFB"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <XCircle className="h-4 w-4 text-red-500" />
+                  </Tooltip>
+                ) : null}
+              </span>
+            ) : (
+              "-"
+            )}
+          </Tooltip>
+        );
+      },
+      width: 220,
+    },
+    {
+      title: "Nome da Mãe (RFB)",
+      dataIndex: "nome_da_mae_receita",
+
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (nome_da_mae_receita) => (
+        <Tooltip
+          placement="topLeft"
+          title={nome_da_mae_receita}
+          styles={{ body: { fontSize: "12px" } }}
+        >
+          {nome_da_mae_receita || "-"}
+        </Tooltip>
+      ),
+      width: 150,
+    },
+
     {
       title: "Crédito",
       dataIndex: "credito",
@@ -483,8 +623,35 @@ export default function TableStyle() {
     {
       title: "Telefone",
       dataIndex: "phone",
-      width: 120,
-      render: (phone) => (phone ? formatPhoneNumber(phone) : "-"),
+      width: 150,
+      render: (_, record) => {
+        if (!record.phone) return "-";
+
+        const isValid = record.numero_valido;
+
+        return (
+          <span className="flex items-center gap-1">
+            {formatPhoneNumber(record.phone)}
+            {isValid === 1 ? (
+              <Tooltip
+                title="Válido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : isValid === 0 ? (
+              <Tooltip
+                title="Inválido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            ) : null}
+          </span>
+        );
+      },
       filters: [
         {
           text: "Preenchido",
@@ -515,13 +682,6 @@ export default function TableStyle() {
       },
     },
     {
-      title: "Anatel",
-      dataIndex: "numero_valido",
-      width: 70,
-      render: (numero_valido) =>
-        numero_valido ? "Sim" : numero_valido === null ? "-" : "Não",
-    },
-    {
       title: "Operadora",
       dataIndex: "operadora",
       width: 120,
@@ -537,6 +697,24 @@ export default function TableStyle() {
           {record.operadora || "-"}
         </Tooltip>
       ),
+    },
+    {
+      title: "Portado",
+      dataIndex: "portado",
+      width: 90,
+      render: (_, record) =>
+        record.portado === true
+          ? "Sim"
+          : record.portado === false
+            ? "Não"
+            : "-",
+    },
+    {
+      title: "Data da Portabilidade",
+      dataIndex: "data_portabilidade",
+      width: 180,
+      render: (_, record) =>
+        record.data_portabilidade ? record.data_portabilidade : "-",
     },
     {
       title: "Titular",
@@ -633,38 +811,73 @@ export default function TableStyle() {
       ellipsis: {
         showTitle: false,
       },
-      render: (email) => (
+      render: (_, record) => (
         <Tooltip
           placement="topLeft"
-          title={email}
+          title={record.email}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {email || "-"}
+          {record.email ? (
+            <span className="flex items-center gap-1">
+              {record.email}
+              {record.isEmailValid === true ? (
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              ) : record.isEmailValid === false ? (
+                <XCircle className="h-4 w-4 text-red-500" />
+              ) : null}
+            </span>
+          ) : (
+            "-"
+          )}
         </Tooltip>
       ),
-      width: 140,
-    },
-
-    {
-      title: "Email Válido",
-      dataIndex: "is_email_valido",
-      width: 100,
-      render: (is_email_valido) =>
-        is_email_valido ? "Sim" : is_email_valido === undefined ? "-" : "Não",
+      width: 240,
     },
 
     {
       title: "CEP",
       dataIndex: "cep",
-      width: 100,
+      width: 130,
+      render: (_, record) => {
+        if (!record.cep) return "-";
+
+        const isValidCep =
+          record.address && record.district && record.city && record.state;
+        const isCepUnico = record.cep_unico;
+
+        return (
+          <span className="flex items-center gap-1">
+            {record.cep}
+            {isCepUnico ? (
+              <Tooltip
+                title="CEP único para localidade. Dados inseridos manualmente pelo usuário. Sujeito a erro de digitação."
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <AlertCircle className="h-4 w-4 text-yellow-500" />
+              </Tooltip>
+            ) : isValidCep ? (
+              <Tooltip
+                title="CEP válido com endereço completo"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : (
+              <Tooltip
+                title="CEP inválido ou incompleto"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            )}
+          </span>
+        );
+      },
     },
-    {
-      title: "CEP Único",
-      dataIndex: "cep_unico",
-      width: 100,
-      render: (cep_unico) =>
-        cep_unico ? "Sim" : cep_unico === undefined ? "-" : "Não",
-    },
+
     {
       title: "Endereço",
       dataIndex: "address",
@@ -791,14 +1004,37 @@ export default function TableStyle() {
       title: "Dispositivo",
       dataIndex: ["finger_print", "device"],
       width: 100,
-      render: (device) =>
-        device === "mobile"
-          ? "Mobile"
-          : device === "desktop"
-            ? "Desktop"
-            : device === "tablet"
-              ? "Tablet"
-              : "-",
+      render: (device) => (
+        <div className="flex items-center justify-center">
+          {device === "mobile" ? (
+            <Tooltip
+              title="Mobile"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Smartphone className="h-4 w-4 text-gray-600" />
+            </Tooltip>
+          ) : device === "desktop" ? (
+            <Tooltip
+              title="Desktop"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Monitor className="h-4 w-4 text-gray-600" />
+            </Tooltip>
+          ) : device === "tablet" ? (
+            <Tooltip
+              title="Tablet"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Tablet className="h-4 w-4 text-gray-600" />
+            </Tooltip>
+          ) : (
+            "-"
+          )}
+        </div>
+      ),
     },
     {
       title: "Plataforma",
@@ -829,6 +1065,12 @@ export default function TableStyle() {
         }
         return "-";
       },
+    },
+    {
+      title: "ID Fingerprint",
+      dataIndex: "fingerprintId",
+      width: 120,
+      render: (fingerprintId) => fingerprintId || "-",
     },
   ];
 
