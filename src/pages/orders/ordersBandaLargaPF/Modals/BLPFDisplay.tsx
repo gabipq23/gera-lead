@@ -105,16 +105,33 @@ export function OrderBandaLargaPFDisplay({
         <div className="flex flex-col text-neutral-800 gap-4 rounded-lg">
           {/* Dados Pessoais */}
           <div className="bg-white rounded-md p-2">
-            <img
-              src={localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"}
-              className="h-10 w-10 rounded-full mr-3"
-            />{" "}
+            {localData.temperatura_pf === 10 ? (
+              <div className="flex bg-[#d63535] rounded-full w-10 h-10 items-center justify-center relative mr-3">
+                <img
+                  src={
+                    localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"
+                  }
+                  className="rounded-full w-10 h-10"
+                />
+                <div className="text-sm absolute -top-1 -right-1 flex items-center justify-center">
+                  🔥
+                </div>
+              </div>
+            ) : (
+              <img
+                src={
+                  localData.whatsapp?.avatar || "/assets/anonymous_avatar.png"
+                }
+                className="h-10 w-10 rounded-full mr-3"
+              />
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator title="Nome:" value={localData.fullname} />
               <DisplayGenerator
                 title="Nome (RFB):"
                 value={localData.nome_receita}
-              />
+              />{" "}
+              <DisplayGenerator title="Gênero:" value={localData.genero} />
               <DisplayGenerator title="CPF:" value={formatCPF(localData.cpf)} />
               <DisplayGenerator title="Email:" value={localData.email} />
               <DisplayGenerator
@@ -132,7 +149,8 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator
                 title="Nome Mãe (RFB):"
                 value={localData.nome_da_mae_receita}
-              />
+              />{" "}
+              <DisplayGenerator title="Email:" value={localData.email} />
             </div>
           </div>
 
@@ -162,6 +180,14 @@ export function OrderBandaLargaPFDisplay({
                   <DisplayGenerator
                     title="Operadora:"
                     value={localData.operadora}
+                  />
+                  <DisplayGenerator
+                    title="Portado:"
+                    value={localData.portado}
+                  />
+                  <DisplayGenerator
+                    title="Data da Portabilidade:"
+                    value={localData.data_portabilidade}
                   />
                   <DisplayGenerator
                     title="WhatsApp:"
@@ -207,6 +233,24 @@ export function OrderBandaLargaPFDisplay({
                   <DisplayGenerator
                     title="Operadora:"
                     value={localData.operadora_adicional}
+                  />{" "}
+                  <DisplayGenerator
+                    title="Portado:"
+                    value={localData.portado}
+                  />
+                  <DisplayGenerator
+                    title="Data da Portabilidade:"
+                    value={localData.data_portabilidade}
+                  />
+                  <DisplayGenerator
+                    title="WhatsApp:"
+                    value={
+                      localData.whatsapp?.is_comercial === true
+                        ? "Business"
+                        : localData.whatsapp?.is_comercial === false
+                          ? "Messenger"
+                          : "-"
+                    }
                   />
                 </div>
               </div>
@@ -347,6 +391,10 @@ export function OrderBandaLargaPFDisplay({
                 value={formatResolution(
                   localData.finger_print?.resolution || "-",
                 )}
+              />{" "}
+              <DisplayGenerator
+                title="ID Fingerprint:"
+                value={localData.fingerprintId || "-"}
               />
             </div>
           </div>

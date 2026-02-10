@@ -117,6 +117,11 @@ export interface OrderBandaLargaPF {
   numero_adicional_valido: boolean | number;
   operadora_adicional: string;
   whatsapp?: WhatsAppInfo;
+  temperatura_pf?: number;
+  genero?: string;
+  portado?: string;
+  data_portabilidade?: string;
+  fingerprintId?: string;
 }
 
 export interface WhatsAppInfo {
