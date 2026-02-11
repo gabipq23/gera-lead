@@ -419,14 +419,14 @@ export default function TableStyle() {
           return date1.trim() === date2.trim();
         };
 
-        const isDatesMatch = compareDates(
-          birthdate,
-          record.data_de_nascimento_receita,
-        );
+        const isDatesMatch =
+          birthdate && birthdate !== "00/00/0000"
+            ? compareDates(birthdate, record.data_de_nascimento_receita)
+            : null;
 
         return (
           <span className="flex items-center gap-1">
-            {birthdate || "-"}
+            {birthdate && birthdate !== "00/00/0000" ? birthdate : "-"}
             {isDatesMatch === true ? (
               <Tooltip
                 title="Data de nascimento confere com RFB"
