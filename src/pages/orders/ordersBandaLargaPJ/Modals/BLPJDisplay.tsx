@@ -9,6 +9,11 @@ import { formatCPF } from "@/utils/formatCPF";
 import { formatBRL } from "@/utils/formatBRL";
 import AvailabilityTable from "@/components/orders/availabilityTable";
 import { EmpresasDisplay } from "@/components/empresasDisplay";
+import { convertData } from "@/utils/convertData";
+import {
+  formatBrowserDisplay,
+  formatOSDisplay,
+} from "@/utils/formatClientEnvironment";
 
 interface OrderBandaLargaPJDisplayProps {
   localData: OrderBandaLargaPJ;
@@ -25,7 +30,23 @@ export function OrderBandaLargaPJDisplay({
       });
     }
   }, [localData, form]);
+  const formatDevice = (device: string) => {
+    if (!device) return "-";
+    return device === "mobile"
+      ? "Mobile"
+      : device === "desktop"
+        ? "Desktop"
+        : device === "tablet"
+          ? "Tablet"
+          : device.charAt(0).toUpperCase() + device.slice(1);
+  };
 
+  const formatResolution = (resolution: any) => {
+    if (resolution && resolution.width && resolution.height) {
+      return `${resolution.width} x ${resolution.height}`;
+    }
+    return "-";
+  };
   return (
     <div className="flex flex-col w-full gap-2">
       {/* Seção de Disponibilidade */}
@@ -128,6 +149,18 @@ export function OrderBandaLargaPJDisplay({
                     value={localData.operadora}
                   />
                   <DisplayGenerator
+                    title="Portado:"
+                    value={localData.portabilidade}
+                  />
+                  <DisplayGenerator
+                    title="Data da Portabilidade:"
+                    value={
+                      localData.data_portabilidade
+                        ? convertData(localData.data_portabilidade)
+                        : "-"
+                    }
+                  />{" "}
+                  <DisplayGenerator
                     title="WhatsApp:"
                     value={
                       localData.whatsapp?.is_comercial === true
@@ -137,10 +170,10 @@ export function OrderBandaLargaPJDisplay({
                           : "-"
                     }
                   />
-                  <DisplayGenerator
+                  {/* <DisplayGenerator
                     title="Status:"
                     value={localData.whatsapp?.recado}
-                  />
+                  /> */}
                 </div>
               </div>
 
@@ -167,7 +200,29 @@ export function OrderBandaLargaPJDisplay({
                   <DisplayGenerator
                     title="Operadora:"
                     value={localData.operadora_adicional}
+                  />{" "}
+                  <DisplayGenerator
+                    title="Portado:"
+                    value={localData.portabilidade_adicional}
                   />
+                  <DisplayGenerator
+                    title="Data da Portabilidade:"
+                    value={
+                      localData.data_portabilidade_adicional
+                        ? convertData(localData.data_portabilidade_adicional)
+                        : "-"
+                    }
+                  />
+                  {/* <DisplayGenerator
+                    title="WhatsApp:"
+                    value={
+                      localData.whatsapp?.is_comercial === true
+                        ? "Business"
+                        : localData.whatsapp?.is_comercial === false
+                          ? "Messenger"
+                          : "-"
+                    }
+                  /> */}
                 </div>
               </div>
             </div>
@@ -184,7 +239,7 @@ export function OrderBandaLargaPJDisplay({
               <div className="md:col-span-2">
                 <DisplayGenerator
                   title="MEI:"
-                  value={localData.mei ? "Sim" : "Não"}
+                  value={localData.is_mei ? "Sim" : "Não"}
                 />
               </div>
             </div>
@@ -279,14 +334,30 @@ export function OrderBandaLargaPJDisplay({
           <div className="bg-white rounded-md p-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
-                title="Sistema Operacional:"
-                value={localData.so}
+                title="Plataforma:"
+                value={formatOSDisplay(localData.finger_print?.os)}
               />
-              <DisplayGenerator title="Device:" value={localData.device} />
-              <DisplayGenerator title="Browser:" value={localData.browser} />
+              <DisplayGenerator
+                title="Dispositivo:"
+                value={formatDevice(localData.finger_print?.device || "-")}
+              />
+              <DisplayGenerator
+                title="Browser:"
+                value={formatBrowserDisplay(localData.finger_print?.browser)}
+              />
+              <DisplayGenerator
+                title="TimeZone:"
+                value={localData.finger_print?.timezone || "-"}
+              />
               <DisplayGenerator
                 title="Resolução:"
-                value={localData.resolution}
+                value={formatResolution(
+                  localData.finger_print?.resolution || "-",
+                )}
+              />
+              <DisplayGenerator
+                title="ID Fingerprint:"
+                value={localData.fingerprintId || "-"}
               />
             </div>
           </div>
@@ -357,6 +428,40 @@ export function OrderBandaLargaPJDisplay({
                   value={localData.addressblock}
                 />
               </div>
+            </div>
+          </div>
+
+          {/* Detalhes Técnicos */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-2">
+              <DisplayGenerator
+                title="Coordenadas:"
+                value={
+                  localData.geolocalizacao?.latitude &&
+                  localData.geolocalizacao?.longitude
+                    ? `${localData.geolocalizacao.latitude}, ${localData.geolocalizacao.longitude}`
+                    : "-"
+                }
+              />
+
+              <a
+                href={localData.geolocalizacao?.link_maps}
+                target="_blank"
+                style={{ color: "#660099", textDecoration: "underline" }}
+                rel="noopener noreferrer"
+              >
+                Ver no Google Maps
+              </a>
+
+              <a
+                href={localData.geolocalizacao?.link_street_view}
+                target="_blank"
+                style={{ color: "#660099", textDecoration: "underline" }}
+                rel="noopener noreferrer"
+                className="text-[#660099]  underline"
+              >
+                Ver no Street View
+              </a>
             </div>
           </div>
         </div>

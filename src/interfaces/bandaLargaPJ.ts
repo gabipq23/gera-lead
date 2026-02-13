@@ -2,6 +2,7 @@ export interface OrderBandaLargaPJResponse {
   pedidos: OrderBandaLargaPJ[];
   status_pos_venda_enum: string[];
 }
+
 export interface OperadoraAvailability {
   range_max: number | null;
   range_min: number | null;
@@ -10,11 +11,19 @@ export interface OperadoraAvailability {
 }
 
 export interface OrderBandaLargaPJ {
+  cnpj: string;
+  manager: {
+    cpf: string;
+    email: string;
+    name: string;
+    phone: string;
+    hasLegalAuthorization: boolean;
+  };
+  manager_name: string;
   accept_offers: number;
   address: string;
-  addressblock: string;
   cep_unico: number;
-
+  addressblock: string;
   addresscomplement: string;
   addressFloor: string;
   addresslot: string;
@@ -32,16 +41,18 @@ export interface OrderBandaLargaPJ {
     nio?: OperadoraAvailability;
     net?: OperadoraAvailability;
   };
-  buildingorhouse: string;
+  birthdate: string;
+  buildingorhouse: number | string;
   cep: string;
   city: string;
   client_ip: string;
-  cnpj: string;
-  consulta: boolean;
   consultor_responsavel?: string;
+  consulta: boolean;
+  cpf: string;
   created_at: string;
   district: string;
   dueday: number;
+  email: string;
   equipe: string;
   finger_print?: {
     os: { name: string; version: string };
@@ -51,7 +62,7 @@ export interface OrderBandaLargaPJ {
     timezone_offset: number;
     resolution?: { dpr: number; height: number; width: number };
   };
-  fixedLineNumberToPort?: string;
+  fixedLineNumberToPort?: string | null;
   hasFixedLinePortability?: boolean | number;
   fullname: string;
   id: number;
@@ -63,18 +74,11 @@ export interface OrderBandaLargaPJ {
   installation_preferred_date_two: string;
   installation_preferred_period_one: string;
   installation_preferred_period_two: string;
-  manager: {
-    cpf: string;
-    email: string;
-    name: string;
-    phone: string;
-    hasLegalAuthorization: boolean;
-  };
-  manager_name: string;
+  motherfullname: string;
   numero_valido: boolean | number;
+  ordernumber: number;
   obs_consultor: string;
   observacao_consultor: string;
-  ordernumber: number;
   operadora: string;
   pedido: boolean;
   phone: string;
@@ -85,10 +89,10 @@ export interface OrderBandaLargaPJ {
     id: string;
     speed: string;
   };
-  razaosocial: string;
-  state: string;
+  razaosocial?: string;
   status: string;
   status_pos_venda?: string;
+  state: string;
   terms_accepted: number;
   typeclient: "PF" | "PJ";
   url: string;
@@ -121,7 +125,29 @@ export interface OrderBandaLargaPJ {
   socios_empresas: SociosEmpresas[];
   numero_adicional_valido: boolean | number;
   operadora_adicional: string;
+  genero_receita?: string;
+  portabilidade?: string;
+  portabilidade_adicional?: string;
+  data_portabilidade_adicional?: string;
   whatsapp?: WhatsAppInfo;
+  temperatura_pf?: number;
+  geolocalizacao?: {
+    sucesso: boolean;
+    latitude: string;
+    precisao: string;
+    link_maps: string;
+    longitude: string;
+    consultado_em: string;
+    cep_mais_proximo: string;
+    link_street_view: string;
+    endereco_formatado: string;
+    tem_disponibilidade: boolean;
+    distancia_km_ponto_mais_proximo: number;
+  };
+  genero?: string;
+  portado?: string;
+  data_portabilidade?: string;
+  fingerprintId?: string;
 }
 
 export interface WhatsAppInfo {
@@ -144,10 +170,12 @@ interface SociosEmpresas {
 }
 
 export interface BandaLargaPJFilters {
+  status_pos_venda?: string | null;
   availability?: boolean;
   plan?: string;
   fullname?: string;
   phone?: string;
+  cpf?: string;
   cnpj?: string;
   razaosocial?: string;
   ordernumber?: string;
@@ -158,7 +186,6 @@ export interface BandaLargaPJFilters {
   page?: number;
   limit?: number;
   status: string | null;
-  status_pos_venda?: string | null;
   consulta?: boolean | number;
   pedido?: boolean | number;
   initial_status?: string;

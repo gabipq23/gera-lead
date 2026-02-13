@@ -1,15 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { TableColumnsType, Tooltip } from "antd";
+import { Button, TableColumnsType, Tooltip } from "antd";
 import { createStyles } from "antd-style";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { formatCNPJ } from "@/utils/formatCNPJ";
 import { BandaLargaPJFilters } from "@/interfaces/bandaLargaPJ";
 import { formatCPF } from "@/utils/formatCPF";
-import { DollarSign } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle2,
+  DollarSign,
+  MapIcon,
+  MapPinned,
+  Mars,
+  Monitor,
+  Smartphone,
+  Tablet,
+  Venus,
+  XCircle,
+} from "lucide-react";
 import { Thermometer } from "@/components/thermometer";
-import { FireFromThermometer } from "@/components/fire-from-thermometer";
+import {
+  formatBrowserDisplay,
+  formatOSDisplay,
+} from "@/utils/formatClientEnvironment";
+import { convertData } from "@/utils/convertData";
 
 function getFiltersFromURL(): BandaLargaPJFilters {
   const params = new URLSearchParams(window.location.search);
@@ -193,7 +209,20 @@ export function useAllOrdersFilterController() {
       title: "",
       dataIndex: ["whatsapp", "avatar"],
       width: 80,
-      render: (avatar) => {
+      render: (avatar, record) => {
+        if (record.temperatura_pf === 10) {
+          return (
+            <div className="flex bg-[#d63535] rounded-full w-9 h-9 items-center justify-center relative">
+              <img
+                src={avatar || "/assets/anonymous_avatar.png"}
+                className="rounded-full w-9 h-9"
+              />
+              <div className="text-sm absolute -top-1 -right-1 flex items-center justify-center">
+                🔥
+              </div>
+            </div>
+          );
+        }
         return (
           <img
             src={avatar || "/assets/anonymous_avatar.png"}
@@ -203,26 +232,20 @@ export function useAllOrdersFilterController() {
       },
     },
     {
-      title: "Temp",
-      dataIndex: "temperatura_lead",
-      width: 220,
-      render: () => (
-        <div className="flex w-[180px] h-2 items-center gap-1 mr-4">
+      title: "Temperatura",
+      dataIndex: "temperatura_pf",
+      width: 140,
+      render: (temperatura_pf) => (
+        <div className="flex w-[120px] h-2 items-center gap-1 mr-4">
           {" "}
-          <Thermometer min={0} max={5} value={5} />
-          <FireFromThermometer
-            value={Number(5)}
-            max={5}
-            percentage={100}
-            showIcons={true}
-          />
+          <Thermometer min={0} max={10} value={temperatura_pf || 0} />
         </div>
       ),
     },
     {
       title: "ID",
       dataIndex: "ordernumber",
-      width: 80,
+      width: 100,
       render: (ordernumber, record) =>
         ordernumber ? ordernumber : record.id || "-",
     },
@@ -655,20 +678,52 @@ export function useAllOrdersFilterController() {
     {
       title: "Nome",
       dataIndex: ["manager", "name"],
-
       ellipsis: {
         showTitle: false,
       },
-      render: (name) => (
-        <Tooltip
-          placement="topLeft"
-          title={name}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {name || "-"}
-        </Tooltip>
-      ),
-      width: 150,
+      render: (name, record) => {
+        const compareNames = (name1: string, name2: string) => {
+          if (!name1 || !name2) return null;
+          const normalizeText = (text: string) => {
+            return text
+              .toLowerCase()
+              .trim()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "");
+          };
+          return normalizeText(name1) === normalizeText(name2);
+        };
+        const isNamesMatch = compareNames(name, record.nome_receita);
+        return (
+          <>
+            {name ? (
+              <span className="flex items-center gap-1">
+                {name}
+                {isNamesMatch === true ? (
+                  <Tooltip
+                    title="Nome confere com RFB"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  </Tooltip>
+                ) : isNamesMatch === false ? (
+                  <Tooltip
+                    title="Nome diferente da RFB"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <XCircle className="h-4 w-4 text-red-500" />
+                  </Tooltip>
+                ) : null}
+              </span>
+            ) : (
+              "-"
+            )}
+          </>
+        );
+      },
+      width: 240,
     },
     {
       title: "Nome (RFB)",
@@ -687,6 +742,23 @@ export function useAllOrdersFilterController() {
         </Tooltip>
       ),
       width: 150,
+    },
+    {
+      title: "Gênero",
+      dataIndex: "genero_receita",
+      width: 80,
+      render: (genero_receita) =>
+        genero_receita === "M" ? (
+          <div className="flex items-center justify-center">
+            <Mars color="blue" size={17} />
+          </div>
+        ) : genero_receita === "F" ? (
+          <div className="flex items-center justify-center">
+            <Venus color="magenta" size={18} />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">-</div>
+        ),
     },
     {
       title: "CPF",
@@ -808,8 +880,33 @@ export function useAllOrdersFilterController() {
     {
       title: "Telefone",
       dataIndex: ["manager", "phone"],
-      width: 120,
-      render: (phone) => (phone ? formatPhoneNumber(phone) : "-"),
+      width: 150,
+      render: (_, record) => {
+        if (!record.manager?.phone) return "-";
+        const isValid = record.numero_valido;
+        return (
+          <span className="flex items-center gap-1">
+            {formatPhoneNumber(record.manager.phone)}
+            {isValid === 1 ? (
+              <Tooltip
+                title="Válido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : isValid === 0 ? (
+              <Tooltip
+                title="Inválido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            ) : null}
+          </span>
+        );
+      },
       filters: [
         {
           text: "Preenchido",
@@ -820,7 +917,6 @@ export function useAllOrdersFilterController() {
           value: "vazio",
         },
       ],
-
       onFilter: (value, record) => {
         if (value === "preenchido") {
           return (
@@ -840,13 +936,6 @@ export function useAllOrdersFilterController() {
       },
     },
     {
-      title: "Anatel",
-      dataIndex: "numero_valido",
-      width: 70,
-      render: (numero_valido) =>
-        numero_valido ? "Sim" : numero_valido === null ? "-" : "Não",
-    },
-    {
       title: "Operadora",
       dataIndex: "operadora",
       width: 120,
@@ -862,6 +951,21 @@ export function useAllOrdersFilterController() {
           {record.operadora || "-"}
         </Tooltip>
       ),
+    },
+    {
+      title: "Portado",
+      dataIndex: "portabilidade",
+      width: 90,
+      render: (portabilidade) => portabilidade || "-",
+    },
+    {
+      title: "Data da Portabilidade",
+      dataIndex: "data_portabilidade",
+      width: 160,
+      render: (_, record) =>
+        record.data_portabilidade
+          ? convertData(record.data_portabilidade)
+          : "-",
     },
 
     {
@@ -936,41 +1040,143 @@ export function useAllOrdersFilterController() {
       width: 140,
     },
     {
+      title: "Telefone Adicional",
+      dataIndex: "phoneAdditional",
+      width: 180,
+      render: (_, record) => {
+        if (!record.phoneAdditional) return "-";
+
+        const isValid = record.numero_adicional_valido;
+
+        return (
+          <span className="flex items-center gap-1">
+            {formatPhoneNumber(record.phoneAdditional)}
+            {isValid === 1 ? (
+              <Tooltip
+                title="Válido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : isValid === 0 ? (
+              <Tooltip
+                title="Inválido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            ) : null}
+          </span>
+        );
+      },
+      filters: [
+        {
+          text: "Preenchido",
+          value: "preenchido",
+        },
+        {
+          text: "Vazio",
+          value: "vazio",
+        },
+      ],
+
+      onFilter: (value, record) => {
+        if (value === "preenchido") {
+          return (
+            record.phone !== null &&
+            record.phone !== undefined &&
+            record.phone !== ""
+          );
+        }
+        if (value === "vazio") {
+          return (
+            record.phone === null ||
+            record.phone === undefined ||
+            record.phone === ""
+          );
+        }
+        return true;
+      },
+    },
+    {
       title: "Email",
-      dataIndex: ["manager", "email"],
+      dataIndex: "email",
       ellipsis: {
         showTitle: false,
       },
-      render: (email) => (
-        <Tooltip
-          placement="topLeft"
-          title={email}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {email || "-"}
-        </Tooltip>
+      render: (_, record) => (
+        <span className="flex items-center gap-1">
+          <Tooltip
+            placement="topLeft"
+            title={record.email || "-"}
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            <span
+              style={{
+                maxWidth: 180,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                display: "inline-block",
+                verticalAlign: "middle",
+              }}
+            >
+              {record.email || "-"}
+            </span>
+          </Tooltip>
+          {record.is_email_valid === 1 ? (
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
+          ) : record.is_email_valid === 0 ? (
+            <XCircle className="h-4 w-4 text-red-500" />
+          ) : null}
+        </span>
       ),
-      width: 140,
-    },
-    {
-      title: "Email Válido",
-      dataIndex: "is_email_valido",
-      width: 100,
-      render: (is_email_valido) =>
-        is_email_valido ? "Sim" : is_email_valido === undefined ? "-" : "Não",
+      width: 240,
     },
     {
       title: "CEP",
       dataIndex: "cep",
-      width: 100,
-      render: (cep) => (cep ? cep : "-"),
-    },
-    {
-      title: "CEP Único",
-      dataIndex: "cep_unico",
-      width: 100,
-      render: (cep_unico) =>
-        cep_unico ? "Sim" : cep_unico === undefined ? "-" : "Não",
+      width: 130,
+      render: (_, record) => {
+        if (!record.cep) return "-";
+
+        const isValidCep =
+          record.address && record.district && record.city && record.state;
+        const isCepUnico = record.cep_unico;
+
+        return (
+          <span className="flex items-center gap-1">
+            {record.cep}
+            {isCepUnico ? (
+              <Tooltip
+                title="CEP único para localidade. Dados inseridos manualmente pelo usuário. Sujeito a erro de digitação."
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <AlertCircle className="h-4 w-4 text-yellow-500" />
+              </Tooltip>
+            ) : isValidCep ? (
+              <Tooltip
+                title="CEP válido com endereço completo"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : (
+              <Tooltip
+                title="CEP inválido ou incompleto"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            )}
+          </span>
+        );
+      },
     },
     {
       title: "Endereço",
@@ -995,7 +1201,13 @@ export function useAllOrdersFilterController() {
       width: 80,
       render: (addressnumber) => (addressnumber ? addressnumber : "-"),
     },
-
+    {
+      title: "Complemento",
+      dataIndex: "address_complement",
+      width: 120,
+      render: (address_complement) =>
+        address_complement ? address_complement : "-",
+    },
     {
       title: "Bairro",
       dataIndex: "district",
@@ -1035,6 +1247,111 @@ export function useAllOrdersFilterController() {
       render: (state) => (state ? state : "-"),
     },
     {
+      title: "Coordenadas",
+      dataIndex: "geolocalizacao",
+      width: 180,
+      render: (geolocalizacao) => {
+        if (
+          !geolocalizacao ||
+          !geolocalizacao.latitude ||
+          !geolocalizacao.longitude
+        ) {
+          return "-";
+        }
+        const coordenadas = `Lat: ${geolocalizacao.latitude}\nLong: ${geolocalizacao.longitude}`;
+        return (
+          <Tooltip
+            placement="topLeft"
+            title={coordenadas}
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            <div style={{ whiteSpace: "nowrap" }}>
+              <div>Lat: {geolocalizacao.latitude}</div>
+              <div>Long: {geolocalizacao.longitude}</div>
+            </div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: "Maps",
+      dataIndex: ["geolocalizacao", "link_maps"],
+      width: 80,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (link_maps) =>
+        link_maps ? (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              placement="topLeft"
+              title={link_maps}
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Button
+                style={{
+                  width: 32,
+                  height: 32,
+                  padding: 0,
+                }}
+                type="default"
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(link_maps, "_blank");
+                }}
+                tabIndex={0}
+              >
+                <MapIcon size={17} />
+              </Button>
+            </Tooltip>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span>-</span>
+          </div>
+        ),
+    },
+    {
+      title: "Street View",
+      dataIndex: ["geolocalizacao", "link_street_view"],
+      width: 110,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (link_street_view) =>
+        link_street_view ? (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              placement="topLeft"
+              title={link_street_view}
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Button
+                style={{
+                  width: 32,
+                  height: 32,
+                  padding: 0,
+                }}
+                type="default"
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(link_street_view, "_blank");
+                }}
+                tabIndex={0}
+              >
+                <MapPinned size={17} />
+              </Button>
+            </Tooltip>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span>-</span>
+          </div>
+        ),
+    },
+    {
       title: "URL",
       dataIndex: "url",
       width: 140,
@@ -1047,7 +1364,7 @@ export function useAllOrdersFilterController() {
           title={url}
           styles={{ body: { fontSize: "12px" } }}
         >
-          {url}
+          {url || "-"}
         </Tooltip>
       ),
     },
@@ -1077,7 +1394,7 @@ export function useAllOrdersFilterController() {
     {
       title: "Tipo de acesso",
       dataIndex: "ip_tipo_acesso",
-      width: 140,
+      width: 120,
       render: (ip_tipo_acesso) =>
         ip_tipo_acesso === "movel"
           ? "Móvel"
@@ -1094,28 +1411,69 @@ export function useAllOrdersFilterController() {
                     : "-",
     },
     {
-      title: "Device",
-      dataIndex: "device",
-      width: 120,
-      render: (device) => (device ? device : "-"),
+      title: "Dispositivo",
+      dataIndex: ["finger_print", "device"],
+      width: 100,
+      render: (device) => (
+        <div className="flex items-center justify-center">
+          {device === "mobile" ? (
+            <Tooltip
+              title="Mobile"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Smartphone className="h-4 w-4 text-gray-600" />
+            </Tooltip>
+          ) : device === "desktop" ? (
+            <Tooltip
+              title="Desktop"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Monitor className="h-4 w-4 text-gray-600" />
+            </Tooltip>
+          ) : device === "tablet" ? (
+            <Tooltip
+              title="Tablet"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Tablet className="h-4 w-4 text-gray-600" />
+            </Tooltip>
+          ) : (
+            "-"
+          )}
+        </div>
+      ),
     },
     {
-      title: "Sistema Operacional",
-      dataIndex: "so",
-      width: 160,
-      render: (so) => (so ? so : "-"),
+      title: "Plataforma",
+      dataIndex: ["finger_print", "os"],
+      width: 140,
+      render: (os) => formatOSDisplay(os),
     },
     {
       title: "Browser",
-      dataIndex: "browser",
+      dataIndex: ["finger_print", "browser"],
       width: 120,
-      render: (browser) => (browser ? browser : "-"),
+      render: (browser) => formatBrowserDisplay(browser),
+    },
+    {
+      title: "TimeZone",
+      dataIndex: ["finger_print", "timezone"],
+      width: 120,
+      render: (timezone) => timezone || "-",
     },
     {
       title: "Resolução",
-      dataIndex: "resolution",
+      dataIndex: ["finger_print", "resolution"],
       width: 120,
-      render: (resolution) => (resolution ? resolution : "-"),
+      render: (resolution) => {
+        if (resolution && resolution.width && resolution.height) {
+          return `${resolution.width} x ${resolution.height}`;
+        }
+        return "-";
+      },
     },
   ];
 

@@ -1,4 +1,4 @@
-import { TableColumnsType, Tooltip } from "antd";
+import { Button, TableColumnsType, Tooltip } from "antd";
 import { getFiltersFromURL } from "../controllers/filterController";
 import { useNavigate } from "react-router-dom";
 import { formatCPF } from "@/utils/formatCPF";
@@ -9,63 +9,27 @@ import {
   AlertCircle,
   CheckCircle2,
   DollarSign,
+  MapIcon,
+  MapPinned,
+  Mars,
   Monitor,
   Smartphone,
   Tablet,
+  Venus,
   XCircle,
 } from "lucide-react";
 import { Thermometer } from "@/components/thermometer";
+import {
+  formatBrowserDisplay,
+  formatOSDisplay,
+} from "@/utils/formatClientEnvironment";
+import { convertData } from "@/utils/convertData";
 
 export default function TableStyle() {
   const { styles } = useStyle();
   const filters = getFiltersFromURL();
   const navigate = useNavigate();
 
-  const formatOS = (os: string) => {
-    if (!os) return "-";
-    const osLower = os.toLowerCase();
-    const osMap: Record<string, string> = {
-      windows: "Windows",
-      macos: "macOS",
-      linux: "Linux",
-      android: "Android",
-      ios: "iOS",
-      ubuntu: "Ubuntu",
-      fedora: "Fedora",
-      debian: "Debian",
-      centos: "CentOS",
-      "chrome os": "Chrome OS",
-      "windows phone": "Windows Phone",
-      blackberry: "BlackBerry",
-    };
-    return osMap[osLower] || os.charAt(0).toUpperCase() + os.slice(1);
-  };
-
-  const formatBrowser = (browser: string) => {
-    if (!browser) return "-";
-    const browserLower = browser.toLowerCase();
-    const browserMap: Record<string, string> = {
-      chrome: "Google Chrome",
-      firefox: "Firefox",
-      safari: "Safari",
-      edge: "Microsoft Edge",
-      opera: "Opera",
-      brave: "Brave",
-      vivaldi: "Vivaldi",
-      "internet explorer": "Internet Explorer",
-      "samsung internet": "Samsung Internet",
-      "uc browser": "UC Browser",
-      "chrome mobile": "Chrome Mobile",
-      "firefox mobile": "Firefox Mobile",
-      "safari mobile": "Safari Mobile",
-      "opera mobile": "Opera Mobile",
-      "edge mobile": "Edge Mobile",
-    };
-    return (
-      browserMap[browserLower] ||
-      browser.charAt(0).toUpperCase() + browser.slice(1)
-    );
-  };
   const columns: TableColumnsType<any> = [
     {
       title: "",
@@ -405,9 +369,20 @@ export default function TableStyle() {
     },
     {
       title: "Gênero",
-      dataIndex: "gender",
-      width: 120,
-      render: (gender) => gender || "-",
+      dataIndex: "genero_receita",
+      width: 80,
+      render: (genero_receita) =>
+        genero_receita === "M" ? (
+          <div className="flex items-center justify-center">
+            <Mars color="blue" size={17} />
+          </div>
+        ) : genero_receita === "F" ? (
+          <div className="flex items-center justify-center">
+            <Venus color="magenta" size={18} />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">-</div>
+        ),
     },
     {
       title: "Data de Nascimento",
@@ -700,21 +675,18 @@ export default function TableStyle() {
     },
     {
       title: "Portado",
-      dataIndex: "portado",
+      dataIndex: "portabilidade",
       width: 90,
-      render: (_, record) =>
-        record.portado === true
-          ? "Sim"
-          : record.portado === false
-            ? "Não"
-            : "-",
+      render: (portabilidade) => portabilidade || "-",
     },
     {
       title: "Data da Portabilidade",
       dataIndex: "data_portabilidade",
-      width: 180,
+      width: 160,
       render: (_, record) =>
-        record.data_portabilidade ? record.data_portabilidade : "-",
+        record.data_portabilidade
+          ? convertData(record.data_portabilidade)
+          : "-",
     },
     {
       title: "Titular",
@@ -806,30 +778,98 @@ export default function TableStyle() {
       width: 140,
     },
     {
+      title: "Telefone Adicional",
+      dataIndex: "phoneAdditional",
+      width: 180,
+      render: (_, record) => {
+        if (!record.phoneAdditional) return "-";
+
+        const isValid = record.numero_adicional_valido;
+
+        return (
+          <span className="flex items-center gap-1">
+            {formatPhoneNumber(record.phoneAdditional)}
+            {isValid === 1 ? (
+              <Tooltip
+                title="Válido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              </Tooltip>
+            ) : isValid === 0 ? (
+              <Tooltip
+                title="Inválido na ANATEL"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+              </Tooltip>
+            ) : null}
+          </span>
+        );
+      },
+      filters: [
+        {
+          text: "Preenchido",
+          value: "preenchido",
+        },
+        {
+          text: "Vazio",
+          value: "vazio",
+        },
+      ],
+
+      onFilter: (value, record) => {
+        if (value === "preenchido") {
+          return (
+            record.phone !== null &&
+            record.phone !== undefined &&
+            record.phone !== ""
+          );
+        }
+        if (value === "vazio") {
+          return (
+            record.phone === null ||
+            record.phone === undefined ||
+            record.phone === ""
+          );
+        }
+        return true;
+      },
+    },
+    {
       title: "Email",
       dataIndex: "email",
       ellipsis: {
         showTitle: false,
       },
       render: (_, record) => (
-        <Tooltip
-          placement="topLeft"
-          title={record.email}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {record.email ? (
-            <span className="flex items-center gap-1">
-              {record.email}
-              {record.isEmailValid === true ? (
-                <CheckCircle2 className="h-4 w-4 text-green-500" />
-              ) : record.isEmailValid === false ? (
-                <XCircle className="h-4 w-4 text-red-500" />
-              ) : null}
+        <span className="flex items-center gap-1">
+          <Tooltip
+            placement="topLeft"
+            title={record.email || "-"}
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            <span
+              style={{
+                maxWidth: 180,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                display: "inline-block",
+                verticalAlign: "middle",
+              }}
+            >
+              {record.email || "-"}
             </span>
-          ) : (
-            "-"
-          )}
-        </Tooltip>
+          </Tooltip>
+          {record.is_email_valid === 1 ? (
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
+          ) : record.is_email_valid === 0 ? (
+            <XCircle className="h-4 w-4 text-red-500" />
+          ) : null}
+        </span>
       ),
       width: 240,
     },
@@ -901,7 +941,13 @@ export default function TableStyle() {
       width: 80,
       render: (addressnumber) => (addressnumber ? addressnumber : "-"),
     },
-
+    {
+      title: "Complemento",
+      dataIndex: "address_complement",
+      width: 120,
+      render: (address_complement) =>
+        address_complement ? address_complement : "-",
+    },
     {
       title: "Bairro",
       dataIndex: "district",
@@ -939,6 +985,111 @@ export default function TableStyle() {
       dataIndex: "state",
       width: 60,
       render: (state) => (state ? state : "-"),
+    },
+    {
+      title: "Coordenadas",
+      dataIndex: "geolocalizacao",
+      width: 180,
+      render: (geolocalizacao) => {
+        if (
+          !geolocalizacao ||
+          !geolocalizacao.latitude ||
+          !geolocalizacao.longitude
+        ) {
+          return "-";
+        }
+        const coordenadas = `Lat: ${geolocalizacao.latitude}\nLong: ${geolocalizacao.longitude}`;
+        return (
+          <Tooltip
+            placement="topLeft"
+            title={coordenadas}
+            styles={{ body: { fontSize: "12px" } }}
+          >
+            <div style={{ whiteSpace: "nowrap" }}>
+              <div>Lat: {geolocalizacao.latitude}</div>
+              <div>Long: {geolocalizacao.longitude}</div>
+            </div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: "Maps",
+      dataIndex: ["geolocalizacao", "link_maps"],
+      width: 80,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (link_maps) =>
+        link_maps ? (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              placement="topLeft"
+              title={link_maps}
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Button
+                style={{
+                  width: 32,
+                  height: 32,
+                  padding: 0,
+                }}
+                type="default"
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(link_maps, "_blank");
+                }}
+                tabIndex={0}
+              >
+                <MapIcon size={17} />
+              </Button>
+            </Tooltip>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span>-</span>
+          </div>
+        ),
+    },
+    {
+      title: "Street View",
+      dataIndex: ["geolocalizacao", "link_street_view"],
+      width: 110,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (link_street_view) =>
+        link_street_view ? (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              placement="topLeft"
+              title={link_street_view}
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <Button
+                style={{
+                  width: 32,
+                  height: 32,
+                  padding: 0,
+                }}
+                type="default"
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(link_street_view, "_blank");
+                }}
+                tabIndex={0}
+              >
+                <MapPinned size={17} />
+              </Button>
+            </Tooltip>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span>-</span>
+          </div>
+        ),
     },
     {
       title: "URL",
@@ -983,7 +1134,7 @@ export default function TableStyle() {
     {
       title: "Tipo de acesso",
       dataIndex: "ip_tipo_acesso",
-      width: 140,
+      width: 120,
       render: (ip_tipo_acesso) =>
         ip_tipo_acesso === "movel"
           ? "Móvel"
@@ -999,7 +1150,6 @@ export default function TableStyle() {
                     ? "Desconhecido"
                     : "-",
     },
-
     {
       title: "Dispositivo",
       dataIndex: ["finger_print", "device"],
@@ -1040,14 +1190,13 @@ export default function TableStyle() {
       title: "Plataforma",
       dataIndex: ["finger_print", "os"],
       width: 140,
-      render: (os) => formatOS(os?.name) + " " + os?.version || "-",
+      render: (os) => formatOSDisplay(os),
     },
     {
       title: "Browser",
       dataIndex: ["finger_print", "browser"],
       width: 120,
-      render: (browser) =>
-        formatBrowser(browser?.name) + " " + browser?.version || "-",
+      render: (browser) => formatBrowserDisplay(browser),
     },
     {
       title: "TimeZone",

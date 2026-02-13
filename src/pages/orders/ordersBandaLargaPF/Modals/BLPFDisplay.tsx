@@ -8,6 +8,11 @@ import { useEffect } from "react";
 import { formatBRL } from "@/utils/formatBRL";
 import AvailabilityTable from "@/components/orders/availabilityTable";
 import { EmpresasDisplay } from "@/components/empresasDisplay";
+import { convertData } from "@/utils/convertData";
+import {
+  formatBrowserDisplay,
+  formatOSDisplay,
+} from "@/utils/formatClientEnvironment";
 
 interface OrderBandaLargaPFDisplayProps {
   localData: OrderBandaLargaPF;
@@ -18,51 +23,6 @@ export function OrderBandaLargaPFDisplay({
   // updateOrderData,
 }: OrderBandaLargaPFDisplayProps) {
   const [form] = Form.useForm();
-  const formatOS = (os: string) => {
-    if (!os) return "-";
-    const osLower = os.toLowerCase();
-    const osMap: Record<string, string> = {
-      windows: "Windows",
-      macos: "macOS",
-      linux: "Linux",
-      android: "Android",
-      ios: "iOS",
-      ubuntu: "Ubuntu",
-      fedora: "Fedora",
-      debian: "Debian",
-      centos: "CentOS",
-      "chrome os": "Chrome OS",
-      "windows phone": "Windows Phone",
-      blackberry: "BlackBerry",
-    };
-    return osMap[osLower] || os.charAt(0).toUpperCase() + os.slice(1);
-  };
-
-  const formatBrowser = (browser: string) => {
-    if (!browser) return "-";
-    const browserLower = browser.toLowerCase();
-    const browserMap: Record<string, string> = {
-      chrome: "Google Chrome",
-      firefox: "Firefox",
-      safari: "Safari",
-      edge: "Microsoft Edge",
-      opera: "Opera",
-      brave: "Brave",
-      vivaldi: "Vivaldi",
-      "internet explorer": "Internet Explorer",
-      "samsung internet": "Samsung Internet",
-      "uc browser": "UC Browser",
-      "chrome mobile": "Chrome Mobile",
-      "firefox mobile": "Firefox Mobile",
-      "safari mobile": "Safari Mobile",
-      "opera mobile": "Opera Mobile",
-      "edge mobile": "Edge Mobile",
-    };
-    return (
-      browserMap[browserLower] ||
-      browser.charAt(0).toUpperCase() + browser.slice(1)
-    );
-  };
 
   const formatDevice = (device: string) => {
     if (!device) return "-";
@@ -131,9 +91,17 @@ export function OrderBandaLargaPFDisplay({
                 title="Nome (RFB):"
                 value={localData.nome_receita}
               />{" "}
-              <DisplayGenerator title="Gênero:" value={localData.genero} />
+              <DisplayGenerator
+                title="Gênero:"
+                value={
+                  localData.genero_receita === "M"
+                    ? "Masculino"
+                    : localData.genero_receita === "F"
+                      ? "Feminino"
+                      : "-"
+                }
+              />
               <DisplayGenerator title="CPF:" value={formatCPF(localData.cpf)} />
-              <DisplayGenerator title="Email:" value={localData.email} />
               <DisplayGenerator
                 title="Data de Nascimento:"
                 value={localData.birthdate}
@@ -172,7 +140,8 @@ export function OrderBandaLargaPFDisplay({
                     value={
                       localData.numero_valido
                         ? "Sim"
-                        : localData.numero_valido === null
+                        : localData.numero_valido === null ||
+                            localData.numero_valido === undefined
                           ? "-"
                           : "Não"
                     }
@@ -183,26 +152,21 @@ export function OrderBandaLargaPFDisplay({
                   />
                   <DisplayGenerator
                     title="Portado:"
-                    value={localData.portado}
+                    value={localData.portabilidade}
                   />
                   <DisplayGenerator
                     title="Data da Portabilidade:"
-                    value={localData.data_portabilidade}
-                  />
-                  <DisplayGenerator
-                    title="WhatsApp:"
                     value={
-                      localData.whatsapp?.is_comercial === true
-                        ? "Business"
-                        : localData.whatsapp?.is_comercial === false
-                          ? "Messenger"
-                          : "-"
+                      localData.data_portabilidade
+                        ? convertData(localData.data_portabilidade)
+                        : "-"
                     }
                   />
-                  <DisplayGenerator
+
+                  {/* <DisplayGenerator
                     title="Status:"
                     value={localData.whatsapp?.recado}
-                  />
+                  /> */}
                   {/* <DisplayGenerator
                     title="Título WA:"
                     value={localData.nome_whatsapp}
@@ -236,13 +200,17 @@ export function OrderBandaLargaPFDisplay({
                   />{" "}
                   <DisplayGenerator
                     title="Portado:"
-                    value={localData.portado}
+                    value={localData.portabilidade_adicional}
                   />
                   <DisplayGenerator
                     title="Data da Portabilidade:"
-                    value={localData.data_portabilidade}
+                    value={
+                      localData.data_portabilidade_adicional
+                        ? convertData(localData.data_portabilidade_adicional)
+                        : "-"
+                    }
                   />
-                  <DisplayGenerator
+                  {/* <DisplayGenerator
                     title="WhatsApp:"
                     value={
                       localData.whatsapp?.is_comercial === true
@@ -251,7 +219,7 @@ export function OrderBandaLargaPFDisplay({
                           ? "Messenger"
                           : "-"
                     }
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -364,11 +332,7 @@ export function OrderBandaLargaPFDisplay({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <DisplayGenerator
                 title="Plataforma:"
-                value={
-                  formatOS(localData.finger_print?.os?.name || "-") +
-                  " " +
-                  (localData.finger_print?.os?.version || "")
-                }
+                value={formatOSDisplay(localData.finger_print?.os)}
               />
               <DisplayGenerator
                 title="Dispositivo:"
@@ -376,14 +340,10 @@ export function OrderBandaLargaPFDisplay({
               />
               <DisplayGenerator
                 title="Browser:"
-                value={
-                  formatBrowser(localData.finger_print?.browser?.name || "-") +
-                  " " +
-                  (localData.finger_print?.browser?.version || "")
-                }
+                value={formatBrowserDisplay(localData.finger_print?.browser)}
               />
               <DisplayGenerator
-                title="Resolução:"
+                title="TimeZone:"
                 value={localData.finger_print?.timezone || "-"}
               />
               <DisplayGenerator
@@ -391,7 +351,7 @@ export function OrderBandaLargaPFDisplay({
                 value={formatResolution(
                   localData.finger_print?.resolution || "-",
                 )}
-              />{" "}
+              />
               <DisplayGenerator
                 title="ID Fingerprint:"
                 value={localData.fingerprintId || "-"}
@@ -466,6 +426,39 @@ export function OrderBandaLargaPFDisplay({
                   value={localData.addressreferencepoint}
                 />
               </div>
+            </div>
+          </div>
+          {/* Detalhes Técnicos */}
+          <div className="bg-white rounded-md p-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-2">
+              <DisplayGenerator
+                title="Coordenadas:"
+                value={
+                  localData.geolocalizacao?.latitude &&
+                  localData.geolocalizacao?.longitude
+                    ? `${localData.geolocalizacao.latitude}, ${localData.geolocalizacao.longitude}`
+                    : "-"
+                }
+              />
+
+              <a
+                href={localData.geolocalizacao?.link_maps}
+                target="_blank"
+                style={{ color: "#660099", textDecoration: "underline" }}
+                rel="noopener noreferrer"
+              >
+                Ver no Google Maps
+              </a>
+
+              <a
+                href={localData.geolocalizacao?.link_street_view}
+                target="_blank"
+                style={{ color: "#660099", textDecoration: "underline" }}
+                rel="noopener noreferrer"
+                className="text-[#660099]  underline"
+              >
+                Ver no Street View
+              </a>
             </div>
           </div>
         </div>

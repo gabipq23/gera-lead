@@ -116,8 +116,25 @@ export interface OrderBandaLargaPF {
   socios_empresas: SociosEmpresas[];
   numero_adicional_valido: boolean | number;
   operadora_adicional: string;
+  genero_receita?: string;
+  portabilidade?: string;
+  portabilidade_adicional?: string;
+  data_portabilidade_adicional?: string;
   whatsapp?: WhatsAppInfo;
   temperatura_pf?: number;
+  geolocalizacao?: {
+    sucesso: boolean;
+    latitude: string;
+    precisao: string;
+    link_maps: string;
+    longitude: string;
+    consultado_em: string;
+    cep_mais_proximo: string;
+    link_street_view: string;
+    endereco_formatado: string;
+    tem_disponibilidade: boolean;
+    distancia_km_ponto_mais_proximo: number;
+  };
   genero?: string;
   portado?: string;
   data_portabilidade?: string;
