@@ -218,7 +218,24 @@ export function useSearchAvailabilityController({
         />
       ),
     },
-
+    {
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-5" src="/assets/algar.png" alt="Algar" />
+        </div>
+      ),
+      dataIndex: "availability_algar",
+      width: 90,
+      render: (_, record) => (
+        <OperatorAvailability
+          operatorName="ALGAR"
+          operatorData={{
+            availability: record.availability_algar,
+            encontrado_via_range: record.encontrado_via_range_algar,
+          }}
+        />
+      ),
+    },
     {
       title: "UF",
       dataIndex: "UF",

@@ -562,6 +562,54 @@ export function useAllOrdersFilterController() {
       },
     },
     {
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-5" src="/assets/algar.png" alt="Algar" />
+        </div>
+      ),
+      dataIndex: ["availability_operadoras", "algar", "availability"],
+      width: 90,
+      render: (_, record) => {
+        const algar = record.availability_operadoras?.algar;
+        return algar?.availability === null ||
+          algar?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : algar?.availability ? (
+          algar?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="ALGAR -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="ALGAR -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="ALGAR -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
+    },
+    {
       title: "Plano",
       dataIndex: ["plan", "name"],
       ellipsis: {

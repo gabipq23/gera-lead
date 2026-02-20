@@ -45,6 +45,13 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               <td className="text-center p-2 border-b border-gray-200">
                 <img className="h-4 mx-auto" src="/assets/nio.svg" alt="NIO" />
               </td>
+              <td className="text-center p-2 border-b border-gray-200">
+                <img
+                  className="h-5 mx-auto"
+                  src="/assets/algar.png"
+                  alt="Algar"
+                />
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -232,6 +239,41 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.nio?.availability ? (
                   localData.availability_operadoras?.nio
+                    ?.encontrado_via_range ? (
+                    <Tooltip
+                      title="Disponível (via range numérico)"
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                    </Tooltip>
+                  ) : (
+                    <Tooltip
+                      title="Disponível"
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
+                  )
+                ) : (
+                  <Tooltip
+                    title="Indisponível"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                  </Tooltip>
+                )}
+              </td>
+              <td className="text-center p-2">
+                {localData.availability_operadoras?.algar?.availability ===
+                  null ||
+                localData.availability_operadoras?.algar?.availability ===
+                  undefined ? (
+                  <span className="text-[12px] text-neutral-500">-</span>
+                ) : localData.availability_operadoras?.algar?.availability ? (
+                  localData.availability_operadoras?.algar
                     ?.encontrado_via_range ? (
                     <Tooltip
                       title="Disponível (via range numérico)"

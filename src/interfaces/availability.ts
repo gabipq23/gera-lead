@@ -4,7 +4,10 @@ export interface IAvailability {
   encontrado_via_range: boolean;
   range_max: number;
   range_min: number;
-
+  availability_algar: boolean;
+  encontrado_via_range_algar: boolean;
+  range_min_algar: number | null;
+  range_max_algar: number | null;
   availability_claro: boolean;
   encontrado_via_range_claro: boolean;
   range_min_claro: number | null;
@@ -82,6 +85,10 @@ export interface IBulkAvailabilityResult {
   tipo: string | null;
   territorio: string;
   // Operadoras
+  availability_algar: boolean;
+  encontrado_via_range_algar: boolean;
+  range_min_algar: number | null;
+  range_max_algar: number | null;
   availability_claro: boolean;
   encontrado_via_range_claro: boolean;
   range_min_claro: number | null;

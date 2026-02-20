@@ -112,6 +112,13 @@ export default function ResultAvailability() {
                       alt="NIO"
                     />
                   </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-5 mx-auto"
+                      src="/assets/algar.png"
+                      alt="Algar"
+                    />
+                  </td>
                 </tr>
               </thead>
               <tbody>

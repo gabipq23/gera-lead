@@ -199,6 +199,21 @@ export default function TableStyle() {
       ),
     },
     {
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-5" src="/assets/algar.png" alt="Algar" />
+        </div>
+      ),
+      dataIndex: ["availability_operadoras", "algar", "availability"],
+      width: 90,
+      render: (_, record) => (
+        <OperatorAvailability
+          operatorName="ALGAR"
+          operatorData={record.availability_operadoras?.algar}
+        />
+      ),
+    },
+    {
       title: "Plano",
       dataIndex: ["plan", "name"],
       ellipsis: {
