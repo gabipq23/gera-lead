@@ -319,6 +319,38 @@ export default function ResultAvailability() {
                       </Tooltip>
                     )}
                   </td>
+                  <td className="text-center p-2">
+                    {data.availability_algar === null ||
+                    data.availability_algar === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_algar ? (
+                      data.encontrado_via_range_algar ? (
+                        <Tooltip
+                          title="Disponível (via range numérico)"
+                          placement="top"
+                          styles={{ body: { fontSize: "12px" } }}
+                        >
+                          <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          title="Disponível"
+                          placement="top"
+                          styles={{ body: { fontSize: "12px" } }}
+                        >
+                          <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                        </Tooltip>
+                      )
+                    ) : (
+                      <Tooltip
+                        title="Indisponível"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
+                    )}
+                  </td>
                 </tr>
 
                 {/* Linha 2: Range de números */}
@@ -327,6 +359,7 @@ export default function ResultAvailability() {
                   data.encontrado_via_range_tim ||
                   data.encontrado_via_range_oi ||
                   data.encontrado_via_range_sky ||
+                  data.encontrado_via_range_algar ||
                   data.encontrado_via_range_nio) && (
                   <tr>
                     <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
@@ -361,6 +394,12 @@ export default function ResultAvailability() {
                     <td className="text-center p-2 text-[11px] ">
                       {data.availability_nio && data.encontrado_via_range_nio
                         ? `${data.range_min_nio} - ${data.range_max_nio}`
+                        : "-"}
+                    </td>
+                    <td className="text-center p-2 text-[11px] ">
+                      {data.availability_algar &&
+                      data.encontrado_via_range_algar
+                        ? `${data.range_min_algar} - ${data.range_max_algar}`
                         : "-"}
                     </td>
                   </tr>

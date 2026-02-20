@@ -309,6 +309,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               localData.availability_operadoras?.tim?.encontrado_via_range ||
               localData.availability_operadoras?.oi?.encontrado_via_range ||
               localData.availability_operadoras?.sky?.encontrado_via_range ||
+              localData.availability_operadoras?.algar?.encontrado_via_range ||
               localData.availability_operadoras?.nio?.encontrado_via_range) && (
               <tr>
                 <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
@@ -347,6 +348,12 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
                   {localData.availability_operadoras?.nio?.availability &&
                   localData.availability_operadoras?.nio?.encontrado_via_range
                     ? `${localData.availability_operadoras.nio.range_min} - ${localData.availability_operadoras.nio.range_max}`
+                    : "-"}
+                </td>
+                <td className="text-center p-2 text-[11px] ">
+                  {localData.availability_operadoras?.algar?.availability &&
+                  localData.availability_operadoras?.algar?.encontrado_via_range
+                    ? `${localData.availability_operadoras.algar.range_min} - ${localData.availability_operadoras.algar.range_max}`
                     : "-"}
                 </td>
               </tr>

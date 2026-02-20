@@ -92,6 +92,12 @@ function exportToXLSX(dados: IBulkAvailabilityResult[]) {
         item.range_min_nio,
         item.range_max_nio,
       ),
+      Algar: formatOperadoraStatus(
+        item.availability_algar,
+        item.encontrado_via_range_algar,
+        item.range_min_algar,
+        item.range_max_algar,
+      ),
       UF: item.uf || "",
       Cidade: item.cidade || "",
       Bairro: item.bairro || "",
@@ -193,6 +199,13 @@ function exportToCSV(dados: IBulkAvailabilityResult[]) {
         item.encontrado_via_range_nio,
         item.range_min_nio,
         item.range_max_nio,
+      ),
+
+      Algar: formatOperadoraStatus(
+        item.availability_algar,
+        item.encontrado_via_range_algar,
+        item.range_min_algar,
+        item.range_max_algar,
       ),
       UF: item.uf || "",
       Cidade: item.cidade || "",

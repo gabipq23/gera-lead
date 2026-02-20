@@ -60,7 +60,7 @@ export function useSearchAvailabilityController({
     },
     enabled: !!uf,
   });
-
+  console.log("searchData", searchData);
   const useStyle = createStyles(({ css }) => {
     return {
       customTable: css`
