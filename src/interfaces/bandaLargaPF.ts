@@ -31,6 +31,7 @@ export interface OrderBandaLargaPF {
     sky?: OperadoraAvailability;
     nio?: OperadoraAvailability;
     net?: OperadoraAvailability;
+    algar?: OperadoraAvailability;
   };
   birthdate: string;
   buildingorhouse: number | string;
