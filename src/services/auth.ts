@@ -1,4 +1,5 @@
 import { apiPurchase } from "../configs/api";
+import { LocalStorageKeys, LocalStorageService } from "./storage";
 interface ILoginRequest {
   email: string;
   senha: string;
@@ -13,35 +14,6 @@ interface ILoginResponse {
     perfil: string;
   };
 }
-
-enum LocalStorageKeys {
-  accessToken = "vivoGold@accessToken",
-  user = "vivoGold@user",
-}
-
-export { LocalStorageKeys };
-
-type Keys = LocalStorageKeys;
-
-class LocalStorageService {
-  getItem(key: Keys): string | null {
-    return localStorage.getItem(key);
-  }
-
-  setItem(key: Keys, value: string): void {
-    localStorage.setItem(key, value);
-  }
-
-  removeItem(key: Keys): void {
-    localStorage.removeItem(key);
-  }
-
-  clear(): void {
-    localStorage.clear();
-  }
-}
-
-export { LocalStorageService };
 
 class AuthService {
   async login({ email, senha }: ILoginRequest): Promise<ILoginResponse> {
