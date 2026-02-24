@@ -3,21 +3,19 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
-  useNavigate,
+  Navigate,
 } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import "./App.css";
 
-import Header from "./components/header/header";
-import Footer from "./components/footer/footer";
-import SubHeader from "./components/subHeader";
+import PublicLayout from "./layouts/PublicLayout";
+import AdminLayout from "./layouts/AdminLayout";
+import RequireAuth from "./routes/RequireAuth";
 
 import { useAuthContext } from "./pages/login/context";
 import { Login } from "./pages/login/login";
 
-import { IUser } from "@/interfaces/login";
 import OrdersBandaLargaPJ from "./pages/orders/ordersBandaLargaPJ/ordersBandaLargaPJ";
 import OrdersBandaLargaPF from "./pages/orders/ordersBandaLargaPF/ordersBandaLargaPF";
 import ResultAvailability from "./pages/backoffice/components/consultAvailability/resultAvailability";
@@ -37,108 +35,64 @@ export default function App() {
   const { user, checkAuth } = useAuthContext();
 
   useEffect(() => {
-    if (!user) return;
-  }, [user]);
-  useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
+
   return (
     <Router>
-      <Content user={user} />
-    </Router>
-  );
-}
+      <Routes>
+        <Route
+          path="/admin"
+          element={user ? <Navigate to="/admin/leads-pf" replace /> : <Login />}
+        />
 
-function Content({ user }: { user: IUser | null }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const isPublicPath = location.pathname.startsWith("/painel-faturas/cliente");
-  const isLogin = location.pathname === "/admin";
+        <Route element={<PublicLayout />} />
 
-  const effectiveUser = isPublicPath ? null : user;
+        <Route element={<RequireAuth user={user} />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/check-operadora" element={<CheckOperadora />} />
+            <Route path="/admin/check-anatel" element={<CheckAnatel />} />
+            <Route path="/admin/zap-checker" element={<ZapChecker />} />
+            <Route path="/admin/pj-checker" element={<PJChecker />} />
+            <Route path="/admin/base2b-socio" element={<Base2bSocio />} />
+            <Route path="/admin/base2b-empresa" element={<Base2bEmpresa />} />
+            <Route path="/admin/chats" element={<Chats />} />
+            <Route path="/admin/leads-pj" element={<OrdersBandaLargaPJ />} />
+            <Route path="/admin/leads-pf" element={<OrdersBandaLargaPF />} />
+            <Route
+              path="/admin/consulta-disponibilidade"
+              element={<Availability />}
+            />
+            <Route
+              path="/admin/consulta-disponibilidade/:cep"
+              element={<ResultAvailability />}
+            />
+            <Route
+              path="/admin/consulta-disponibilidade/:cep/:numero"
+              element={<ResultAvailability />}
+            />
+            <Route
+              path="/admin/resultado-disponibilidade"
+              element={<ResultSearchAvailability />}
+            />
+            <Route
+              path="/admin/resultado-disponibilidade-massa"
+              element={<ResultBulkAvailability />}
+            />
+          </Route>
+        </Route>
 
-  useEffect(() => {
-    if (effectiveUser && isLogin) {
-      navigate("/admin/leads-pj", { replace: true });
-    }
-  }, [effectiveUser, isLogin, navigate]);
-
-  return (
-    <div className="flex flex-col min-h-screen bg-neutral-100">
-      {!isLogin && <Header />}
-      {effectiveUser && <SubHeader />}
-      <div className="flex-1">
-        <Routes>
-          {effectiveUser ? (
-            <>
-              {" "}
-              <Route
-                path="/admin/check-operadora"
-                element={<CheckOperadora />}
-              />
-              <Route path="/admin/check-anatel" element={<CheckAnatel />} />
-              <Route path="/admin/zap-checker" element={<ZapChecker />} />
-              <Route path="/admin/pj-checker" element={<PJChecker />} />
-              <Route path="/admin/base2b-socio" element={<Base2bSocio />} />
-              <Route path="/admin/base2b-empresa" element={<Base2bEmpresa />} />
-              <Route path="/admin/chats" element={<Chats />} />
-              <Route path="/admin/leads-pj" element={<OrdersBandaLargaPJ />} />
-              <Route path="/admin/leads-pf" element={<OrdersBandaLargaPF />} />
-              <Route
-                path="/admin/consulta-disponibilidade"
-                element={<Availability />}
-              />{" "}
-              <Route
-                path="/admin/consulta-disponibilidade/:cep"
-                element={<ResultAvailability />}
-              />
-              <Route
-                path="/admin/consulta-disponibilidade/:cep/:numero"
-                element={<ResultAvailability />}
-              />
-              <Route
-                path="/admin/resultado-disponibilidade"
-                element={<ResultSearchAvailability />}
-              />
-              <Route
-                path="/admin/resultado-disponibilidade-massa"
-                element={<ResultBulkAvailability />}
-              />
-              {/* <Route
-                path="/admin/estoque-equipamento"
-                element={<EquipamentsStock />}
-              />
-              <Route
-                path="/admin/planos-banda-larga-pj"
-                element={<BLPJStock />}
-              />
-              <Route
-                path="/admin/planos-banda-larga-pf"
-                element={<BLPFStock />}
-              />
-              <Route
-                path="/admin/produtos-office365"
-                element={<OfficeStock />}
-              />
-              <Route
-                path="/admin/produtos-workspace"
-                element={<WorkSpaceStock />}
-              />
-
-              <Route path="/admin/usuarios" element={<Users />} />
-              <Route
-                path="/admin/perfil-usuario/:id"
-                element={<UserProfile />}
-              /> */}
-            </>
-          ) : (
-            <>
-              <Route path="/admin" element={<Login />} />
-            </>
-          )}
-        </Routes>
-      </div>
-      {!isLogin && <Footer />}
+        <Route
+          path="*"
+          element={
+            user ? (
+              <Navigate to="/admin/leads-pf" replace />
+            ) : (
+              <Navigate to="/admin" replace />
+            )
+          }
+        />
+      </Routes>
 
       {/* componente do Toast. Só aparece quando da import no lugar desejado: "import { toast } from "sonner";" */}
       <Toaster
@@ -153,6 +107,6 @@ function Content({ user }: { user: IUser | null }) {
           },
         }}
       />
-    </div>
+    </Router>
   );
 }
