@@ -5,7 +5,7 @@ import { customLocale } from "@/utils/customLocale";
 import { useAllOrdersController } from "./controllers/dataController";
 import { useAllOrdersFilterController } from "./controllers/filterController";
 import { useNavigate } from "react-router-dom";
-import { OrderBandaLargaPFDetailsModal } from "./Modals/orderBandaLargaPFDetails";
+import { OrderBandaLargaPFDetailsModal } from "./modals/orderBandaLargaPFDetails";
 import { FiltroOrdersBandaLargaPFForm } from "./components/filter";
 import { TableProps } from "antd/lib";
 import { useState } from "react";

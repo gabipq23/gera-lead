@@ -1,4 +1,4 @@
-import OperatorAvailability from "@/components/OperatorAvailability";
+import OperatorAvailability from "@/components/operatorAvailability";
 import {
   ISearchAvailabilityResponse,
   IAvailability,

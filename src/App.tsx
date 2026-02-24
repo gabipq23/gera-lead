@@ -9,10 +9,6 @@ import { Toaster } from "sonner";
 
 import "./App.css";
 
-import PublicLayout from "./layouts/PublicLayout";
-import AdminLayout from "./layouts/AdminLayout";
-import RequireAuth from "./routes/RequireAuth";
-
 import { useAuthContext } from "./pages/login/context";
 import { Login } from "./pages/login/login";
 
@@ -29,6 +25,9 @@ import ZapChecker from "./pages/tools/zapChecker/zapChecker";
 import PJChecker from "./pages/tools/pjChecker/pjChecker";
 import Base2bSocio from "./pages/tools/base2bSocio/base2bSocio";
 import Base2bEmpresa from "./pages/tools/base2bEmpresa/base2bEmpresa";
+import PublicLayout from "./layouts/publicLayout";
+import AdminLayout from "./layouts/adminLayout";
+import RequireAuth from "./routes/RequireAuth";
 // import { Chat } from "./pages/chat/chat";
 
 export default function App() {

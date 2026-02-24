@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { formatCPF } from "@/utils/formatCPF";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { useStyle } from "./useStyle";
-import OperatorAvailability from "@/components/OperatorAvailability";
+import OperatorAvailability from "@/components/operatorAvailability";
 import {
   AlertCircle,
   CheckCircle2,

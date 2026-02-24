@@ -2,7 +2,7 @@ import { Control, Controller, UseFormHandleSubmit } from "react-hook-form";
 import { Input, Button, Tooltip, ConfigProvider, Select } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import CreateUserModal from "../Modals/createUser";
+import CreateUserModal from "../modals/createUser";
 
 interface FiltroUsersFormProps {
   control: Control<any>;

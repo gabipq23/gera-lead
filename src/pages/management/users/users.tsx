@@ -7,7 +7,7 @@ import { FiltroUsersForm } from "./components/filter";
 import { useUsersFilterController } from "./controllers/filterController";
 import { useUsersController } from "./controllers/dataController";
 import { useState } from "react";
-import EditUserModal from "./Modals/editUser";
+import EditUserModal from "./modals/editUser";
 
 function Users() {
   const queryClient = new QueryClient();
