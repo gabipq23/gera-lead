@@ -610,6 +610,54 @@ export function useAllOrdersFilterController() {
       },
     },
     {
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-4" src="/assets/brisanet.png" alt="Brisanet" />
+        </div>
+      ),
+      dataIndex: ["availability_operadoras", "brisanet", "availability"],
+      width: 110,
+      render: (_, record) => {
+        const brisanet = record.availability_operadoras?.brisanet;
+        return brisanet?.availability === null ||
+          brisanet?.availability === undefined ? (
+          <div className="flex items-center justify-center ">-</div>
+        ) : brisanet?.availability ? (
+          brisanet?.encontrado_via_range ? (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="BRISANET -  Disponível (via range numérico)"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center ">
+              <Tooltip
+                title="BRISANET -  Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center ">
+            <Tooltip
+              title="BRISANET -  Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>{" "}
+            </Tooltip>
+          </div>
+        );
+      },
+    },
+    {
       title: "Plano",
       dataIndex: ["plan", "name"],
       ellipsis: {

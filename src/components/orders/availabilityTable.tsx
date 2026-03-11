@@ -52,6 +52,13 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
                   alt="Algar"
                 />
               </td>
+              <td className="text-center p-2 border-b border-gray-200">
+                <img
+                  className="h-4 mx-auto"
+                  src="/assets/brisanet.png"
+                  alt="Brisanet"
+                />
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +69,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               </td>
               <td className="text-center p-2">
                 {localData.availability === null ||
-                localData.availability === undefined ? (
+                  localData.availability === undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability ? (
                   localData.encontrado_via_range ? (
@@ -95,7 +102,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               <td className="text-center p-2">
                 {localData.availability_operadoras?.claro?.availability ===
                   null ||
-                localData.availability_operadoras?.claro?.availability ===
+                  localData.availability_operadoras?.claro?.availability ===
                   undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.claro?.availability ? (
@@ -130,7 +137,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               <td className="text-center p-2">
                 {localData.availability_operadoras?.tim?.availability ===
                   null ||
-                localData.availability_operadoras?.tim?.availability ===
+                  localData.availability_operadoras?.tim?.availability ===
                   undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.tim?.availability ? (
@@ -164,7 +171,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               </td>
               <td className="text-center p-2">
                 {localData.availability_operadoras?.oi?.availability === null ||
-                localData.availability_operadoras?.oi?.availability ===
+                  localData.availability_operadoras?.oi?.availability ===
                   undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.oi?.availability ? (
@@ -199,7 +206,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               <td className="text-center p-2">
                 {localData.availability_operadoras?.sky?.availability ===
                   null ||
-                localData.availability_operadoras?.sky?.availability ===
+                  localData.availability_operadoras?.sky?.availability ===
                   undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.sky?.availability ? (
@@ -234,7 +241,7 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               <td className="text-center p-2">
                 {localData.availability_operadoras?.nio?.availability ===
                   null ||
-                localData.availability_operadoras?.nio?.availability ===
+                  localData.availability_operadoras?.nio?.availability ===
                   undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.nio?.availability ? (
@@ -269,11 +276,46 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               <td className="text-center p-2">
                 {localData.availability_operadoras?.algar?.availability ===
                   null ||
-                localData.availability_operadoras?.algar?.availability ===
+                  localData.availability_operadoras?.algar?.availability ===
                   undefined ? (
                   <span className="text-[12px] text-neutral-500">-</span>
                 ) : localData.availability_operadoras?.algar?.availability ? (
                   localData.availability_operadoras?.algar
+                    ?.encontrado_via_range ? (
+                    <Tooltip
+                      title="Disponível (via range numérico)"
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                    </Tooltip>
+                  ) : (
+                    <Tooltip
+                      title="Disponível"
+                      placement="top"
+                      styles={{ body: { fontSize: "12px" } }}
+                    >
+                      <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                    </Tooltip>
+                  )
+                ) : (
+                  <Tooltip
+                    title="Indisponível"
+                    placement="top"
+                    styles={{ body: { fontSize: "12px" } }}
+                  >
+                    <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                  </Tooltip>
+                )}
+              </td>
+              <td className="text-center p-2">
+                {localData.availability_operadoras?.brisanet?.availability ===
+                  null ||
+                  localData.availability_operadoras?.brisanet?.availability ===
+                  undefined ? (
+                  <span className="text-[12px] text-neutral-500">-</span>
+                ) : localData.availability_operadoras?.brisanet?.availability ? (
+                  localData.availability_operadoras?.brisanet
                     ?.encontrado_via_range ? (
                     <Tooltip
                       title="Disponível (via range numérico)"
@@ -310,54 +352,62 @@ export default function AvailabilityTable({ localData }: { localData: any }) {
               localData.availability_operadoras?.oi?.encontrado_via_range ||
               localData.availability_operadoras?.sky?.encontrado_via_range ||
               localData.availability_operadoras?.algar?.encontrado_via_range ||
+              localData.availability_operadoras?.brisanet?.encontrado_via_range ||
               localData.availability_operadoras?.nio?.encontrado_via_range) && (
-              <tr>
-                <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
-                  Range numérico
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability && localData.encontrado_via_range
-                    ? `${localData.range_min} - ${localData.range_max}`
-                    : "-"}
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability_operadoras?.claro?.availability &&
-                  localData.availability_operadoras?.claro?.encontrado_via_range
-                    ? `${localData.availability_operadoras.claro.range_min} - ${localData.availability_operadoras.claro.range_max}`
-                    : "-"}
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability_operadoras?.tim?.availability &&
-                  localData.availability_operadoras?.tim?.encontrado_via_range
-                    ? `${localData.availability_operadoras.tim.range_min} - ${localData.availability_operadoras.tim.range_max}`
-                    : "-"}
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability_operadoras?.oi?.availability &&
-                  localData.availability_operadoras?.oi?.encontrado_via_range
-                    ? `${localData.availability_operadoras.oi.range_min} - ${localData.availability_operadoras.oi.range_max}`
-                    : "-"}
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability_operadoras?.sky?.availability &&
-                  localData.availability_operadoras?.sky?.encontrado_via_range
-                    ? `${localData.availability_operadoras.sky.range_min} - ${localData.availability_operadoras.sky.range_max}`
-                    : "-"}
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability_operadoras?.nio?.availability &&
-                  localData.availability_operadoras?.nio?.encontrado_via_range
-                    ? `${localData.availability_operadoras.nio.range_min} - ${localData.availability_operadoras.nio.range_max}`
-                    : "-"}
-                </td>
-                <td className="text-center p-2 text-[11px] ">
-                  {localData.availability_operadoras?.algar?.availability &&
-                  localData.availability_operadoras?.algar?.encontrado_via_range
-                    ? `${localData.availability_operadoras.algar.range_min} - ${localData.availability_operadoras.algar.range_max}`
-                    : "-"}
-                </td>
-              </tr>
-            )}
+                <tr>
+                  <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
+                    Range numérico
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability && localData.encontrado_via_range
+                      ? `${localData.range_min} - ${localData.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.claro?.availability &&
+                      localData.availability_operadoras?.claro?.encontrado_via_range
+                      ? `${localData.availability_operadoras.claro.range_min} - ${localData.availability_operadoras.claro.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.tim?.availability &&
+                      localData.availability_operadoras?.tim?.encontrado_via_range
+                      ? `${localData.availability_operadoras.tim.range_min} - ${localData.availability_operadoras.tim.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.oi?.availability &&
+                      localData.availability_operadoras?.oi?.encontrado_via_range
+                      ? `${localData.availability_operadoras.oi.range_min} - ${localData.availability_operadoras.oi.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.sky?.availability &&
+                      localData.availability_operadoras?.sky?.encontrado_via_range
+                      ? `${localData.availability_operadoras.sky.range_min} - ${localData.availability_operadoras.sky.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.nio?.availability &&
+                      localData.availability_operadoras?.nio?.encontrado_via_range
+                      ? `${localData.availability_operadoras.nio.range_min} - ${localData.availability_operadoras.nio.range_max}`
+                      : "-"}
+                  </td>
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.algar?.availability &&
+                      localData.availability_operadoras?.algar?.encontrado_via_range
+                      ? `${localData.availability_operadoras.algar.range_min} - ${localData.availability_operadoras.algar.range_max}`
+                      : "-"}
+                  </td>
+
+                  <td className="text-center p-2 text-[11px] ">
+                    {localData.availability_operadoras?.brisanet?.availability &&
+                      localData.availability_operadoras?.brisanet?.encontrado_via_range
+                      ? `${localData.availability_operadoras.brisanet.range_min} - ${localData.availability_operadoras.brisanet.range_max}`
+                      : "-"}
+                  </td>
+                </tr>
+              )}
           </tbody>
         </table>
       </div>

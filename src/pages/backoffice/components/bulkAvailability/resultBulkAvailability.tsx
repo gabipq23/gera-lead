@@ -461,6 +461,51 @@ export default function ResultBulkAvailability() {
         ),
     },
     {
+      title: (
+        <div className="flex items-center justify-center">
+          <img className="h-4" src="/assets/brisanet.png" alt="Brisanet" />
+        </div>
+      ),
+      dataIndex: "availability_brisanet",
+      width: 80,
+      render: (availability, record) =>
+        availability === null || availability === undefined ? (
+          <div className="flex items-center justify-center">-</div>
+        ) : availability ? (
+          record.encontrado_via_range_brisanet ? (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title={`Brisanet - Disponível (via range numérico: ${record.range_min_brisanet} - ${record.range_max_brisanet})`}
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <Tooltip
+                title="Brisanet - Disponível"
+                placement="top"
+                styles={{ body: { fontSize: "12px" } }}
+              >
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+              </Tooltip>
+            </div>
+          )
+        ) : (
+          <div className="flex items-center justify-center">
+            <Tooltip
+              title="Brisanet - Indisponível"
+              placement="top"
+              styles={{ body: { fontSize: "12px" } }}
+            >
+              <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+            </Tooltip>
+          </div>
+        ),
+    },
+    {
       title: "UF",
       dataIndex: "uf",
       width: 50,

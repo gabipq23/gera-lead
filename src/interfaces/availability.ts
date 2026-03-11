@@ -33,6 +33,10 @@ export interface IAvailability {
   range_min_sky: number | null;
   range_max_sky: number | null;
 
+  availability_brisanet: boolean;
+  encontrado_via_range_brisanet: boolean;
+  range_min_brisanet: number | null;
+  range_max_brisanet: number | null;
   id: number;
   UF: string;
   CIDADE: string;
@@ -113,6 +117,10 @@ export interface IBulkAvailabilityResult {
   encontrado_via_range_sky: boolean;
   range_min_sky: number | null;
   range_max_sky: number | null;
+  availability_brisanet: boolean;
+  encontrado_via_range_brisanet: boolean;
+  range_min_brisanet: number | null;
+  range_max_brisanet: number | null;
 }
 
 export interface IBulkAvailabilityReport {

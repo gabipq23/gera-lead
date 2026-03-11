@@ -119,6 +119,13 @@ export default function ResultAvailability() {
                       alt="Algar"
                     />
                   </td>
+                  <td className="text-center p-2 border-b border-gray-200">
+                    <img
+                      className="h-4 mx-auto"
+                      src="/assets/brisanet.png"
+                      alt="Brisanet"
+                    />
+                  </td>
                 </tr>
               </thead>
               <tbody>
@@ -129,7 +136,7 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability === null ||
-                    data.availability === undefined ? (
+                      data.availability === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability ? (
                       data.encontrado_via_range ? (
@@ -161,7 +168,7 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability_claro === null ||
-                    data.availability_claro === undefined ? (
+                      data.availability_claro === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability_claro ? (
                       data.encontrado_via_range_claro ? (
@@ -193,7 +200,7 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability_tim === null ||
-                    data.availability_tim === undefined ? (
+                      data.availability_tim === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability_tim ? (
                       data.encontrado_via_range_tim ? (
@@ -225,7 +232,7 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability_oi === null ||
-                    data.availability_oi === undefined ? (
+                      data.availability_oi === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability_oi ? (
                       data.encontrado_via_range_oi ? (
@@ -257,7 +264,7 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability_sky === null ||
-                    data.availability_sky === undefined ? (
+                      data.availability_sky === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability_sky ? (
                       data.encontrado_via_range_sky ? (
@@ -289,7 +296,7 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability_nio === null ||
-                    data.availability_nio === undefined ? (
+                      data.availability_nio === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability_nio ? (
                       data.encontrado_via_range_nio ? (
@@ -321,10 +328,42 @@ export default function ResultAvailability() {
                   </td>
                   <td className="text-center p-2">
                     {data.availability_algar === null ||
-                    data.availability_algar === undefined ? (
+                      data.availability_algar === undefined ? (
                       <span className="text-[12px] text-neutral-500">-</span>
                     ) : data.availability_algar ? (
                       data.encontrado_via_range_algar ? (
+                        <Tooltip
+                          title="Disponível (via range numérico)"
+                          placement="top"
+                          styles={{ body: { fontSize: "12px" } }}
+                        >
+                          <div className="h-3 w-3 bg-yellow-500 rounded-full mx-auto  cursor-pointer"></div>{" "}
+                        </Tooltip>
+                      ) : (
+                        <Tooltip
+                          title="Disponível"
+                          placement="top"
+                          styles={{ body: { fontSize: "12px" } }}
+                        >
+                          <div className="h-3 w-3 bg-green-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                        </Tooltip>
+                      )
+                    ) : (
+                      <Tooltip
+                        title="Indisponível"
+                        placement="top"
+                        styles={{ body: { fontSize: "12px" } }}
+                      >
+                        <div className="h-3 w-3 bg-red-500 rounded-full mx-auto cursor-pointer"></div>{" "}
+                      </Tooltip>
+                    )}
+                  </td>
+                  <td className="text-center p-2">
+                    {data.availability_brisanet === null ||
+                      data.availability_brisanet === undefined ? (
+                      <span className="text-[12px] text-neutral-500">-</span>
+                    ) : data.availability_brisanet ? (
+                      data.encontrado_via_range_brisanet ? (
                         <Tooltip
                           title="Disponível (via range numérico)"
                           placement="top"
@@ -360,50 +399,57 @@ export default function ResultAvailability() {
                   data.encontrado_via_range_oi ||
                   data.encontrado_via_range_sky ||
                   data.encontrado_via_range_algar ||
+                  data.encontrado_via_range_brisanet ||
                   data.encontrado_via_range_nio) && (
-                  <tr>
-                    <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
-                      Range numérico
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability && data.encontrado_via_range
-                        ? `${data.range_min} - ${data.range_max}`
-                        : "-"}
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability_claro &&
-                      data.encontrado_via_range_claro
-                        ? `${data.range_min_claro} - ${data.range_max_claro}`
-                        : "-"}
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability_tim && data.encontrado_via_range_tim
-                        ? `${data.range_min_tim} - ${data.range_max_tim}`
-                        : "-"}
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability_oi && data.encontrado_via_range_oi
-                        ? `${data.range_min_oi} - ${data.range_max_oi}`
-                        : "-"}
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability_sky && data.encontrado_via_range_sky
-                        ? `${data.range_min_sky} - ${data.range_max_sky}`
-                        : "-"}
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability_nio && data.encontrado_via_range_nio
-                        ? `${data.range_min_nio} - ${data.range_max_nio}`
-                        : "-"}
-                    </td>
-                    <td className="text-center p-2 text-[11px] ">
-                      {data.availability_algar &&
-                      data.encontrado_via_range_algar
-                        ? `${data.range_min_algar} - ${data.range_max_algar}`
-                        : "-"}
-                    </td>
-                  </tr>
-                )}
+                    <tr>
+                      <td className="text-[12px] w-30 font-medium text-gray-600 p-2 pr-4">
+                        Range numérico
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability && data.encontrado_via_range
+                          ? `${data.range_min} - ${data.range_max}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_claro &&
+                          data.encontrado_via_range_claro
+                          ? `${data.range_min_claro} - ${data.range_max_claro}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_tim && data.encontrado_via_range_tim
+                          ? `${data.range_min_tim} - ${data.range_max_tim}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_oi && data.encontrado_via_range_oi
+                          ? `${data.range_min_oi} - ${data.range_max_oi}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_sky && data.encontrado_via_range_sky
+                          ? `${data.range_min_sky} - ${data.range_max_sky}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_nio && data.encontrado_via_range_nio
+                          ? `${data.range_min_nio} - ${data.range_max_nio}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_algar &&
+                          data.encontrado_via_range_algar
+                          ? `${data.range_min_algar} - ${data.range_max_algar}`
+                          : "-"}
+                      </td>
+                      <td className="text-center p-2 text-[11px] ">
+                        {data.availability_brisanet &&
+                          data.encontrado_via_range_brisanet
+                          ? `${data.range_min_brisanet} - ${data.range_max_brisanet}`
+                          : "-"}
+                      </td>
+                    </tr>
+                  )}
               </tbody>
             </table>
           </div>

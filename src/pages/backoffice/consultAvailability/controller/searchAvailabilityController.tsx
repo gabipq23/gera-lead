@@ -237,6 +237,24 @@ export function useSearchAvailabilityController({
       ),
     },
     {
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-4" src="/assets/brisanet.png" alt="Brisanet" />
+        </div>
+      ),
+      dataIndex: "availability_brisanet",
+      width: 110,
+      render: (_, record) => (
+        <OperatorAvailability
+          operatorName="BRISANET"
+          operatorData={{
+            availability: record.availability_brisanet,
+            encontrado_via_range: record.encontrado_via_range_brisanet,
+          }}
+        />
+      ),
+    },
+    {
       title: "UF",
       dataIndex: "UF",
       key: "UF",

@@ -214,6 +214,21 @@ export default function TableStyle() {
       ),
     },
     {
+      title: (
+        <div className="flex items-center justify-center ">
+          <img className="h-4" src="/assets/brisanet.png" alt="Brisanet" />
+        </div>
+      ),
+      dataIndex: ["availability_operadoras", "brisanet", "availability"],
+      width: 110,
+      render: (_, record) => (
+        <OperatorAvailability
+          operatorName="BRISANET"
+          operatorData={record.availability_operadoras?.brisanet}
+        />
+      ),
+    },
+    {
       title: "Plano",
       dataIndex: ["plan", "name"],
       ellipsis: {
