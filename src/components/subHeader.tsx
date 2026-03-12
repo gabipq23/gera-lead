@@ -177,11 +177,10 @@ export default function SubHeader() {
             <Dropdown menu={{ items: ordersMenuItems }} placement="bottom">
               <a
                 onClick={(e) => e.preventDefault()}
-                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
-                  selectedLink === "leads-pj" || selectedLink === "leads-pf"
+                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${selectedLink === "leads-pj" || selectedLink === "leads-pf"
                     ? "font-bold text-white"
                     : ""
-                }`}
+                  }`}
               >
                 Leads
               </a>
@@ -191,27 +190,25 @@ export default function SubHeader() {
                 setSelectedLink("consulta-disponibilidade");
                 navigate(`/admin/consulta-disponibilidade  `);
               }}
-              className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
-                selectedLink === "consulta-disponibilidade"
+              className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${selectedLink === "consulta-disponibilidade"
                   ? "font-bold text-white"
                   : ""
-              }`}
+                }`}
             >
               Disponibilidade
             </a>
             <Dropdown menu={{ items: toolsMenuItems }} placement="bottom">
               <a
                 onClick={(e) => e.preventDefault()}
-                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-100 ${
-                  selectedLink === "pj-checker" ||
-                  selectedLink === "check-anatel" ||
-                  selectedLink === "zap-checker" ||
-                  selectedLink === "base2b-empresa" ||
-                  selectedLink === "base2b-socio" ||
-                  selectedLink === "check-operadora"
+                className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-100 ${selectedLink === "pj-checker" ||
+                    selectedLink === "check-anatel" ||
+                    selectedLink === "zap-checker" ||
+                    selectedLink === "base2b-empresa" ||
+                    selectedLink === "base2b-socio" ||
+                    selectedLink === "check-operadora"
                     ? "font-bold text-white"
                     : ""
-                }`}
+                  }`}
               >
                 Tools
               </a>
@@ -221,9 +218,8 @@ export default function SubHeader() {
                 setSelectedLink("chats");
                 navigate(`/admin/chats`);
               }}
-              className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${
-                selectedLink === "chats" ? "font-bold text-white" : ""
-              }`}
+              className={`text-[14px] cursor-pointer text-neutral-200 hover:text-neutral-50 ${selectedLink === "chats" ? "font-bold text-white" : ""
+                }`}
             >
               Chat
             </a>
@@ -255,7 +251,7 @@ export default function SubHeader() {
               {`
               .logout-btn:hover .anticon {
                 color: #ffffff !important;
-                font-size: 15px;
+                font-size: 17px;
               }
             
               `}
