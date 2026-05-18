@@ -1,5 +1,4 @@
 import { formatBRL } from "@/utils/formatBRL";
-import { formatDateTimeBR } from "@/utils/formatDateTimeBR";
 import * as XLSX from "xlsx";
 
 export const handleExportXLSX = (data: any, selectedRowKeys: any) => {
@@ -14,6 +13,17 @@ export const handleExportXLSX = (data: any, selectedRowKeys: any) => {
   if (!pedidosSelecionados || pedidosSelecionados.length === 0) {
     return;
   }
+  const operadoras = ["claro", "tim", "oi", "sky", "nio", "algar", "brisanet"];
+
+  const operadoraLabels: Record<string, string> = {
+    claro: "Claro",
+    tim: "TIM",
+    oi: "Oi",
+    sky: "Sky",
+    nio: "Nio",
+    algar: "Algar",
+    brisanet: "Brisanet",
+  };
 
   const camposMonetarios = ["plan.price"];
   const camposDataHora = [
@@ -56,12 +66,20 @@ export const handleExportXLSX = (data: any, selectedRowKeys: any) => {
     "plan.speed",
     "plan.price",
     "availability",
-    "availability_pap",
-    "cep",
-    "cep_unico",
     "encontrado_via_range",
     "range_min",
     "range_max",
+    "availability_pap", ...operadoras.flatMap((op) => [
+      `${op}.availability`,
+
+      `${op}.encontrado_via_range`,
+      `${op}.range_min`,
+      `${op}.range_max`,
+
+    ]),
+    "cep",
+    "cep_unico",
+
     "address",
     "addressnumber",
     "addresscomplement",
@@ -197,12 +215,24 @@ export const handleExportXLSX = (data: any, selectedRowKeys: any) => {
     nome_whatsapp: "Nome WhatsApp",
     recado: "Recado WhatsApp",
     avatar: "Avatar WhatsApp",
-    availability: "Disponibilidade",
+    availability: "Disponibilidade Vivo",
+    encontrado_via_range: "Vivo Via Range",
+    range_min: "Range Min",
+    range_max: "Range Máx",
     availability_pap: "Disponibilidade PAP",
+
+    ...Object.fromEntries(
+      operadoras.flatMap((op) => [
+        [`${op}.availability`, `Disponibilidade ${operadoraLabels[op]} `],
+
+        [`${op}.encontrado_via_range`, `${operadoraLabels[op]} Via Range`],
+        [`${op}.range_min`, `${operadoraLabels[op]} Range Min`],
+        [`${op}.range_max`, `${operadoraLabels[op]} Range Max`],
+
+      ]),
+    ),
     cep_unico: "CEP Único",
-    encontrado_via_range: "Encontrado via Range",
-    range_min: "Range Mínimo",
-    range_max: "Range Máximo",
+
     observacao_consultor: "Observação do Consultor",
     "whatsapp.numero": "WhatsApp Número",
     "whatsapp.recado": "WhatsApp Recado",
@@ -289,6 +319,20 @@ export const handleExportXLSX = (data: any, selectedRowKeys: any) => {
     linha[colNames["availability_pap"]] = pedido.availability_pap
       ? "Sim"
       : "Não";
+
+    operadoras.forEach((op) => {
+      const opData = pedido.availability_operadoras?.[op];
+
+      const availability = opData?.availability;
+      const viaRange = opData?.encontrado_via_range;
+
+      linha[colNames[`${op}.availability`]] = availability ? "Sim" : "Não";
+
+      linha[colNames[`${op}.encontrado_via_range`]] = viaRange ? "Sim" : "Não";
+      linha[colNames[`${op}.range_min`]] = opData?.range_min ?? "";
+      linha[colNames[`${op}.range_max`]] = opData?.range_max ?? "";
+
+    });
     linha[colNames["consulta"]] = pedido.consulta ? "Sim" : "Não";
     linha[colNames["pedido"]] = pedido.pedido ? "Sim" : "Não";
     linha[colNames["wantsFixedIp"]] = pedido.wantsFixedIp ? "Sim" : "Não";
