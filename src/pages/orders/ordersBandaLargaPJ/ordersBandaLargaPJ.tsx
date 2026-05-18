@@ -71,6 +71,7 @@ export default function OrdersBandaLargaPJ() {
                 onClear={clearFilters}
                 orderBandaLargaPJ={orderBandaLargaPJ}
                 statusOptions={ordersBandaLarga?.status_pos_venda_enum}
+
               />
             </div>
           </div>

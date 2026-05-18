@@ -6,6 +6,8 @@ import { DatePicker } from "antd";
 import { PatternFormat, PatternFormatProps } from "react-number-format";
 import dayjs from "dayjs";
 import { BandaLargaFilters } from "@/interfaces/bandaLargaPF";
+import { DownloadOutlined } from "@ant-design/icons";
+import { handleExportXLSX } from "../controllers/exportXLSX";
 
 interface FiltroPedidosFormProps {
   control: Control<BandaLargaFilters>;
@@ -13,7 +15,6 @@ interface FiltroPedidosFormProps {
   onSubmit: (data: BandaLargaFilters) => void;
   onClear: () => void;
   selectedRowKeys: any;
-
   orderBandaLargaPF: any;
 }
 
@@ -31,6 +32,8 @@ export function FiltroOrdersBandaLargaPFForm({
   handleSubmit,
   onSubmit,
   onClear,
+  selectedRowKeys,
+  orderBandaLargaPF,
 }: FiltroPedidosFormProps) {
   const { RangePicker } = DatePicker;
 
@@ -170,13 +173,13 @@ export function FiltroOrdersBandaLargaPFForm({
                     value={
                       fieldDe.value && fieldAte.value
                         ? [
-                            fieldDe.value
-                              ? dayjs(decodeURIComponent(fieldDe.value))
-                              : null,
-                            fieldAte.value
-                              ? dayjs(decodeURIComponent(fieldAte.value))
-                              : null,
-                          ]
+                          fieldDe.value
+                            ? dayjs(decodeURIComponent(fieldDe.value))
+                            : null,
+                          fieldAte.value
+                            ? dayjs(decodeURIComponent(fieldAte.value))
+                            : null,
+                        ]
                         : [null, null]
                     }
                     format="DD/MM/YYYY"
@@ -184,15 +187,15 @@ export function FiltroOrdersBandaLargaPFForm({
                       fieldDe.onChange(
                         dates && dates[0]
                           ? encodeURIComponent(
-                              dates[0].startOf("day").format("YYYY-MM-DD"),
-                            )
+                            dates[0].startOf("day").format("YYYY-MM-DD"),
+                          )
                           : null,
                       );
                       fieldAte.onChange(
                         dates && dates[1]
                           ? encodeURIComponent(
-                              dates[1].endOf("day").format("YYYY-MM-DD"),
-                            )
+                            dates[1].endOf("day").format("YYYY-MM-DD"),
+                          )
                           : null,
                       );
                     }}
@@ -241,6 +244,21 @@ export function FiltroOrdersBandaLargaPFForm({
               onClick={onClear}
             >
               X
+            </Button>
+          </Tooltip>
+
+          <Tooltip
+            title="Download"
+            placement="top"
+            styles={{ body: { fontSize: "11px" } }}
+          >
+            <Button
+              variant="outlined"
+              color="default"
+              style={{ width: "24px", height: "28px", color: "#8b8e8f" }}
+              onClick={() => handleExportXLSX(orderBandaLargaPF, selectedRowKeys)}
+            >
+              <DownloadOutlined />
             </Button>
           </Tooltip>
         </div>

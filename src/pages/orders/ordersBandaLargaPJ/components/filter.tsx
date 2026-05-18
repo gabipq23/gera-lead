@@ -5,14 +5,16 @@ import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import ptBR from "antd/es/locale/pt_BR";
 import { PatternFormat, PatternFormatProps } from "react-number-format";
+import { DownloadOutlined } from "@ant-design/icons";
+import { handleExportXLSX } from "../controllers/exportXLSX";
 interface FiltroPedidosPJFormProps {
   control: any;
   handleSubmit: any;
   onSubmit: any;
   onClear: () => void;
-  selectedRowKeys: any;
   statusOptions?: string[];
   orderBandaLargaPJ: any;
+  selectedRowKeys: any
 }
 
 const CNPJInput = (props: PatternFormatProps) => (
@@ -29,6 +31,8 @@ export function FiltroOrdersBandaLargaPJForm({
   handleSubmit,
   onSubmit,
   onClear,
+  selectedRowKeys,
+  orderBandaLargaPJ,
 }: FiltroPedidosPJFormProps) {
   const { RangePicker } = DatePicker;
 
@@ -182,13 +186,13 @@ export function FiltroOrdersBandaLargaPJForm({
                     value={
                       fieldDe.value && fieldAte.value
                         ? [
-                            fieldDe.value
-                              ? dayjs(decodeURIComponent(fieldDe.value))
-                              : null,
-                            fieldAte.value
-                              ? dayjs(decodeURIComponent(fieldAte.value))
-                              : null,
-                          ]
+                          fieldDe.value
+                            ? dayjs(decodeURIComponent(fieldDe.value))
+                            : null,
+                          fieldAte.value
+                            ? dayjs(decodeURIComponent(fieldAte.value))
+                            : null,
+                        ]
                         : [null, null]
                     }
                     format="DD/MM/YYYY"
@@ -196,15 +200,15 @@ export function FiltroOrdersBandaLargaPJForm({
                       fieldDe.onChange(
                         dates && dates[0]
                           ? encodeURIComponent(
-                              dates[0].startOf("day").format("YYYY-MM-DD"),
-                            )
+                            dates[0].startOf("day").format("YYYY-MM-DD"),
+                          )
                           : null,
                       );
                       fieldAte.onChange(
                         dates && dates[1]
                           ? encodeURIComponent(
-                              dates[1].endOf("day").format("YYYY-MM-DD"),
-                            )
+                            dates[1].endOf("day").format("YYYY-MM-DD"),
+                          )
                           : null,
                       );
                     }}
@@ -251,20 +255,20 @@ export function FiltroOrdersBandaLargaPJForm({
               X
             </Button>
           </Tooltip>
-          {/* <Tooltip
-          title="Download"
-          placement="top"
-          styles={{ body: { fontSize: "11px" } }}
-        >
-          <Button
-            variant="outlined"
-            color="default"
-            style={{ width: "24px", height: "28px", color: "#8b8e8f" }}
-            onClick={() => handleExportXLSX(orderBandaLargaPJ, selectedRowKeys)}
+          <Tooltip
+            title="Download"
+            placement="top"
+            styles={{ body: { fontSize: "11px" } }}
           >
-            <DownloadOutlined />
-          </Button>
-        </Tooltip> */}
+            <Button
+              variant="outlined"
+              color="default"
+              style={{ width: "24px", height: "28px", color: "#8b8e8f" }}
+              onClick={() => handleExportXLSX(orderBandaLargaPJ, selectedRowKeys)}
+            >
+              <DownloadOutlined />
+            </Button>
+          </Tooltip>
         </div>
       </ConfigProvider>
     </form>
