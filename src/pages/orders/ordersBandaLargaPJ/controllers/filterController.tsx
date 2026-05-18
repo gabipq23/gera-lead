@@ -1064,24 +1064,24 @@ export function useAllOrdersFilterController() {
           : "-",
     },
 
-    {
-      title: "Titular",
-      dataIndex: "titular_pf_pj",
-      width: 120,
-      render: (titular_pf_pj) => (titular_pf_pj ? titular_pf_pj : "-"),
-    },
-    {
-      title: "Titularidade",
-      dataIndex: "titularidade",
-      width: 120,
-      render: (titularidade) => (titularidade ? titularidade : "-"),
-    },
-    {
-      title: "Título WA",
-      dataIndex: "nome_whatsapp",
-      width: 120,
-      render: (nome_whatsapp) => (nome_whatsapp ? nome_whatsapp : "-"),
-    },
+    // {
+    //   title: "Titular",
+    //   dataIndex: "titular_pf_pj",
+    //   width: 120,
+    //   render: (titular_pf_pj) => (titular_pf_pj ? titular_pf_pj : "-"),
+    // },
+    // {
+    //   title: "Titularidade",
+    //   dataIndex: "titularidade",
+    //   width: 120,
+    //   render: (titularidade) => (titularidade ? titularidade : "-"),
+    // },
+    // {
+    //   title: "Título WA",
+    //   dataIndex: "nome_whatsapp",
+    //   width: 120,
+    //   render: (nome_whatsapp) => (nome_whatsapp ? nome_whatsapp : "-"),
+    // },
     {
       title: "Whatsapp",
       dataIndex: ["whatsapp", "is_comercial"],
@@ -1118,23 +1118,23 @@ export function useAllOrdersFilterController() {
         </div>
       ),
     },
-    {
-      title: "Status",
-      dataIndex: ["whatsapp", "recado"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (recado) => (
-        <Tooltip
-          placement="topLeft"
-          title={recado}
-          styles={{ body: { fontSize: "12px" } }}
-        >
-          {recado || "-"}
-        </Tooltip>
-      ),
-      width: 140,
-    },
+    // {
+    //   title: "Status",
+    //   dataIndex: ["whatsapp", "recado"],
+    //   ellipsis: {
+    //     showTitle: false,
+    //   },
+    //   render: (recado) => (
+    //     <Tooltip
+    //       placement="topLeft"
+    //       title={recado}
+    //       styles={{ body: { fontSize: "12px" } }}
+    //     >
+    //       {recado || "-"}
+    //     </Tooltip>
+    //   ),
+    //   width: 140,
+    // },
     {
       title: "Telefone Adicional",
       dataIndex: "phoneAdditional",
@@ -1570,6 +1570,12 @@ export function useAllOrdersFilterController() {
         }
         return "-";
       },
+    },
+    {
+      title: "ID Fingerprint",
+      dataIndex: "fingerprintId",
+      width: 120,
+      render: (fingerprintId) => fingerprintId || "-",
     },
   ];
 
